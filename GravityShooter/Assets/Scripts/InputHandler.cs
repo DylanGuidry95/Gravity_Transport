@@ -28,9 +28,16 @@ public class InputHandler : Singleton<InputHandler>
         }
 	}
 
-    protected void GameFlowControls()
+    protected void GameFlowControls(E_CONTOLLER c)
     {
-
+        switch(c)
+        {
+            case E_CONTOLLER.e_KeyBoard:
+                {
+                    
+                }
+                break;
+        }
     }
 
     // Update is called once per frame

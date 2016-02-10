@@ -5,7 +5,7 @@ using System.Collections;
 
 public class GameStates : Singleton<GameStates>
 {
-    enum E_GAMESTATE
+    protected enum E_GAMESTATE
     {
         e_Init,
         e_Play,
@@ -14,7 +14,7 @@ public class GameStates : Singleton<GameStates>
         e_Count
     }
 
-    FSM<E_GAMESTATE> _fsm;
+    protected FSM<E_GAMESTATE> _fsm;
 
     private GameStates Instance;
     public GameStates _instance
@@ -32,7 +32,6 @@ public class GameStates : Singleton<GameStates>
         AddState();
         AddTransiton();
         Instance = this;
-
     }
 
     void AddState()
