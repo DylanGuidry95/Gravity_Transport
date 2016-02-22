@@ -3,59 +3,32 @@ using System.Collections.Generic;
 
 public class InputHandler : Singleton<InputHandler>
 {
-    protected enum E_CONTOLLER
+    Dictionary<KeyCode, string> Controls = new Dictionary<KeyCode, string>();
+
+    protected override void Awake()
     {
-        e_Controller,
-        e_KeyBoard,
-        e_Count
+        base.Awake();
+        Messenger.AddListener<KeyCode,string>("AddControl", AddControls);
     }
 
-    protected GameStates GameFlow;
-
-    protected E_CONTOLLER controlType = E_CONTOLLER.e_Count;
-
-	// Use this for initialization
-	protected void Start ()
+    void Start()
     {
-        controlType = CheckControls();
-        if(FindObjectOfType<GameStates>() != null)
-        {
-            GameFlow = FindObjectOfType<GameStates>();
-        }
-        else
-        {
-            Debug.LogError("No Object found of type GameStates");
-        }
-	}
-
-    protected void GameFlowControls(E_CONTOLLER c)
-    {
-        switch(c)
-        {
-            case E_CONTOLLER.e_KeyBoard:
-                {
-                    
-                }
-                break;
-        }
+        Controls.Add(KeyCode.R, "Shit");
     }
 
-    // Update is called once per frame
-    protected void Update ()
+    void AddControls(KeyCode c, string control)
     {
-	    
-	}
+        Controls.Add(c, control);
+    }
 
-    protected E_CONTOLLER CheckControls()
+    void Update()
     {
-        string[] controls = Input.GetJoystickNames();
-        if (controls[0] == "")
+       foreach(KeyValuePair<KeyCode, string> c in Controls)
         {
-            return E_CONTOLLER.e_KeyBoard;
-        }
-        else
-        {
-            return E_CONTOLLER.e_Controller;
-        }
+            if(Input.GetKeyDown(c.Key))
+            {
+                Messenger.Broadcast<string>("UserInput", c.Value);
+            }
+        } 
     }
 }
