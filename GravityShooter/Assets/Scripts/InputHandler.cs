@@ -10,13 +10,20 @@ public enum INPUT_DEVICE
     PLAYSTATION,
     KEYBOARD,
     CUSTOM,
+    MISSING,
     COUNT
+}
+
+public class Controller
+{
+    public GamePadState cState;
+    public GamePadState prevState;
+
+    Controller() { }
 }
 
 public class InputHandler : Singleton<InputHandler>
 {
-
-
     public INPUT_DEVICE ActiveInputDevice;
 
     Dictionary<KeyCode, string>[] Controls;
@@ -34,6 +41,7 @@ public class InputHandler : Singleton<InputHandler>
     {
         Controls = new Dictionary<KeyCode, string>[Enum.GetNames(typeof(INPUT_DEVICE)).Length];
         PlatformsSupported = new List<RuntimePlatform>();
+        ActivePlatform = CheckActivePlatform();
     }
 
     void AddControls(KeyCode c, string control, INPUT_DEVICE device)
@@ -57,60 +65,83 @@ public class InputHandler : Singleton<InputHandler>
 
     void Update()
     {
-        CheckForInputDevice();
+
+
+        ActiveInputDevice = CheckForInputDevice();
+        if(ActiveInputDevice == INPUT_DEVICE.MISSING)
+        {
+            Debug.LogError("No valid device for input availiable");
+        }
         CheckForControllers();
     }
 
-    [ContextMenu("Check Platform")]
-    void CheckForInputDevice()
+    
+    INPUT_DEVICE CheckForInputDevice()
     {
         foreach(KeyCode k in Enum.GetValues(typeof(KeyCode)))
         {
             if(Input.GetKeyDown(k) && (int)k < (int)KeyCode.JoystickButton0)
             {
-                ActiveInputDevice = INPUT_DEVICE.KEYBOARD;
+                return INPUT_DEVICE.KEYBOARD;
             }
             else if(Input.GetKeyDown(k) && (int)k > (int)KeyCode.JoystickButton0)
             {
-                ActiveInputDevice = INPUT_DEVICE.XBOX;
+                return INPUT_DEVICE.XBOX;
+            }
+            else
+            {
+                Debug.LogError("No valid Input Device found.");
             }
         }
+        return 0;
     }
 
 
-    void CheckActivePlatform(RuntimePlatform p)
+    RuntimePlatform CheckActivePlatform()
     {
         foreach (RuntimePlatform rp in PlatformsSupported)
         {
             if (Application.platform == rp)
             {
-                ActivePlatform = rp;
+                return rp;
+            }
+            else
+            {
+                Debug.LogError("Platform not supported");
+                //Close Application
+                break;
             }
         }
+
+        return 0;
     }
 
-    
-    GamePadState cState;
-    GamePadState prevState;
+
+    List<Controller> ConnectedControllers = new List<Controller>(); 
+
     PlayerIndex controllerIndex;
 
     void CheckForControllers()
     {
-        if(!prevState.IsConnected)
+        foreach(Controller c in ConnectedControllers)
         {
-            for(int i = 0; i < Enum.GetNames(typeof(PlayerIndex)).Length; i++)
+            if (!c.prevState.IsConnected)
             {
-                PlayerIndex controller = (PlayerIndex)i;
-                GamePadState controllerState = GamePad.GetState(controller);
-                if(controllerState.IsConnected)
+                for (int i = 0; i < Enum.GetNames(typeof(PlayerIndex)).Length; i++)
                 {
-                    Debug.Log(string.Format("GamePad found {0}", controller));
-                    controllerIndex = controller;
+                    PlayerIndex controller = (PlayerIndex)i;
+                    GamePadState controllerState = GamePad.GetState(controller);
+                    if (controllerState.IsConnected)
+                    {
+                        Debug.Log(string.Format("GamePad found {0}", controller));
+                        controllerIndex = controller;
+                    }
                 }
             }
+            c.prevState = c.cState;
+            c.cState = GamePad.GetState(controllerIndex);
         }
-        prevState = cState;
-        cState = GamePad.GetState(controllerIndex);
+
     }
 
     void AddPlatformSupport(RuntimePlatform p)
