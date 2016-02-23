@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using XInputDotNetPure;
 
 public enum INPUT_DEVICE
 {
@@ -14,12 +15,13 @@ public enum INPUT_DEVICE
 
 public class InputHandler : Singleton<InputHandler>
 {
+
+
     public INPUT_DEVICE ActiveInputDevice;
 
     Dictionary<KeyCode, string>[] Controls;
     List<RuntimePlatform> PlatformsSupported;
     RuntimePlatform ActivePlatform;
-
 
     protected override void Awake()
     {
@@ -56,6 +58,7 @@ public class InputHandler : Singleton<InputHandler>
     void Update()
     {
         CheckForInputDevice();
+        CheckForControllers();
     }
 
     [ContextMenu("Check Platform")]
@@ -84,6 +87,30 @@ public class InputHandler : Singleton<InputHandler>
                 ActivePlatform = rp;
             }
         }
+    }
+
+    
+    GamePadState cState;
+    GamePadState prevState;
+    PlayerIndex controllerIndex;
+
+    void CheckForControllers()
+    {
+        if(!prevState.IsConnected)
+        {
+            for(int i = 0; i < Enum.GetNames(typeof(PlayerIndex)).Length; i++)
+            {
+                PlayerIndex controller = (PlayerIndex)i;
+                GamePadState controllerState = GamePad.GetState(controller);
+                if(controllerState.IsConnected)
+                {
+                    Debug.Log(string.Format("GamePad found {0}", controller));
+                    controllerIndex = controller;
+                }
+            }
+        }
+        prevState = cState;
+        cState = GamePad.GetState(controllerIndex);
     }
 
     void AddPlatformSupport(RuntimePlatform p)
