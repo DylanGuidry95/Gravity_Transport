@@ -15,9 +15,9 @@ public class GravityWell : MonoBehaviour
             otherToPosition.Normalize();
 
             rb.velocity += new Vector2(otherToPosition.x, otherToPosition.y) * speedModifier * Time.deltaTime;
-            rb.velocity += new Vector2(Time.deltaTime, 0);
 
-            Debug.DrawRay(otherPos, rb.velocity);
+            if (position.y > otherPos.y)
+                rb.velocity += new Vector2(Time.deltaTime, 0) * speedModifier;
         }
     }
 
