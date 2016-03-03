@@ -26,7 +26,7 @@ public class InputHandler : Singleton<InputHandler>
 {
     public INPUT_DEVICE ActiveInputDevice;
 
-    Dictionary<KeyCode, string>[] Controls;
+    Dictionary<KeyCode, string> Controls;
     List<RuntimePlatform> PlatformsSupported;
     RuntimePlatform ActivePlatform;
 
@@ -39,7 +39,7 @@ public class InputHandler : Singleton<InputHandler>
 
     void Start()
     {
-        Controls = new Dictionary<KeyCode, string>[Enum.GetNames(typeof(INPUT_DEVICE)).Length];
+        Controls = new Dictionary<KeyCode, string>();
         PlatformsSupported = new List<RuntimePlatform>();
         ActivePlatform = CheckActivePlatform();
     }
@@ -49,33 +49,42 @@ public class InputHandler : Singleton<InputHandler>
         switch(device)
         {
             case INPUT_DEVICE.KEYBOARD:
-                Controls[0].Add(c, control);
+                Controls.Add(c, control);
                 break;
             case INPUT_DEVICE.MOBILE:
-                Controls[1].Add(c, control);
+                Controls.Add(c, control);
                 break;
             case INPUT_DEVICE.PLAYSTATION:
-                Controls[2].Add(c, control);
+                Controls.Add(c, control);
                 break;
             case INPUT_DEVICE.XBOX:
-                Controls[3].Add(c, control);
+                Controls.Add(c, control);
                 break;
         }
     }
 
     void Update()
     {
-
-
         ActiveInputDevice = CheckForInputDevice();
         if(ActiveInputDevice == INPUT_DEVICE.MISSING)
         {
             Debug.LogError("No valid device for input availiable");
         }
         CheckForControllers();
+        UserInput();
     }
 
-    
+    void UserInput()
+    {
+        foreach (KeyValuePair<KeyCode, string> k in Controls)
+        {
+            if (Input.GetKey(k.Key))
+            {
+                Messenger.Broadcast<string>("User triggered the", k.Value);
+            }
+        }
+    }
+
     INPUT_DEVICE CheckForInputDevice()
     {
         foreach(KeyCode k in Enum.GetValues(typeof(KeyCode)))
@@ -88,14 +97,9 @@ public class InputHandler : Singleton<InputHandler>
             {
                 return INPUT_DEVICE.XBOX;
             }
-            else
-            {
-                Debug.LogError("No valid Input Device found.");
-            }
         }
         return 0;
     }
-
 
     RuntimePlatform CheckActivePlatform()
     {
@@ -115,7 +119,6 @@ public class InputHandler : Singleton<InputHandler>
 
         return 0;
     }
-
 
     List<Controller> ConnectedControllers = new List<Controller>(); 
 
