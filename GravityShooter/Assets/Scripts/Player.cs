@@ -18,6 +18,23 @@ public class Player : MonoBehaviour
         count
     }
 
+    protected enum PLAYERACTIONS
+    {
+        die,
+        spawn,
+        takeDamage,
+        none
+    }
+
+    private PLAYERACTIONS _cAction;
+    protected PLAYERACTIONS cAction
+    {
+        get
+        {
+            return _cAction;
+        }
+    }
+
     private PLAYERSTATES _cState; //the current state of the player
     protected PLAYERSTATES cState //gets the current state of the player
     {
@@ -198,18 +215,55 @@ public class Player : MonoBehaviour
     {
         //parses through the message and divides it twice once at the ':' and once and the '_'
         string[] temp = msg.Split(':','_');
-        //Checks to see if the string at the index after the first split which is after the ':' character
+        //Checks to see if the string at the index after the first split which is after the ':' character equals "Movement"
         if (temp[1] == "Movement")
         {
-            //If the string at the second index is equal "Movement" we will call PlayerMovement  and pass the string at the third index as an arguement
+            //If true we will call PlayerMovement  and pass the string at the third index as an arguement
             //into the function call
             PlayerMovement(temp[2]);
         }
-        else if (temp[1] == "") ;
     }
 
-    void PlayerTakeDamage()
+    void OnTriggerEnter2D(Collider2D c)
     {
+        if(c.GetComponent<TempBullet>() != null)
+        {
+            PlayerDamage();
+        }
+    }
 
+    void PlayerDamage()
+    {
+        _cAction = PLAYERACTIONS.takeDamage;
+        currentHealth -= 1;
+        if(currentHealth == 0)
+        {
+            livesRemaining -= 1;
+            if(livesRemaining >= 0)
+            {
+                _cAction = PLAYERACTIONS.die;
+            }
+            else if(livesRemaining < 0)
+            {
+                Messenger.Broadcast("Player has died");
+            }
+        }
+    }
+
+    void PlayerAnimation()
+    {
+        switch(_cAction)
+        {
+            case PLAYERACTIONS.takeDamage:
+                //Plays the damage animation
+                break;
+            case PLAYERACTIONS.die:
+                //Plays the death animation
+                break;
+            case PLAYERACTIONS.spawn:
+                //Plays the spawn animation
+                break;
+
+        }
     }
 }
