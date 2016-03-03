@@ -35,12 +35,12 @@ public class InputHandler : Singleton<InputHandler>
         base.Awake();
         Messenger.AddListener<KeyCode,string, INPUT_DEVICE>("Adding Control", AddControls);
         Messenger.AddListener<RuntimePlatform>("Adding Platform Support", AddPlatformSupport);
+        Controls = new Dictionary<KeyCode, string>();
+        PlatformsSupported = new List<RuntimePlatform>();
     }
 
     void Start()
     {
-        Controls = new Dictionary<KeyCode, string>();
-        PlatformsSupported = new List<RuntimePlatform>();
         ActivePlatform = CheckActivePlatform();
     }
 

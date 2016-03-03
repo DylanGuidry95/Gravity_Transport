@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
     {
         _fsm = new FSM<PLAYERSTATES>();
         AddToFSM();
-        PlayerListen();
+        PlayerListen();     
     }
 
     /// <summary>
@@ -98,12 +98,6 @@ public class Player : MonoBehaviour
     /// </summary>
     void PlayerBroadcast()
     {
-        //Needs to be moved to a function when the game is started
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.W, "Player:Movement_Up", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.S, "Player:Movement_Down", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.A, "Player:Movement_Left", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.D, "Player:Movement_Right", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
-
         Messenger.Broadcast<int, int>("Player Created", currentHealth, livesRemaining); //Listend to by the GUI
     }
 
