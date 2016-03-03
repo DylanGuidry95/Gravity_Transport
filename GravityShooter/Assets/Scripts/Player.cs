@@ -46,23 +46,24 @@ public class Player : MonoBehaviour
 
     private FSM<PLAYERSTATES> _fsm; //Used a refrence to an instance of the state machine for the player
 
+    [Header("Lives and Health")]
     [SerializeField]
-    private float accelerationRate; //How fast the player will speed up 
+    private int maxHealth; //Max amount of health the player can have at any time during the game
     [SerializeField]
-    private float maxHealth; //Max amount of health the player can have at any time during the game
-    [SerializeField]
-    private float currentHealth; //Currrent health the player has
+    private int currentHealth; //Currrent health the player has
     [SerializeField]
     private int maxLives; //Max amount of lives the player can have at any time during the game
     [SerializeField]
     private int livesRemaining; //Curremt lives the player has remainng before game over
 
+    [Header("Movement")]
     [SerializeField]
     private float movementSpeed; //Speed at which the player is accelerating at
-    private Vector3 velocity; //Speed at which the player is moving the scene
-    private Vector3 acceleration; //Rate at which the player is gaining speed towards its max velocity
     [SerializeField]
     private float maxVelocity; //Fastest the player can be moving
+
+    private Vector3 velocity; //Speed at which the player is moving the scene
+    private Vector3 acceleration; //Rate at which the player is gaining speed towards its max velocity
 
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
     
@@ -87,17 +88,23 @@ public class Player : MonoBehaviour
     void Start()
     {
         PlayerBroadcast();
+        currentHealth = maxHealth;
+        livesRemaining = maxLives;
     }
 
     /// <summary>
     /// Braodcasts messages from the player to be listened to some other object
+    /// when the player is created
     /// </summary>
     void PlayerBroadcast()
     {
+        //Needs to be moved to a function when the game is started
         Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.W, "Player:Movement_Up", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
         Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.S, "Player:Movement_Down", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
         Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.A, "Player:Movement_Left", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
         Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.D, "Player:Movement_Right", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
+
+        Messenger.Broadcast<int, int>("Player Created", currentHealth, livesRemaining); //Listend to by the GUI
     }
 
     /// <summary>
@@ -226,16 +233,22 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if(c.GetComponent<TempBullet>() != null)
-        {
-            PlayerDamage();
-        }
+        //if(c.GetComponent<TempBullet>() != null)
+        //{
+            //PlayerDamage();
+        //}
     }
 
+    /// <summary>
+    /// Changes the player health when he is hit by a bullet or an enemy
+    /// and also does the checks to see how much health the player has left
+    /// along with how many lives it has remaning.
+    /// </summary>
     void PlayerDamage()
     {
         _cAction = PLAYERACTIONS.takeDamage;
         currentHealth -= 1;
+        Messenger.Broadcast<int>("Player took damage", currentHealth); //Listened to by the GUI
         if(currentHealth == 0)
         {
             livesRemaining -= 1;
@@ -245,11 +258,15 @@ public class Player : MonoBehaviour
             }
             else if(livesRemaining < 0)
             {
-                Messenger.Broadcast("Player has died");
+                Messenger.Broadcast("Player has died"); //Listened to by the GameState manager
             }
         }
     }
 
+    /// <summary>
+    /// Handles the transitions between the player animations
+    /// Will be completed once we have animations to work with
+    /// </summary>
     void PlayerAnimation()
     {
         switch(_cAction)
