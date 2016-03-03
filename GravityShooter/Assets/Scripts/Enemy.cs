@@ -5,22 +5,20 @@ public class Enemy : MonoBehaviour {
 
     public GameObject Bullet;
     //public GameObject playerrotate;
-
-    float delay, Timer;
-    Vector3 pos = new Vector3(1, 0, 0);
 	void Start ()
     {
-        delay = 3.0f;
-	}
+       
+    }
 	
 	void Update ()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Timer = 0;
             GameObject bullet = Instantiate(Bullet) as GameObject;
-            bullet.transform.position = transform.position + Vector3.right;
-            bullet.transform.parent = transform;
+            bullet.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            bullet.transform.rotation = Quaternion.Euler(new Vector3(bullet.transform.rotation.x, bullet.transform.rotation.y + transform.rotation.y, 0));
+            //bullet.AddForce(transform.right * 500);
         }
+
     }
 }
