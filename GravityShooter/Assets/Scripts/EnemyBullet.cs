@@ -7,13 +7,11 @@ public class EnemyBullet : MonoBehaviour {
     Vector3 pos = new Vector3(0, 0, 0);
 	void Start ()
     {
-        en = GetComponent<Enemy>();
-        pos = en.enemy.transform.forward;
     }
 	
 	void Update ()
     {
-        transform.position = pos;
-        transform.position *= Time.deltaTime * 10;
+        //transform.position = pos;
+        transform.position += Vector3.right * Time.deltaTime * 10  ;
     }
 }

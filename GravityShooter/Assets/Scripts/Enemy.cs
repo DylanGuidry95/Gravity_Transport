@@ -4,7 +4,7 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
     public GameObject Bullet;
-    public GameObject enemy;
+    //public GameObject playerrotate;
 
     float delay, Timer;
     Vector3 pos = new Vector3(1, 0, 0);
@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Timer = 0;
-            GameObject bullet = Instantiate(Bullet, enemy.transform.position, enemy.transform.rotation) as GameObject;
+            GameObject bullet = Instantiate(Bullet) as GameObject;
+            bullet.transform.position = transform.position + Vector3.right;
             bullet.transform.parent = transform;
         }
     }
