@@ -39,11 +39,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     float mass;
 
+    [SerializeField]
     private Vector3 velocity;
+    [SerializeField]
     private Vector3 acceleration;
 
-    public float buttonDownTime;
+    [SerializeField]
+    private float maxVelocity;
 
+    public float buttonDownTime;
+    public float decell;
     /// <summary>
     /// Power ups will be added later on
     /// </summary>
@@ -89,36 +94,44 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) ||
+            Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+            buttonDownTime = Time.deltaTime * movementSpeed;
+        else if(buttonDownTime > 0)
+        {
+            buttonDownTime -= Time.deltaTime * (velocity.magnitude * buttonDownTime);
+            if (buttonDownTime < 0)
+                buttonDownTime = 0;
+        }
+
         if (Input.GetKey(KeyCode.W))
         {
-            buttonDownTime = Time.deltaTime * movementSpeed;
-            acceleration = new Vector3(0, 1, 1) * buttonDownTime;
-            velocity += acceleration.normalized * buttonDownTime;
-            transform.position += velocity.normalized * buttonDownTime;
+            acceleration += new Vector3(0, 1, 1) * movementSpeed;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            buttonDownTime = Time.deltaTime * movementSpeed;
-            acceleration = new Vector3(0, -1, 1) * buttonDownTime;
-            velocity += acceleration.normalized * buttonDownTime;
-            transform.position += velocity.normalized * buttonDownTime;
+            acceleration += new Vector3(0, -1, 1) * movementSpeed;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            buttonDownTime = Time.deltaTime * movementSpeed;
-            acceleration = new Vector3(-1, 0, 1) * buttonDownTime;
-            velocity += acceleration.normalized * buttonDownTime;
-            transform.position += velocity.normalized * buttonDownTime;
+            acceleration += new Vector3(-1, 0, 1) * movementSpeed;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            buttonDownTime = Time.deltaTime * movementSpeed;
-            acceleration = new Vector3(1, 0, 1) * buttonDownTime;
-            velocity += acceleration.normalized * buttonDownTime;
-            transform.position += velocity.normalized * buttonDownTime;
+            acceleration += new Vector3(1, 0, 1) * movementSpeed;
         }
 
-
+        if(acceleration.magnitude > 5)
+        {
+            acceleration = acceleration.normalized;
+        }
+        velocity = velocity.normalized + acceleration;
+        if(velocity.magnitude > maxVelocity)
+        {
+            velocity = velocity.normalized;
+        }
+        transform.position += velocity * buttonDownTime;
+        //buttonDownTime = 0;
     }
 
 }

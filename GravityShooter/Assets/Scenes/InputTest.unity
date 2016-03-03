@@ -328,4 +328,8 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   mass: 0
+  velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
+  maxVelocity: 2
   buttonDownTime: 0
+  decell: 0.01
