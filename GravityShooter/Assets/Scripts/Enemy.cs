@@ -4,8 +4,8 @@ using System.Collections;
 [System.Serializable]
 public class Enemy : MonoBehaviour {
 
-    public GameObject Bullet;
-    public GameObject ball;
+    public GameObject BulletPreb; // bullet prefab 
+    public GameObject ball; // player
     public float bulletSpeed;
     public float spawnRate;
 
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour {
             timer += Time.deltaTime;
             if (timer > delay)
             {
-                GameObject bullet = Instantiate(Bullet) as GameObject;
+                GameObject bullet = Instantiate(BulletPreb) as GameObject;
                 bullet.transform.position = transform.position;
                 bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(1,0) * bulletSpeed;
                 timer = 0;
