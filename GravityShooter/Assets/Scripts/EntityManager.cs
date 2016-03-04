@@ -14,13 +14,13 @@ public class EntityManager : MonoBehaviour
 	
 	}
 
-    [System.Serializable]
-    public class Entity
-    {
-        GameObject entity;
-        float spawnRate;
-        bool canSpawn;
-    }
+    public List<Entity> m_entities = new List<Entity>();
+}
 
-    public List<Entity> abc = new List<Entity>();
+[System.Serializable]
+public class Entity
+{
+    public GameObject entity;
+    [Range(0.0f, 1.0f)]
+    public float spawnRate;
 }

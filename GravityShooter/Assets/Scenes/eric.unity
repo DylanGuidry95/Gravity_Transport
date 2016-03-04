@@ -97,6 +97,7 @@ GameObject:
   - 58: {fileID: 319585013}
   - 50: {fileID: 319585010}
   - 114: {fileID: 319585016}
+  - 114: {fileID: 319585014}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -177,6 +178,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!114 &319585014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 319585009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a669a1813cca34b84867dc859d7fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletPreb: {fileID: 0}
+  ball: {fileID: 0}
+  bulletSpeed: 0
+  spawnRate: 0
 --- !u!114 &319585016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +233,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118d589e6767e9b44824d0644c50b4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abc: []
+  m_entities:
+  - entity: {fileID: 0}
+    spawnRate: 0
+  - entity: {fileID: 0}
+    spawnRate: 0
+  - entity: {fileID: 0}
+    spawnRate: 0
 --- !u!4 &820511088
 Transform:
   m_ObjectHideFlags: 0
