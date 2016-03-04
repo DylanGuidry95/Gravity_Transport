@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyMovement : MonoBehaviour {
+static public class EnemyMovement
+{
+    static public float movementSpeed; 
 
-	void Start ()
+    static public void smallEnemyMovement(Rigidbody2D enemy)
     {
-	    
-	}
-	
-    void smallEnemyMovement()
-    {
-
+        enemy.velocity += new Vector2(-1, 0) * movementSpeed;
     }
 }
