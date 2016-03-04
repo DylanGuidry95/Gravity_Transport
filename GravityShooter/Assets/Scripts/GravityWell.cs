@@ -6,11 +6,6 @@ using System.Collections.Generic;
 /// </summary>
 public class GravityWell : MonoBehaviour
 {
-    void Awake()
-    {
-
-    }
-
     void Update()
     {
         foreach (GravityObject go in m_gravObjects)
@@ -23,6 +18,8 @@ public class GravityWell : MonoBehaviour
             otherToPosition.Normalize();
 
             Vector2 toGravWell = new Vector2(otherToPosition.x, otherToPosition.y);
+            toGravWell.Normalize();
+
             Vector2 right = new Vector2(1, 0);
 
             switch (go.state)
@@ -33,15 +30,13 @@ public class GravityWell : MonoBehaviour
                     break;                                                          //
                 /// Mass has entered the well ////////////////////////////////////////
                 case GRAV.ENTER:                                                    //
-                    rb.velocity += toGravWell * (m_speedModifier * Time.deltaTime); //
+                    rb.velocity += toGravWell * Time.deltaTime;                     //
                                                                                     //
                     go.state = otherPos.x < position.x ? GRAV.THRESHOLD : go.state; //
                     break;                                                          //
                 /// Mass has reached the well's threshold ////////////////////////////
                 case GRAV.THRESHOLD:                                                //
                     rb.velocity += toGravWell * (m_speedModifier * Time.deltaTime); //
-                                                                                    //
-                    rb.velocity += right * (m_speedModifier * Time.deltaTime);      //
                                                                                     //
                     go.state = otherPos.x > position.x ? GRAV.BROKEN : go.state;    //
                     break;                                                          //
@@ -69,7 +64,7 @@ public class GravityWell : MonoBehaviour
     {
         if(m_gravObjects.Count < m_gravMax)
         {
-            if(other.GetComponent<Rigidbody2D>())
+            if(other.GetComponent<Projectile>())
             {
                 GravityObject go = new GravityObject();
                 go.entity = other.gameObject;
@@ -92,7 +87,7 @@ public class GravityWell : MonoBehaviour
 
     public float m_speedModifier = 1;
 
-    public float m_gravMax;
+    public int m_gravMax = 1;
 
     private List<GravityObject> m_gravObjects = new List<GravityObject>();
 
