@@ -58,6 +58,12 @@ public class Enemy : MonoBehaviour {
                 break;
         }
 
+        if(gameObject.GetComponent<Rigidbody2D>() == null)
+        {
+            gameObject.AddComponent<Rigidbody2D>();
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        }
+
         switch (e_movement)
         {
             case enemyMovementType.m_Small:
