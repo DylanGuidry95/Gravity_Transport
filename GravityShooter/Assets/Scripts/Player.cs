@@ -88,6 +88,8 @@ public class Player : MonoBehaviour
     private bool atLeft;
     private bool atRight;
 
+    public GameObject well;
+
     //Power ups will go here later on in development
 
     /// <summary>
@@ -112,8 +114,10 @@ public class Player : MonoBehaviour
         CheckPlayerBounds();
         currentHealth = maxHealth;
         livesRemaining = maxLives;
+        well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
+        //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
     }
 
     /// <summary>
@@ -150,6 +154,7 @@ public class Player : MonoBehaviour
 
         //init -> idle
         _fsm.AddTransition(PLAYERSTATES.init, PLAYERSTATES.dead, false);
+        _fsm.AddTransition(PLAYERSTATES.init, PLAYERSTATES.idle, false);
 
         //idle <-> fly
         _fsm.AddTransition(PLAYERSTATES.idle, PLAYERSTATES.flying, true);
@@ -334,7 +339,6 @@ public class Player : MonoBehaviour
         else
         {
             _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
-
         }
 
     }
