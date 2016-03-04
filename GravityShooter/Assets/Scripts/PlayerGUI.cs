@@ -33,13 +33,6 @@ public class PlayerGUI : MonoBehaviour
                 imageRenderer.sprite = playerGUI[3];
                 break;
         }
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    hpBar++;
-        //    if (hpBar >= playerGUI.Length)
-        //    {
-        //        hpBar = 3;
-        //    }
     }
     
 }
