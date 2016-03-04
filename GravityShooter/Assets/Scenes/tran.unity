@@ -178,7 +178,7 @@ GameObject:
   - 50: {fileID: 618555698}
   - 61: {fileID: 618555696}
   m_Layer: 0
-  m_Name: SmallEnemy
+  m_Name: ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +291,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Bullet: {fileID: 500212862}
   ball: {fileID: 618555695}
-  bulletSpeed: 500
+  bulletSpeed: 10
+  spawnRate: 0
 --- !u!212 &934018379
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -328,8 +329,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 934018377}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
-  m_LocalPosition: {x: 12.72, y: 2.38, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.70573086, w: 0.70848006}
+  m_LocalPosition: {x: 9.37, y: 3.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
