@@ -1,25 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class Enemy : MonoBehaviour {
 
-    public GameObject Bullet;
-    public GameObject enemy;
+    public GameObject BulletPreb; // bullet prefab 
+    public GameObject ball; // player
+    public float bulletSpeed;
+    public float spawnRate;
 
-    float delay, Timer;
-    Vector3 pos = new Vector3(1, 0, 0);
+    float delay, timer;
 	void Start ()
     {
-        delay = 3.0f;
-	}
-	
+        delay = 2.0f;
+    }
+
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Mathf.Abs(transform.position.y - ball.transform.position.y) < 1.0f)
         {
-            Timer = 0;
-            GameObject bullet = Instantiate(Bullet, enemy.transform.position, enemy.transform.rotation) as GameObject;
-            bullet.transform.parent = transform;
+            Vector3 playernormal = ball.transform.position.normalized;
+            // fire bullet
+            timer += Time.deltaTime;
+            if (timer > delay)
+            {
+                GameObject bullet = Instantiate(BulletPreb) as GameObject;
+                bullet.transform.position = transform.position;
+                bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(1,0) * bulletSpeed;
+                timer = 0;
+            }
         }
     }
 }
