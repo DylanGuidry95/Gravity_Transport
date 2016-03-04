@@ -38,8 +38,6 @@ public class GravityWell : MonoBehaviour
                 case GRAV.THRESHOLD:                                                //
                     rb.velocity += toGravWell * (m_speedModifier * Time.deltaTime); //
                                                                                     //
-                    rb.velocity += right * (m_speedModifier * Time.deltaTime);      //
-                                                                                    //
                     go.state = otherPos.x > position.x ? GRAV.BROKEN : go.state;    //
                     break;                                                          //
                 /// Mass has broken the well's threshold /////////////////////////////
