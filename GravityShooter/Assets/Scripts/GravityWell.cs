@@ -64,7 +64,7 @@ public class GravityWell : MonoBehaviour
     {
         if(m_gravObjects.Count < m_gravMax)
         {
-            if(other.GetComponent<Rigidbody2D>())
+            if(other.GetComponent<Projectile>())
             {
                 GravityObject go = new GravityObject();
                 go.entity = other.gameObject;
