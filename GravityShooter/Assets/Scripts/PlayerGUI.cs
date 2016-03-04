@@ -20,10 +20,8 @@ public class PlayerGUI : MonoBehaviour
             hpBar++;
             if (hpBar >= playerHealth.Length)
             {
-                hpBar = 0;
+                hpBar = 3;
             }
         }
     }
-
-    
 }
