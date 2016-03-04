@@ -23,6 +23,8 @@ public class GravityWell : MonoBehaviour
             otherToPosition.Normalize();
 
             Vector2 toGravWell = new Vector2(otherToPosition.x, otherToPosition.y);
+            toGravWell.Normalize();
+
             Vector2 right = new Vector2(1, 0);
 
             switch (go.state)
@@ -92,7 +94,7 @@ public class GravityWell : MonoBehaviour
 
     public float m_speedModifier = 1;
 
-    public float m_gravMax;
+    public float m_gravMax = 1;
 
     private List<GravityObject> m_gravObjects = new List<GravityObject>();
 
