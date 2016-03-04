@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+
 
 public class PlayerGUI : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
-    public Sprite[] playerHealth;
+    public Image imageRenderer;
+    public Sprite[] playerGUI;
     int hpBar = 0;
 
-    void Update()
+    void Awake()
     {
-        PlayerBarGUI();
+        Messenger.AddListener<int>("Player took damage", PlayerBarGUI);
+        Messenger.AddListener<int>("Player Created", PlayerBarGUI);
     }
 
-    void PlayerBarGUI()
+    void PlayerBarGUI(int hp)
     {
-        spriteRenderer.sprite = playerHealth[hpBar];
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            hpBar++;
-            if (hpBar >= playerHealth.Length)
-            {
-                hpBar = 3;
-            }
-        }
+        imageRenderer.sprite = playerGUI[hp];
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    hpBar++;
+        //    if (hpBar >= playerGUI.Length)
+        //    {
+        //        hpBar = 3;
+        //    }
     }
+    
 }
