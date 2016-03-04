@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class Player : MonoBehaviour
@@ -65,8 +65,31 @@ public class Player : MonoBehaviour
     private Vector3 velocity; //Speed at which the player is moving the scene
     private Vector3 acceleration; //Rate at which the player is gaining speed towards its max velocity
 
+    [SerializeField]
+    private Vector3 startPosition = new Vector3(-8, 1, 0);
+    [SerializeField]
+    private Vector3 spawnPosition = new Vector3(-10, 1, 0);
+
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
-    
+
+    [Header("Margins")]
+    [SerializeField]
+    private float topBorder;
+    [SerializeField]
+    private float botBorder;
+    [SerializeField]
+    private float leftBorder;
+    [SerializeField]
+    private float rightBorder;
+
+    private bool atTop;
+    private bool atBot;
+    [SerializeField]
+    private bool atLeft;
+    private bool atRight;
+
+    public GameObject well;
+
     //Power ups will go here later on in development
 
     /// <summary>
@@ -88,8 +111,13 @@ public class Player : MonoBehaviour
     void Start()
     {
         PlayerBroadcast();
+        CheckPlayerBounds();
         currentHealth = maxHealth;
         livesRemaining = maxLives;
+        well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
+        transform.position = spawnPosition;
+        _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
+        //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
     }
 
     /// <summary>
@@ -98,7 +126,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void PlayerBroadcast()
     {
-        Messenger.Broadcast<int, int>("Player Created", currentHealth, livesRemaining); //Listend to by the GUI
+        Messenger.Broadcast<int>("Player Created", maxHealth); //Listend to by the GUI
     }
 
     /// <summary>
@@ -125,6 +153,7 @@ public class Player : MonoBehaviour
         }
 
         //init -> idle
+        _fsm.AddTransition(PLAYERSTATES.init, PLAYERSTATES.dead, false);
         _fsm.AddTransition(PLAYERSTATES.init, PLAYERSTATES.idle, false);
 
         //idle <-> fly
@@ -144,28 +173,44 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
-        ///////////////////////////////////////////////
-        /////Math for movement
-        //Checks to see if the player is not accelerating faster than the max acceleration rate set
-        if (acceleration.magnitude > 5)
+        PlayerSpawn();
+
+        if(_fsm.state != PLAYERSTATES.dead)
         {
-            //If it tries to accelerate faster than the max acceleration rate it will normalize the acceleration
-            //to slow it down
-            acceleration = acceleration.normalized; 
+            if (buttonDownTime == 0)
+                _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
+            ///////////////////////////////////////////////
+            /////Math for movement
+            //Checks to see if the player is not accelerating faster than the max acceleration rate set
+            if (acceleration.magnitude > 5)
+            {
+                //If it tries to accelerate faster than the max acceleration rate it will normalize the acceleration
+                //to slow it down
+                acceleration = acceleration.normalized;
+            }
+            CheckPlayerBounds();
+            //Sets the velocity = current velocity + acceleration
+            velocity = velocity + acceleration;
+            //Check to see if the player is exceeding its max velocity
+            if (velocity.magnitude > maxVelocity)
+            {
+                //If it exceeds the max velocity set the velocity = the normalized velocity
+                velocity = velocity.normalized;
+            }
+            if (atTop && velocity.y > 0)
+                velocity.y = 0;
+            if (atBot && velocity.y < 0)
+                velocity.y = 0;
+            if (atLeft && velocity.x < 0)
+                velocity.x = 0;
+            if (atRight && velocity.x > 0)
+                velocity.x = 0;
+            //To move the object we take its current position and add it to the velocity * how long any of the movement keys have been held down for
+            transform.position += velocity * buttonDownTime;
+            //Sets the buttonDownTime to 0 to stop the player from moving while no movement inputs are happening
+            buttonDownTime = 0;
+            ///////////////////////////////////////////////
         }
-        //Sets the velocity = current velocity + acceleration
-        velocity = velocity + acceleration;
-        //Check to see if the player is exceeding its max velocity
-        if (velocity.magnitude > maxVelocity)
-        {
-            //If it exceeds the max velocity set the velocity = the normalized velocity
-            velocity = velocity.normalized;
-        }
-        //To move the object we take its current position and add it to the velocity * how long any of the movement keys have been held down for
-        transform.position += velocity * buttonDownTime;
-        //Sets the buttonDownTime to 0 to stop the player from moving while no movement inputs are happening
-        buttonDownTime = 0;
-        ///////////////////////////////////////////////
     }
 
     /// <summary>
@@ -180,7 +225,6 @@ public class Player : MonoBehaviour
     {
         //When this function is called the timer for how long a key has been pressed will start
         buttonDownTime = Time.deltaTime * movementSpeed;
-
 
         if (dir == "Up")
         {
@@ -222,15 +266,16 @@ public class Player : MonoBehaviour
             //If true we will call PlayerMovement  and pass the string at the third index as an arguement
             //into the function call
             PlayerMovement(temp[2]);
+            _fsm.Transition(_fsm.state, PLAYERSTATES.flying);
         }
     }
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        //if(c.GetComponent<TempBullet>() != null)
-        //{
-            //PlayerDamage();
-        //}
+        if (c.GetComponent<Projectile>() != null)
+        {
+            PlayerDamage();
+        }
     }
 
     /// <summary>
@@ -245,13 +290,18 @@ public class Player : MonoBehaviour
         Messenger.Broadcast<int>("Player took damage", currentHealth); //Listened to by the GUI
         if(currentHealth == 0)
         {
+            _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
             livesRemaining -= 1;
             if(livesRemaining >= 0)
             {
                 _cAction = PLAYERACTIONS.die;
+                GetComponent<MeshRenderer>().enabled = false;
+                transform.position = spawnPosition;
+                PlayerSpawn();
             }
             else if(livesRemaining < 0)
             {
+                _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
                 Messenger.Broadcast("Player has died"); //Listened to by the GameState manager
             }
         }
@@ -276,5 +326,63 @@ public class Player : MonoBehaviour
                 break;
 
         }
+    }
+
+    [ContextMenu("Spawn")]
+    void PlayerSpawn()
+    {
+        GetComponent<MeshRenderer>().enabled = true;
+        if (Vector3.Distance(transform.position, startPosition) > .1 && _fsm.state == PLAYERSTATES.dead)
+        {
+            transform.position += new Vector3(1, 0, 0) * (Time.deltaTime * movementSpeed);
+        }
+        else
+        {
+            _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
+        }
+
+    }
+
+    /// <summary>
+    /// Checks to see if the player is staying with in 
+    /// it movement bounds
+    /// </summary>
+    void CheckPlayerBounds()
+    {
+        if (_fsm.state != PLAYERSTATES.dead)
+        {
+            if (transform.position.x <= leftBorder)
+            {
+                atLeft = true;
+            }
+            else
+            {
+                atLeft = false;
+            }
+            if (transform.position.x >= rightBorder)
+            {
+                atRight = true;
+            }
+            else
+            {
+                atRight = false;
+            }
+            if (transform.position.y <= botBorder)
+            {
+                atBot = true;
+            }
+            else
+            {
+                atBot = false;
+            }
+            if (transform.position.y >= topBorder)
+            {
+                atTop = true;
+            }
+            else
+            {
+                atTop = false;
+            }
+        } 
     }
 }
