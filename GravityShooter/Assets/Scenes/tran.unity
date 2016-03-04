@@ -255,7 +255,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 618555695}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 2.58, z: 0}
+  m_LocalPosition: {x: -2, y: 4.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -271,6 +271,7 @@ GameObject:
   - 212: {fileID: 934018379}
   - 114: {fileID: 934018378}
   - 61: {fileID: 934018381}
+  - 50: {fileID: 934018382}
   m_Layer: 0
   m_Name: small enemy
   m_TagString: Untagged
@@ -289,10 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a669a1813cca34b84867dc859d7fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 500212862}
+  BulletPreb: {fileID: 500212862}
   ball: {fileID: 618555695}
   bulletSpeed: 10
-  spawnRate: 0
 --- !u!212 &934018379
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -330,8 +330,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 934018377}
   m_LocalRotation: {x: 0, y: 0, z: 0.70573086, w: 0.70848006}
-  m_LocalPosition: {x: 9.37, y: 3.44, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 13.22, y: 3.04, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -349,6 +349,23 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 3.2999995, y: 3.0999994}
+--- !u!50 &934018382
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 934018377}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1853982143
 GameObject:
   m_ObjectHideFlags: 0
