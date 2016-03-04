@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void PlayerBroadcast()
     {
-        Messenger.Broadcast<int, int>("Player Created", currentHealth, livesRemaining); //Listend to by the GUI
+        Messenger.Broadcast<int>("Player Created", maxHealth); //Listend to by the GUI
     }
 
     /// <summary>
@@ -272,7 +272,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.GetComponent<TempBullet>() != null)
+        if (c.GetComponent<Projectile>() != null)
         {
             PlayerDamage();
         }

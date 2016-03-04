@@ -17,7 +17,22 @@ public class PlayerGUI : MonoBehaviour
 
     void PlayerBarGUI(int hp)
     {
-        imageRenderer.sprite = playerGUI[hp];
+
+        switch (hp)
+        {
+            case 1:
+                imageRenderer.sprite = playerGUI[2];
+                break;
+            case 2:
+                imageRenderer.sprite = playerGUI[1];
+                break;
+            case 3:
+                imageRenderer.sprite = playerGUI[0];
+                break;
+            case 0:
+                imageRenderer.sprite = playerGUI[3];
+                break;
+        }
         //if (Input.GetKeyDown(KeyCode.D))
         //{
         //    hpBar++;

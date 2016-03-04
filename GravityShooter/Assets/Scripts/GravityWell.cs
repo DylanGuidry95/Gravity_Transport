@@ -30,7 +30,7 @@ public class GravityWell : MonoBehaviour
                     break;                                                          //
                 /// Mass has entered the well ////////////////////////////////////////
                 case GRAV.ENTER:                                                    //
-                    rb.velocity += toGravWell * Time.deltaTime;                     //
+                    rb.velocity += toGravWell * (m_speedModifier * Time.deltaTime);                     //
                                                                                     //
                     go.state = otherPos.x < position.x ? GRAV.THRESHOLD : go.state; //
                     break;                                                          //
