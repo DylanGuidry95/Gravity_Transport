@@ -7,9 +7,11 @@ public class Enemy : MonoBehaviour {
     public GameObject BulletPreb; // bullet prefab 
     public GameObject m_player; // player
     public float bulletSpeed;
-    float delay, timer;
+    public float delay;
+    float timer;
     public int enemy_value;
     bool enemy_aim;
+    public float accuracy;
 
     public enum enemyMovementType { m_Boss, m_Large, m_Medium, m_Small };
     public enum enemyAiming { a_Boss, a_Large, a_Medium, a_Small };
@@ -20,14 +22,14 @@ public class Enemy : MonoBehaviour {
 
 	void Start ()
     {
-        delay = 2.0f;
+        m_player = GameObject.Find("Player");
     }
 
     void Fire()
     {
         GameObject bullet = Instantiate(BulletPreb) as GameObject;
         bullet.transform.position = transform.position;
-        bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(-1, 0) * bulletSpeed;
+        bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(-1, Random.Range(-accuracy, accuracy)) * bulletSpeed;
     }
 
 
@@ -59,7 +61,7 @@ public class Enemy : MonoBehaviour {
         switch (e_movement)
         {
             case enemyMovementType.m_Small:
-                EnemyMovement.movementSpeed = 0.002f;
+                EnemyMovement.movementSpeed = 0.001f;
                 EnemyMovement.smallEnemyMovement(gameObject.GetComponent<Rigidbody2D>());
                 break;
         }
