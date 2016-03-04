@@ -192,7 +192,6 @@ MonoBehaviour:
   BulletPreb: {fileID: 0}
   ball: {fileID: 0}
   bulletSpeed: 0
-  spawnRate: 0
 --- !u!114 &319585016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,13 +232,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118d589e6767e9b44824d0644c50b4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_spawnDelay: 1
   m_entities:
-  - entity: {fileID: 0}
-    spawnRate: 0
-  - entity: {fileID: 0}
-    spawnRate: 0
-  - entity: {fileID: 0}
-    spawnRate: 0
+  - entity: {fileID: 174390, guid: fb6aaa682cb5baa419a27c62ca0a42c9, type: 2}
+    spawnRate: 1
+    spawnTimer: 0
+  - entity: {fileID: 128400, guid: 8d03b80ba737d3f45940e2140a0e5e7f, type: 2}
+    spawnRate: 1
+    spawnTimer: 0
 --- !u!4 &820511088
 Transform:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.y
@@ -297,19 +297,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11473426, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_gravMax
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 121110, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}

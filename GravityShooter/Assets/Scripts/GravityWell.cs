@@ -6,11 +6,6 @@ using System.Collections.Generic;
 /// </summary>
 public class GravityWell : MonoBehaviour
 {
-    void Awake()
-    {
-
-    }
-
     void Update()
     {
         foreach (GravityObject go in m_gravObjects)
@@ -94,7 +89,7 @@ public class GravityWell : MonoBehaviour
 
     public float m_speedModifier = 1;
 
-    public float m_gravMax = 1;
+    public int m_gravMax = 1;
 
     private List<GravityObject> m_gravObjects = new List<GravityObject>();
 
