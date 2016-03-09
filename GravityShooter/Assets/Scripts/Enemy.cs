@@ -13,12 +13,8 @@ public class Enemy : MonoBehaviour {
     bool enemy_aim;
     public float accuracy;
 
-    public enum enemyMovementType { m_Boss, m_Large, m_Medium, m_Small };
-    public enum enemyAiming { a_Boss, a_Large, a_Medium, a_Small };
-    public enum enemyValue { v_Boss, v_Large, v_Medium, v_Small };
-    public enemyValue e_value;
-    public enemyAiming e_aim;
-    public enemyMovementType e_movement; 
+    public enum enemyType { Boss, Large, Medium, Small };
+    public enemyType enemy; 
 
 	void Start ()
     {
@@ -35,38 +31,30 @@ public class Enemy : MonoBehaviour {
 
 	void FixedUpdate ()
     {
-        switch (e_value)
-        {
-            case enemyValue.v_Boss:
-                enemy_value = 100;
-                break;
-            case enemyValue.v_Large:
-                enemy_value = 50;
-                break;
-            case enemyValue.v_Medium:
-                enemy_value = 30;
-                break;
-            case enemyValue.v_Small:
-                enemy_value = 20;
-                break;
-        }
-
-        switch(e_aim)
-        {
-            case enemyAiming.a_Small:
-                enemy_aim = EnemyAim.smallAim(m_player.transform.position, transform.position);
-                break;
-        }
-
-        if(gameObject.GetComponent<Rigidbody2D>() == null)
+        if (gameObject.GetComponent<Rigidbody2D>() == null)
         {
             gameObject.AddComponent<Rigidbody2D>();
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
         }
 
-        switch (e_movement)
+        switch (enemy)
         {
-            case enemyMovementType.m_Small:
+            case enemyType.Boss:
+                enemy_value = 100;
+                break;
+
+            case enemyType.Large:
+                enemy_value = 50;
+                break;
+
+            case enemyType.Medium:
+                enemy_value = 30;
+                break;
+
+            case enemyType.Small:
+                enemy_value = 20;
+                enemy_aim = EnemyAim.smallAim(m_player.transform.position, transform.position);
+
                 EnemyMovement.movementSpeed = 0.001f;
                 EnemyMovement.smallEnemyMovement(gameObject.GetComponent<Rigidbody2D>());
                 break;
