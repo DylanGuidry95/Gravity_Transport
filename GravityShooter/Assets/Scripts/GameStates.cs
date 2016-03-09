@@ -27,6 +27,11 @@ public class GameStates : Singleton<GameStates>
         }
     }
 
+    public Player playerPrefab;
+    private Player player;
+    public GravityWell gravityWellPrefab;
+    private GravityWell gravityWell;
+
     protected override void Awake()
     {
         base.Awake();
@@ -112,19 +117,27 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.mainMenu:
                 break;
             case GAMESTATE.gamePlay:
+                player = Instantiate(playerPrefab);
+                gravityWell = Instantiate(gravityWellPrefab);
                 break;
             case GAMESTATE.pauseMenu:
                 break;
             case GAMESTATE.gameOver:
+                Messenger.Broadcast("Player has been defeated");
                 break;
             case GAMESTATE.exit:
                 break;
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        //StateProperties();
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+            StateProperties();
+        }
+
     }
 
     /// <summary>
