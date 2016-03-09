@@ -179,9 +179,7 @@ MonoBehaviour:
   delay: 3
   enemy_value: 0
   accuracy: 0.1
-  e_value: 3
-  e_aim: 3
-  e_movement: 3
+  enemy: 3
 --- !u!212 &934018379
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -218,8 +216,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 934018377}
-  m_LocalRotation: {x: 0, y: 0, z: 0.8871182, w: 0.46154237}
-  m_LocalPosition: {x: 12.94, y: 4.87, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071067}
+  m_LocalPosition: {x: 12.58, y: 3.14, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}

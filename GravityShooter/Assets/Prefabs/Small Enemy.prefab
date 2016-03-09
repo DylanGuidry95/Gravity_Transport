@@ -76,10 +76,10 @@ MonoBehaviour:
   BulletPreb: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
   m_player: {fileID: 0}
   bulletSpeed: 10
+  delay: 2
   enemy_value: 0
-  e_value: 3
-  e_aim: 3
-  e_movement: 3
+  accuracy: 0.1
+  enemy: 3
 --- !u!212 &21214526
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -137,6 +137,18 @@ Prefab:
       propertyPath: BulletPreb
       value: 
       objectReference: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
+    - target: {fileID: 0}
+      propertyPath: enemy
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: delay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: accuracy
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 188944}
