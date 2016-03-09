@@ -117,7 +117,10 @@ public class Player : MonoBehaviour
         currentHealth = maxHealth;
         livesRemaining = maxLives;
         well = FindObjectOfType<GravityWell>();
-        gameObject.GetComponent<SpringJoint2D>().connectedAnchor = well.transform.position;
+        foreach(SpringJoint2D s in gameObject.GetComponents<SpringJoint2D>())
+        {
+            s.connectedBody = well.GetComponent<Rigidbody2D>();
+        }
         well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
