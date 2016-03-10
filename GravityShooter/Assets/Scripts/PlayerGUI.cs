@@ -33,6 +33,5 @@ public class PlayerGUI : MonoBehaviour
                 imageRenderer.sprite = playerGUI[3];
                 break;
         }
-    }
-    
+    }  
 }

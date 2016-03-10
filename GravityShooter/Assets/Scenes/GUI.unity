@@ -225,7 +225,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 112346, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22488220, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
       propertyPath: m_AnchorMax.x
