@@ -112,6 +112,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void Start()
     {
+        gameObject.name = "Player";
         PlayerBroadcast();
         CheckPlayerBounds();
         currentHealth = maxHealth;
@@ -180,6 +181,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
+        gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
+        gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
+
         PlayerSpawn();
 
         if(_fsm.state != PLAYERSTATES.dead)
