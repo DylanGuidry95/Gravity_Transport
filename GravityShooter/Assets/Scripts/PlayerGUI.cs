@@ -7,12 +7,12 @@ public class PlayerGUI : MonoBehaviour
 {
     public Image imageRenderer;
     public Sprite[] playerGUI;
-    int hpBar = 0;
 
     void Awake()
     {
         Messenger.AddListener<int>("Player took damage", PlayerBarGUI);
         Messenger.AddListener<int>("Player Created", PlayerBarGUI);
+        GUIManager.instance.TurnOn(imageRenderer.gameObject);
     }
 
     void PlayerBarGUI(int hp)

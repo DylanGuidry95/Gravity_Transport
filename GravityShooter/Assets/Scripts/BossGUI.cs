@@ -21,6 +21,7 @@ public class BossGUI : MonoBehaviour
 
     void bossGUI()
     {
+        // When the boss appears, I need to turn on the bossSlider and bossName on.
         if (bossSlider.value == 0)
         {
             bossSlider.value -= damage;

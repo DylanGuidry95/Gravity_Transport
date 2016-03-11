@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
    
     void Awake()
     {
+        GUIManager.instance.TurnOn(scoreText.gameObject);
         score = 0;
     }
 

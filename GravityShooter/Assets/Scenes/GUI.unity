@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageImage: {fileID: 878495404}
   flashSpeed: 5
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashColor: {r: 1, g: 0, b: 0, a: 0.5}
 --- !u!114 &635427191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,6 +282,10 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 404565836}
+    - target: {fileID: 171138, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
+      propertyPath: m_Name
+      value: BossText
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
   m_IsPrefabParent: 0
