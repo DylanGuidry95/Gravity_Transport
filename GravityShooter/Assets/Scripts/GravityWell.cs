@@ -30,7 +30,8 @@ public class GravityWell : MonoBehaviour
                     if (Vector3.Distance(g.entity.transform.localPosition, g.brake) > 0.1f)
                     {
                         g.entity.transform.RotateAround(transform.localPosition,
-                            Vector3.forward * (g.entry.y / Mathf.Abs(g.entry.y)), g.mag * speed * 100);
+                            Vector3.forward * (g.entry.y / Mathf.Abs(g.entry.y) * g.entry.x / Mathf.Abs(g.entry.x)),
+                            g.mag * speed * 100);
                     }
                     else
                     {
@@ -38,7 +39,7 @@ public class GravityWell : MonoBehaviour
                     }
                     break;
                 case GRAV.BROKEN:
-                    g.rb.velocity = g.direction * -2;
+                    g.rb.velocity = g.velocity * m_speedModifier * -2;
                     g.state = GRAV.END;
                     break;
                 case GRAV.END:
@@ -61,16 +62,16 @@ public class GravityWell : MonoBehaviour
             m_gravObjects.Add(g);
 
             g.rb = other.GetComponent<Rigidbody2D>();
-            g.direction = g.rb.velocity;
+            g.velocity = g.rb.velocity;
+            g.direction = g.rb.velocity.normalized;
             g.mag = g.rb.velocity.magnitude;
             g.rb.velocity = Vector3.zero;
 
             g.entity = other.gameObject;
             g.entity.transform.parent = transform;
-
+            
             g.entry = g.entity.transform.localPosition;
-
-            g.thres = new Vector3(g.entry.x + (0 - g.entry.x), g.entry.y, 0);
+            g.thres = g.entry + (g.direction);
             g.brake = new Vector3(g.thres.x, g.thres.y, 0) * -1;
 
             g.state = GRAV.INIT;
@@ -100,6 +101,7 @@ public class GravityWell : MonoBehaviour
         public GameObject entity;
         public Rigidbody2D rb;
 
+        public Vector3 velocity;
         public Vector3 direction;
         public float mag;
 
