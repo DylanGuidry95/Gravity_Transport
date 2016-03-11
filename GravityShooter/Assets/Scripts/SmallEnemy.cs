@@ -15,7 +15,7 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
 
     void Start ()
     {
-        count = 0;
+        count = 1;
         StartCoroutine(findPlayer());
     }
 
@@ -59,24 +59,26 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
         movement();
 
         timer += Time.deltaTime;
-
-        if (count > amo)
+        if (timer > delay)
         {
-            Vector2 playerDir = (player.transform.position - transform.position).normalized;
-            GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
-        }
-        else
-        {
-            if (timer > delay)
+            if (count > amo)
+            {
+                if (player != null)
+                {
+                    Vector2 playerDir = (player.transform.position - transform.position).normalized;
+                    GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
+                }
+            }
+            else
             {
                 count++;
                 Fire();
                 timer = 0;
             }
         }
-	}
+    }
 
-    void TriggerOnEnter(Collider other)
+    void TriggerOnEnter2D(Collider other)
     {
         Destroy(other.gameObject);
         Destroy(gameObject);

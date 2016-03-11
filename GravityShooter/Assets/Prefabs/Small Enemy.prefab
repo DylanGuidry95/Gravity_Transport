@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21290704}
   - 50: {fileID: 5007562}
   - 114: {fileID: 11490152}
+  - 61: {fileID: 6177814}
   m_Layer: 0
   m_Name: Small Enemy
   m_TagString: Untagged
@@ -47,6 +48,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &6177814
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158854}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 3.1, y: 3.3}
 --- !u!114 &11490152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36d369ea5dd5a741988a8da25a7e4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPreb: {fileID: 5099638, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
+  BulletPreb: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
   BulletSpeed: 10
   amo: 10
   delay: 3
@@ -98,7 +113,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BulletPreb
+      value: 
+      objectReference: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158854}
