@@ -88,7 +88,8 @@ public class Player : MonoBehaviour
     private bool atLeft;
     private bool atRight;
 
-    public GameObject well;
+    [SerializeField]
+    private GravityWell well;
 
     //Power ups will go here later on in development
 
@@ -101,7 +102,8 @@ public class Player : MonoBehaviour
     {
         _fsm = new FSM<PLAYERSTATES>();
         AddToFSM();
-        PlayerListen();     
+        PlayerListen();
+
     }
 
     /// <summary>
@@ -110,10 +112,16 @@ public class Player : MonoBehaviour
     /// </summary>
     void Start()
     {
+        gameObject.name = "Player";
         PlayerBroadcast();
         CheckPlayerBounds();
         currentHealth = maxHealth;
         livesRemaining = maxLives;
+        well = FindObjectOfType<GravityWell>();
+        foreach(SpringJoint2D s in gameObject.GetComponents<SpringJoint2D>())
+        {
+            s.connectedBody = well.GetComponent<Rigidbody2D>();
+        }
         well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
@@ -173,6 +181,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
+        gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
+        gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
+
         PlayerSpawn();
 
         if(_fsm.state != PLAYERSTATES.dead)
@@ -275,6 +286,7 @@ public class Player : MonoBehaviour
         if (c.GetComponent<Projectile>() != null)
         {
             PlayerDamage();
+            Destroy(c.gameObject);
         }
     }
 
@@ -292,17 +304,21 @@ public class Player : MonoBehaviour
         {
             _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
             livesRemaining -= 1;
-            if(livesRemaining >= 0)
+            if (livesRemaining >= 0)
             {
                 _cAction = PLAYERACTIONS.die;
                 GetComponent<MeshRenderer>().enabled = false;
                 transform.position = spawnPosition;
                 PlayerSpawn();
+                currentHealth = maxHealth;
+                PlayerBroadcast();
             }
-            else if(livesRemaining < 0)
+            else if (livesRemaining < 0)
             {
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
                 Messenger.Broadcast("Player has died"); //Listened to by the GameState manager
+                Destroy(this.gameObject);
+                Destroy(well.gameObject);
             }
         }
     }
