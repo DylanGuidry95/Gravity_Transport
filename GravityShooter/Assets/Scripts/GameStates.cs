@@ -27,10 +27,10 @@ public class GameStates : Singleton<GameStates>
         }
     }
 
-    public Player playerPrefab;
     private Player player;
-    public GravityWell gravityWellPrefab;
     private GravityWell gravityWell;
+    private string PlayerName = "Player";
+    private string GravityWellName = "GravityWell";
 
     protected override void Awake()
     {
@@ -39,6 +39,7 @@ public class GameStates : Singleton<GameStates>
         AddState();
         AddTransiton();
         Instance = this;
+        GameStateListen();
     }
 
     void Start()
@@ -103,7 +104,7 @@ public class GameStates : Singleton<GameStates>
     /// </summary>
     void GameStateListen()
     {
-        Messenger.Broadcast("Player has died"); //Broadcasted from the Player
+        Messenger.AddListener("Player has died",GameOver); //Broadcasted from the Player
     }
 
     void StateProperties()
@@ -117,17 +118,26 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.mainMenu:
                 break;
             case GAMESTATE.gamePlay:
-                player = Instantiate(playerPrefab);
-                gravityWell = Instantiate(gravityWellPrefab);
+                player = Instantiate(Resources.Load(PlayerName, typeof(Player))) as Player;
+                gravityWell = Instantiate(Resources.Load(GravityWellName, typeof(GravityWell))) as GravityWell;
                 break;
             case GAMESTATE.pauseMenu:
                 break;
             case GAMESTATE.gameOver:
-                Messenger.Broadcast("Player has been defeated");
+                //Messenger.Broadcast("Player has been defeated");
+                Destroy(player.gameObject);
+                Destroy(gravityWell.gameObject);
                 break;
             case GAMESTATE.exit:
                 break;
         }
+        Debug.Log(_fsm.state);
+    }
+
+    void GameOver()
+    {
+        _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
+        StateProperties();
     }
 
     void FixedUpdate()
@@ -137,7 +147,6 @@ public class GameStates : Singleton<GameStates>
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
             StateProperties();
         }
-
     }
 
     /// <summary>
