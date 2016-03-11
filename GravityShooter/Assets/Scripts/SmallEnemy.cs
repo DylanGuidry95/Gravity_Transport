@@ -78,7 +78,7 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
         }
     }
 
-    void TriggerOnEnter2D(Collider other)
+    void TriggerOnEnter2D(Collider2D other)
     {
         Destroy(other.gameObject);
         Destroy(gameObject);
