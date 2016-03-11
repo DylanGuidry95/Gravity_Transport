@@ -49,6 +49,7 @@ public class GravityWell : MonoBehaviour
                         break;
                     case GRAV.END:
                         m_gravObjects.Remove(g);
+                        g.entity.transform.parent = null;
                         return;
                 };
             }
@@ -96,7 +97,6 @@ public class GravityWell : MonoBehaviour
             if (m_gravObjects[i].entity == other.gameObject)
             {
                 m_gravObjects.Remove(m_gravObjects[i]);
-                other.transform.parent = null;
             }
         }
     }
