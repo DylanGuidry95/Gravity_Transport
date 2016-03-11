@@ -16,10 +16,10 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     void Start ()
     {
         count = 0;
-        StartCoroutine("findPlayer");
+        StartCoroutine(findPlayer());
     }
 
-    IEnumerable findPlayer()
+    IEnumerator findPlayer()
     {
         while (player == null)
         {
@@ -36,8 +36,8 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
             GameObject bullet = Instantiate(BulletPreb) as GameObject;
             bullet.transform.position = transform.position;
         
-            Vector2 playerDir = player.transform.position.normalized;
-            bullet.GetComponent<Rigidbody2D>().velocity += playerDir.normalized * BulletSpeed;
+            Vector2 playerDir = (player.transform.position - transform.position).normalized;
+            bullet.GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
         }
     }
 
@@ -50,7 +50,7 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     {
         if (player != null)
         {
-            transform.right = transform.position - player.transform.position;
+            transform.right = (transform.position - player.transform.position).normalized;
         }
     }
 
