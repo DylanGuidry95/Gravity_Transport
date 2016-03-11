@@ -5,7 +5,7 @@ using System.Collections;
 public class SmallEnemy : MonoBehaviour, EnemyManager
 {
     private GameObject player;
-    public Rigidbody2D BulletPreb;
+    public GameObject BulletPreb;
     Rigidbody2D rb;
     public int BulletSpeed;
     public int amo;
@@ -16,16 +16,18 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     void Start ()
     {
         count = 0;
-        player = GameObject.Find("Player");
+        if (GameObject.Find("Player") != null)
+        { player = GameObject.Find("Player"); }
     }
 
     public void Fire()
     {
-        Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
-        Rigidbody2D bullet = Instantiate(BulletPreb) as Rigidbody2D;
+        //Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
+        GameObject bullet = Instantiate(BulletPreb) as GameObject;
         bullet.transform.position = transform.position;
+
         Vector2 playerDir = player.transform.position.normalized;
-        bullet.velocity = bullet.velocity + playerDir.normalized * BulletSpeed;
+        bullet.GetComponent<Rigidbody2D>().velocity += playerDir.normalized * BulletSpeed;
     }
 
     public bool aim()
