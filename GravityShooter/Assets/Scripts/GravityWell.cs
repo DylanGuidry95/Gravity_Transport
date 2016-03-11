@@ -6,48 +6,56 @@ using System.Collections.Generic;
 /// </summary>
 public class GravityWell : MonoBehaviour
 {
-    void Update()
+    void FixedUpdate()
     {
         foreach(GravityObject g in m_gravObjects)
         {
-            float speed = (Time.deltaTime * m_speedModifier);
-            switch (g.state)
+            if (g.entity)
             {
-                case GRAV.INIT:
-                    g.state = GRAV.ENTER;
-                    break;
-                case GRAV.ENTER:
-                    if (Vector3.Distance(g.entity.transform.localPosition, g.thres) > 0.1f)
-                    {
-                        g.entity.transform.localPosition += (g.thres - g.entry) * g.velocity.magnitude * speed;
-                    }
-                    else
-                    {
-                        g.state = GRAV.THRESHOLD;
-                    }
-                    break;
-                case GRAV.THRESHOLD:
-                    if (Vector3.Distance(g.entity.transform.localPosition, g.brake) > 0.1f)
-                    {
-                        g.entity.transform.RotateAround(transform.position,
-                            Vector3.forward * (g.entry.y / Mathf.Abs(g.entry.y) * g.entry.x / Mathf.Abs(g.entry.x)),
-                            g.velocity.magnitude * speed * 100);
+                float speed = (Time.deltaTime * m_speedModifier);
+                switch (g.state)
+                {
+                    case GRAV.INIT:
+                        g.state = GRAV.ENTER;
+                        break;
+                    case GRAV.ENTER:
+                        if (Vector3.Distance(g.entity.transform.localPosition, g.thres) > 0.1f)
+                        {
+                            g.entity.transform.localPosition += (g.thres - g.entry) * g.velocity.magnitude * speed;
+                        }
+                        else
+                        {
+                            g.state = GRAV.THRESHOLD;
+                        }
+                        break;
+                    case GRAV.THRESHOLD:
+                        if (Vector3.Distance(g.entity.transform.localPosition, g.brake) > 0.1f)
+                        {
+                            g.entity.transform.RotateAround(transform.position,
+                                Vector3.forward * (g.entry.y / Mathf.Abs(g.entry.y) * g.entry.x / Mathf.Abs(g.entry.x)),
+                                g.velocity.magnitude * speed * 100);
 
-                        Debug.DrawLine(g.entity.transform.position, transform.position);
-                    }
-                    else
-                    {
-                        g.state = GRAV.BROKEN;
-                    }
-                    break;
-                case GRAV.BROKEN:
-                    g.rb.isKinematic = false;
-                    g.rb.velocity = g.velocity * m_speedModifier * -2;
-                    g.state = GRAV.END;
-                    break;
-                case GRAV.END:
-                    break;  
-            }; 
+                            Debug.DrawLine(g.entity.transform.position, transform.position);
+                        }
+                        else
+                        {
+                            g.state = GRAV.BROKEN;
+                        }
+                        break;
+                    case GRAV.BROKEN:
+                        g.rb.isKinematic = false;
+                        g.rb.velocity = g.velocity * m_speedModifier * -2;
+                        g.state = GRAV.END;
+                        break;
+                    case GRAV.END:
+                        break;
+                };
+            }
+            else
+            {
+                m_gravObjects.Remove(g);
+                return;
+            }
         }
     }
 
