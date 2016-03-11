@@ -4,5 +4,4 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
-    public float m_damage = 1;
 }
