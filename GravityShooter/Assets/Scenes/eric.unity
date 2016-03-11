@@ -85,6 +85,10 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &78158744 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 121110, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
+  m_PrefabInternal: {fileID: 1498417303}
 --- !u!1 &319585009
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &319585010
 Rigidbody2D:
   serializedVersion: 2
@@ -189,9 +193,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a669a1813cca34b84867dc859d7fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPreb: {fileID: 0}
-  ball: {fileID: 0}
-  bulletSpeed: 0
+  BulletPreb: {fileID: 174390, guid: fb6aaa682cb5baa419a27c62ca0a42c9, type: 2}
+  m_player: {fileID: 78158744}
+  bulletSpeed: 1.1
+  enemy_value: 0
+  e_value: 3
+  e_aim: 3
+  e_movement: 0
 --- !u!114 &319585016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 1
-  m_speed: 100
 --- !u!1 &820511086
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &820511087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +272,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.z

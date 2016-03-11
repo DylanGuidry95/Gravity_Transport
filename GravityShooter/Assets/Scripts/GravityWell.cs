@@ -8,79 +8,83 @@ public class GravityWell : MonoBehaviour
 {
     void Update()
     {
-        foreach (GravityObject go in m_gravObjects)
+        foreach(GravityObject g in m_gravObjects)
         {
-            Rigidbody2D rb = go.entity.GetComponent<Rigidbody2D>();
-            Vector3 position = transform.position;
-            Vector3 otherPos = go.entity.transform.position;
-
-            Vector3 otherToPosition = position - otherPos;
-            otherToPosition.Normalize();
-
-            Vector2 toGravWell = new Vector2(otherToPosition.x, otherToPosition.y);
-            toGravWell.Normalize();
-
-            Vector2 right = new Vector2(1, 0);
-
-            switch (go.state)
+            float speed = (Time.deltaTime * m_speedModifier);
+            switch (g.state)
             {
-                /// Initial //////////////////////////////////////////////////////////
-                case GRAV.INIT:                                                     //
-                    go.state = GRAV.ENTER;                                          //
-                    break;                                                          //
-                /// Mass has entered the well ////////////////////////////////////////
-                case GRAV.ENTER:                                                    //
-                    rb.velocity += toGravWell * (m_speedModifier * Time.deltaTime);                     //
-                                                                                    //
-                    go.state = otherPos.x < position.x ? GRAV.THRESHOLD : go.state; //
-                    break;                                                          //
-                /// Mass has reached the well's threshold ////////////////////////////
-                case GRAV.THRESHOLD:                                                //
-                    rb.velocity += toGravWell * (m_speedModifier * Time.deltaTime); //
-                                                                                    //
-                    go.state = otherPos.x > position.x ? GRAV.BROKEN : go.state;    //
-                    break;                                                          //
-                /// Mass has broken the well's threshold /////////////////////////////
-                case GRAV.BROKEN:                                                   //
-                    rb.velocity += right * (m_speedModifier * Time.deltaTime) * 2;  //
-                    break;                                                          //
-                /// There is no mass or it has left the well /////////////////////////
-                case GRAV.END:                                                      //
-                    go.state = GRAV.INIT;                                           //
-                    go.remove = true;                                               //
-                    break;                                                          //
-                /// End //////////////////////////////////////////////////////////////
-            };
-
-            if (go.remove)
-            {
-                m_gravObjects.Remove(go);
-                return;
-            }
+                case GRAV.INIT:
+                    g.state = GRAV.ENTER;
+                    break;
+                case GRAV.ENTER:
+                    if (Vector3.Distance(g.entity.transform.localPosition, g.thres) > 0.1f)
+                    {
+                        g.entity.transform.localPosition += (g.thres - g.entry) * g.mag * speed;
+                    }
+                    else
+                    {
+                        g.state = GRAV.THRESHOLD;
+                    }
+                    break;
+                case GRAV.THRESHOLD:
+                    if (Vector3.Distance(g.entity.transform.localPosition, g.brake) > 0.1f)
+                    {
+                        g.entity.transform.RotateAround(transform.localPosition,
+                            Vector3.forward * (g.entry.y / Mathf.Abs(g.entry.y)), g.mag * speed * 100);
+                    }
+                    else
+                    {
+                        g.state = GRAV.BROKEN;
+                    }
+                    break;
+                case GRAV.BROKEN:
+                    g.rb.velocity = g.direction * -2;
+                    g.state = GRAV.END;
+                    break;
+                case GRAV.END:
+                    break;  
+            }; 
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        for(int i = 0; i < m_gravObjects.Count; ++i)
+        {
+            if (m_gravObjects[i].entity == other.gameObject)
+                return;
+        }
+       
         if(m_gravObjects.Count < m_gravMax)
         {
-            if(other.GetComponent<Projectile>())
-            {
-                GravityObject go = new GravityObject();
-                go.entity = other.gameObject;
-                go.state = GRAV.INIT;
-                m_gravObjects.Add(go);
-            }
+            GravityObject g = new GravityObject();
+            m_gravObjects.Add(g);
+
+            g.rb = other.GetComponent<Rigidbody2D>();
+            g.direction = g.rb.velocity;
+            g.mag = g.rb.velocity.magnitude;
+            g.rb.velocity = Vector3.zero;
+
+            g.entity = other.gameObject;
+            g.entity.transform.parent = transform;
+
+            g.entry = g.entity.transform.localPosition;
+
+            g.thres = new Vector3(g.entry.x + (0 - g.entry.x), g.entry.y, 0);
+            g.brake = new Vector3(g.thres.x, g.thres.y, 0) * -1;
+
+            g.state = GRAV.INIT;
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        foreach (GravityObject go in m_gravObjects)
+        for (int i = 0; i < m_gravObjects.Count; ++i)
         {
-            if (go.entity == other.gameObject)
+            if (m_gravObjects[i].entity == other.gameObject)
             {
-                go.state = GRAV.END;
+                m_gravObjects.Remove(m_gravObjects[i]);
+                other.transform.parent = null;
             }
         }
     }
@@ -94,8 +98,16 @@ public class GravityWell : MonoBehaviour
     public class GravityObject
     {
         public GameObject entity;
+        public Rigidbody2D rb;
+
+        public Vector3 direction;
+        public float mag;
+
+        public Vector3 entry;
+        public Vector3 thres;
+        public Vector3 brake;
+
         public GRAV state;
-        public bool remove;
     }
 
     public enum GRAV
