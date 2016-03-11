@@ -136,7 +136,8 @@ Prefab:
       propertyPath: amo
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6177814, guid: 586c352650b97194b995939765f1959c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 586c352650b97194b995939765f1959c, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &171512201
@@ -257,7 +258,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!1 &603380206 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 158854, guid: 586c352650b97194b995939765f1959c, type: 2}
