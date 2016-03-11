@@ -62,8 +62,11 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
 
         if (count > amo)
         {
-            Vector2 playerDir = (player.transform.position - transform.position).normalized;
-            GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
+            if (player != null)
+            {
+                Vector2 playerDir = (player.transform.position - transform.position).normalized;
+                GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
+            }
         }
         else
         {
