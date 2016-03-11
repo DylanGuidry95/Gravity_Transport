@@ -94,8 +94,10 @@ public class GravityWell : MonoBehaviour
     {
         for (int i = 0; i < m_gravObjects.Count; ++i)
         {
-            if (m_gravObjects[i].entity == other.gameObject)
+            if (m_gravObjects[i].entity == other.gameObject && m_gravObjects[i].state != GRAV.END)
             {
+                m_gravObjects[i].entity.transform.parent = null;
+                m_gravObjects[i].rb.velocity = m_gravObjects[i].velocity;
                 m_gravObjects.Remove(m_gravObjects[i]);
             }
         }
