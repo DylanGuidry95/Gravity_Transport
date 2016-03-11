@@ -17,8 +17,8 @@ public class BossGUI : MonoBehaviour
     {
         Messenger.AddListener("Boss Created", bossGUI);
         Messenger.AddListener("Boss took damage", bossGUI);
-        GUIManager.instance.TurnOn(bossSlider.gameObject);
-        GUIManager.instance.TurnOn(bossName.gameObject);
+        GUIManager.instance.TurnOff(bossSlider.gameObject);
+        GUIManager.instance.TurnOff(bossName.gameObject);
     }
 
     void bossGUI()
