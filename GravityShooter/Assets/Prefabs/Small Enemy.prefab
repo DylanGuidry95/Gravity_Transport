@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36d369ea5dd5a741988a8da25a7e4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPreb: {fileID: 5099638, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
+  BulletPreb: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
   BulletSpeed: 10
   amo: 10
   delay: 3
@@ -118,6 +118,10 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BulletPreb
+      value: 
+      objectReference: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158854}
