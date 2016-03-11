@@ -19,12 +19,12 @@ public class GUIManager : Singleton<GUIManager>
     ///P.S.(2): This is made as MonoBehaviour because we need Coroutines.A lot of times it makes sense to leave one in a singleton, so it will persist between scenes.
     /// </summary>
 
-    public void TurnOn(GUIElement on)
+    public void TurnOn(GameObject on)
     {
         on.gameObject.SetActive(true);
     }
 
-    public void TurnOff(GUIElement off)
+    public void TurnOff(GameObject off)
     {
         off.gameObject.SetActive(false);
     }

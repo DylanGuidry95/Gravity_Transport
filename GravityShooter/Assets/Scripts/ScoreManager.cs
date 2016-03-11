@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
     public int scoreMediumEnemy = 10;
     public int scoreLargeEnemy = 15;
     public int scoreBoss = 20;
-    public static Text scoreText;
+    public Text scoreText;
    
     void Awake()
     {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,13 +13,19 @@ public class BossGUI : MonoBehaviour
     public Slider bossSlider;
     public int damage = 10;
 
+    void Awake()
+    {
+        GUIManager.instance.TurnOff(bossSlider.gameObject);
+        GUIManager.instance.TurnOff(bossName.gameObject);
+    }
+
     void bossGUI()
     {
         if (bossSlider.value == 0)
         {
             bossSlider.value -= damage;
-            bossSlider.gameObject.SetActive(false);
-            bossName.gameObject.SetActive(false);
+            GUIManager.instance.TurnOff(bossSlider.gameObject);
+            GUIManager.instance.TurnOff(bossName.gameObject);
         }
     }
 }
