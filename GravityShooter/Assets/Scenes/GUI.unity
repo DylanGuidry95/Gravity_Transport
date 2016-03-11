@@ -103,12 +103,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 635427189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77c7d87806b0c8d4fad95fda8ccdedc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e981c0a1f746ff43a4831ec7cf16b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageImage: {fileID: 878495404}
-  flashSpeed: 5
-  flashColor: {r: 1, g: 0, b: 0, a: 0.5}
 --- !u!114 &635427191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +282,30 @@ Prefab:
     - target: {fileID: 171138, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
       propertyPath: m_Name
       value: BossText
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477816, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
+      propertyPath: damageImage
+      value: 
+      objectReference: {fileID: 878495404}
+    - target: {fileID: 11450758, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
+      propertyPath: scoreSmallEnemy
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450758, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
+      propertyPath: scoreMediumEnemy
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450758, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
+      propertyPath: scoreLargeEnemy
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11450758, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
+      propertyPath: scoreBoss
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477816, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}
+      propertyPath: flashColor.a
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a759d42bcb8a9f84c92cc0f8ceaaa8d9, type: 2}

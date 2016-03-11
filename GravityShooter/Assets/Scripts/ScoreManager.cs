@@ -5,12 +5,6 @@ using System.Collections.Generic;
 
 public class ScoreManager : MonoBehaviour
 {
-    // Dodging = 10, 
-    // small enemies = 20, 
-    // medium enemies = 30, 
-    //large = 50, 
-    //bosses = 100
-
     public static int score;
     public int scoreSmallEnemy = 5;
     public int scoreMediumEnemy = 10;

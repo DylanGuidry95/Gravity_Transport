@@ -17,17 +17,23 @@ public class GUIManager : Singleton<GUIManager>
     ///(3) You can also inherit from base classes, which you can't do with Static classes.
     ///P.S.: Unfortunately there is no good way to remove the need of a "Instance keyword" right there, calling the singleton.
     ///P.S.(2): This is made as MonoBehaviour because we need Coroutines.A lot of times it makes sense to leave one in a singleton, so it will persist between scenes.
+    /// 
     /// Must use instance to access information
     /// Static - they're public but can only be created once
     /// </summary>
 
     public void TurnOn(GameObject on)
     {
-        on.gameObject.SetActive(true);
+        on.SetActive(true);
     }
 
     public void TurnOff(GameObject off)
     {
-        off.gameObject.SetActive(false);
+        off.SetActive(false);
+    }
+
+    public void Update()
+    {
+
     }
 }
