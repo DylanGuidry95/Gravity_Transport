@@ -17,7 +17,6 @@ public class PlayerGUI : MonoBehaviour
 
     void PlayerBarGUI(int hp)
     {
-
         switch (hp)
         {
             case 1:
