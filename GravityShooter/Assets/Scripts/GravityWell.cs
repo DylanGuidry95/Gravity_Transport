@@ -19,7 +19,7 @@ public class GravityWell : MonoBehaviour
                 case GRAV.ENTER:
                     if (Vector3.Distance(g.entity.transform.localPosition, g.thres) > 0.1f)
                     {
-                        g.entity.transform.localPosition += (g.thres - g.entry) * g.mag * speed;
+                        g.entity.transform.localPosition += (g.thres - g.entry) * g.velocity.magnitude * speed;
                     }
                     else
                     {
@@ -29,9 +29,11 @@ public class GravityWell : MonoBehaviour
                 case GRAV.THRESHOLD:
                     if (Vector3.Distance(g.entity.transform.localPosition, g.brake) > 0.1f)
                     {
-                        g.entity.transform.RotateAround(transform.localPosition,
+                        g.entity.transform.RotateAround(transform.position,
                             Vector3.forward * (g.entry.y / Mathf.Abs(g.entry.y) * g.entry.x / Mathf.Abs(g.entry.x)),
-                            g.mag * speed * 100);
+                            g.velocity.magnitude * speed * 100);
+
+                        Debug.DrawLine(g.entity.transform.position, transform.position);
                     }
                     else
                     {
@@ -39,6 +41,7 @@ public class GravityWell : MonoBehaviour
                     }
                     break;
                 case GRAV.BROKEN:
+                    g.rb.isKinematic = false;
                     g.rb.velocity = g.velocity * m_speedModifier * -2;
                     g.state = GRAV.END;
                     break;
@@ -55,23 +58,22 @@ public class GravityWell : MonoBehaviour
             if (m_gravObjects[i].entity == other.gameObject)
                 return;
         }
-       
-        if(m_gravObjects.Count < m_gravMax)
+  
+        if(m_gravObjects.Count < m_gravMax && other.GetComponent<Projectile>())
         {
             GravityObject g = new GravityObject();
             m_gravObjects.Add(g);
 
             g.rb = other.GetComponent<Rigidbody2D>();
             g.velocity = g.rb.velocity;
-            g.direction = g.rb.velocity.normalized;
-            g.mag = g.rb.velocity.magnitude;
             g.rb.velocity = Vector3.zero;
+            g.rb.isKinematic = true;
 
             g.entity = other.gameObject;
             g.entity.transform.parent = transform;
             
             g.entry = g.entity.transform.localPosition;
-            g.thres = g.entry + (g.direction);
+            g.thres = g.entry + (g.velocity.normalized);
             g.brake = new Vector3(g.thres.x, g.thres.y, 0) * -1;
 
             g.state = GRAV.INIT;
@@ -102,8 +104,6 @@ public class GravityWell : MonoBehaviour
         public Rigidbody2D rb;
 
         public Vector3 velocity;
-        public Vector3 direction;
-        public float mag;
 
         public Vector3 entry;
         public Vector3 thres;
