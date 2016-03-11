@@ -1,48 +1,60 @@
-﻿using UnityEngine;
+﻿//using System;
+using UnityEngine;
 using System.Collections;
-using System;
 
-public class SmallEnemy : MonoBehaviour, Enemymanager
+public class SmallEnemy : MonoBehaviour, EnemyManager
 {
-    public GameObject player;
+    private GameObject player;
+    public Rigidbody2D BulletPreb;
+    Rigidbody2D rb;
+    public int BulletSpeed;
+    public int amo;
+    public float delay;
+    private float timer;
+    private int count;
 
     void Start ()
     {
+        count = 0;
         player = GameObject.Find("Player");
-        //movement();
-	}
+    }
+
+    public void Fire()
+    {
+        Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
+        Rigidbody2D bullet = Instantiate(BulletPreb) as Rigidbody2D;
+        bullet.transform.position = transform.position;
+        Vector2 playerDir = player.transform.position.normalized;
+        bullet.velocity = bullet.velocity + playerDir.normalized * BulletSpeed;
+    }
 
     public bool aim()
     {
-        throw new NotImplementedException();
+        return true;
     }
 
     public void movement()
     {
-        Vector3 point = new Vector3(player.transform.position.x, transform.position.y, 0);
-        float hyp = (transform.position - player.transform.position).magnitude;
-        float adj = (transform.position - point).magnitude; 
-        float angle = Mathf.Cos(adj / hyp) * 180 / Mathf.PI;
-        
-        if(player.transform.position.y > transform.position.y)
-        {
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90 - angle));
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90 + angle));
-        }
-
-        if (Mathf.Abs(player.transform.position.y - transform.position.y) < 1)
-        {
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
-        }
-        
+        transform.right = transform.position - player.transform.position;   
     }
 
     // Update is called once per frame
     void FixedUpdate ()
     {
         movement();
+
+        timer += Time.deltaTime;
+        if (count < amo)
+        {
+            if (timer > delay)
+            {
+                Fire();
+                timer = 0;
+                count++;
+            }
+        }
+        
 	}
+
+    
 }

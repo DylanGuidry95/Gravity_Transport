@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-interface Enemymanager
+interface EnemyManager
 {
+    void Fire();
     void movement();
     bool aim();
 }
