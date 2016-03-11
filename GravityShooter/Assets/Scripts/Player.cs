@@ -112,12 +112,16 @@ public class Player : MonoBehaviour
     /// </summary>
     void Start()
     {
+        gameObject.name = "Player";
         PlayerBroadcast();
         CheckPlayerBounds();
         currentHealth = maxHealth;
         livesRemaining = maxLives;
         well = FindObjectOfType<GravityWell>();
-        gameObject.GetComponent<SpringJoint2D>().connectedAnchor = well.transform.position;
+        foreach(SpringJoint2D s in gameObject.GetComponents<SpringJoint2D>())
+        {
+            s.connectedBody = well.GetComponent<Rigidbody2D>();
+        }
         well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
@@ -177,6 +181,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
+        gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
+        gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
+
         PlayerSpawn();
 
         if(_fsm.state != PLAYERSTATES.dead)
