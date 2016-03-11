@@ -6,7 +6,7 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
 {
     private GameObject player;
     public GameObject BulletPreb;
-    Rigidbody2D rb;
+
     public int BulletSpeed;
     public int amo;
     public float delay;
@@ -54,23 +54,31 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate ()
     {
         movement();
 
         timer += Time.deltaTime;
-        if (count < amo)
+
+        if (count > amo)
+        {
+            Vector2 playerDir = (player.transform.position - transform.position).normalized;
+            GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
+        }
+        else
         {
             if (timer > delay)
             {
+                count++;
                 Fire();
                 timer = 0;
-                count++;
             }
         }
-        
 	}
 
-    
+    void TriggerOnEnter(Collider other)
+    {
+        Destroy(other.gameObject);
+        Destroy(gameObject);
+    }
 }
