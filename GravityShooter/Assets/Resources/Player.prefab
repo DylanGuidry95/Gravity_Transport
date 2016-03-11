@@ -118,12 +118,10 @@ MonoBehaviour:
   maxVelocity: 5
   startPosition: {x: -8, y: 1, z: 0}
   spawnPosition: {x: -10, y: 1, z: 0}
-  topBorder: 5.5
-  botBorder: -3.5
-  leftBorder: -8.5
-  rightBorder: 8.5
   atLeft: 0
   well: {fileID: 0}
+  border: {fileID: 0}
+  padding: 0.5
 --- !u!120 &12062740
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -176,12 +174,12 @@ SpringJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: -0.5, y: -0.5}
+  m_Anchor: {x: 0, y: -0.5}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
   m_Distance: 2
-  m_DampingRatio: 0.1
-  m_Frequency: 2
+  m_DampingRatio: 0.5
+  m_Frequency: 3.5
 --- !u!231 &23161644
 SpringJoint2D:
   m_ObjectHideFlags: 1
@@ -195,12 +193,12 @@ SpringJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: -0.5, y: 0.5}
+  m_Anchor: {x: 0, y: 0.5}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
   m_Distance: 2
-  m_DampingRatio: 0.1
-  m_Frequency: 2
+  m_DampingRatio: 0.5
+  m_Frequency: 3.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -218,7 +216,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_DampingRatio
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_EnableCollision
@@ -230,7 +228,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Anchor.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_ConnectedAnchor.x
@@ -246,7 +244,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Frequency
-      value: 2
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Parameters.startWidth
@@ -260,6 +258,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 0}
+      propertyPath: padding
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 150572}

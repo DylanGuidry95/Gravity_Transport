@@ -72,16 +72,6 @@ public class Player : MonoBehaviour
 
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
 
-    [Header("Margins")]
-    [SerializeField]
-    private float topBorder;
-    [SerializeField]
-    private float botBorder;
-    [SerializeField]
-    private float leftBorder;
-    [SerializeField]
-    private float rightBorder;
-
     private bool atTop;
     private bool atBot;
     [SerializeField]
@@ -90,7 +80,10 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GravityWell well;
-
+    [SerializeField]
+    private ScreenBorders border;
+    [SerializeField]
+    private float padding = 0.5f;
     //Power ups will go here later on in development
 
     /// <summary>
@@ -103,7 +96,7 @@ public class Player : MonoBehaviour
         _fsm = new FSM<PLAYERSTATES>();
         AddToFSM();
         PlayerListen();
-
+        border = FindObjectOfType<ScreenBorders>();
     }
 
     /// <summary>
@@ -117,6 +110,7 @@ public class Player : MonoBehaviour
         CheckPlayerBounds();
         currentHealth = maxHealth;
         livesRemaining = maxLives;
+
         well = FindObjectOfType<GravityWell>();
         foreach(SpringJoint2D s in gameObject.GetComponents<SpringJoint2D>())
         {
@@ -144,7 +138,6 @@ public class Player : MonoBehaviour
     void PlayerListen()
     {
         Messenger.AddListener<string>("User triggered the", PlayerActionTriggers); //Braodcasted from the InputHandler
-        Messenger.AddListener<string>("Player in taking damage", PlayerActionTriggers); //Braodcasted from an object that wil cause the player to take damage
     }
 
     /// <summary>
@@ -185,6 +178,9 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
 
         PlayerSpawn();
+
+        if (Input.GetKeyDown(KeyCode.C))
+            PlayerDamage();
 
         if(_fsm.state != PLAYERSTATES.dead)
         {
@@ -240,22 +236,22 @@ public class Player : MonoBehaviour
         if (dir == "Up")
         {
             //If true accelerates the player in the positive y
-            acceleration += new Vector3(0, 1, 1) * movementSpeed;
+            acceleration += new Vector3(0, 1, 0) * movementSpeed;
         }
         if (dir == "Down")
         {
             //If true accelerates the player in the negative y
-            acceleration += new Vector3(0, -1, 1) * movementSpeed;
+            acceleration += new Vector3(0, -1, 0) * movementSpeed;
         }
         if (dir == "Left")
         {
             //If true accelerates the player in the negative x
-            acceleration += new Vector3(-1, 0, 1) * movementSpeed;
+            acceleration += new Vector3(-1, 0, 0) * movementSpeed;
         }
         if (dir == "Right")
         {
             //If true accelerates the player in the positive x
-            acceleration += new Vector3(1, 0, 1) * movementSpeed;
+            acceleration += new Vector3(1, 0, 0) * movementSpeed;
         }
     }
 
@@ -309,6 +305,7 @@ public class Player : MonoBehaviour
                 _cAction = PLAYERACTIONS.die;
                 GetComponent<MeshRenderer>().enabled = false;
                 transform.position = spawnPosition;
+                well.transform.position = spawnPosition;
                 PlayerSpawn();
                 currentHealth = maxHealth;
                 PlayerBroadcast();
@@ -317,8 +314,6 @@ public class Player : MonoBehaviour
             {
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
                 Messenger.Broadcast("Player has died"); //Listened to by the GameState manager
-                Destroy(this.gameObject);
-                Destroy(well.gameObject);
             }
         }
     }
@@ -365,17 +360,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void CheckPlayerBounds()
     {
-        if (_fsm.state != PLAYERSTATES.dead)
+        if (_fsm.state != PLAYERSTATES.dead && border != null)
         {
-            if (transform.position.x <= leftBorder)
-            {
-                atLeft = true;
-            }
-            else
-            {
-                atLeft = false;
-            }
-            if (transform.position.x >= rightBorder)
+            if (transform.position.x >= border.TopRight.x - padding)
             {
                 atRight = true;
             }
@@ -383,21 +370,29 @@ public class Player : MonoBehaviour
             {
                 atRight = false;
             }
-            if (transform.position.y <= botBorder)
+            if (transform.position.x <= border.BottomLeft.x + padding)
             {
-                atBot = true;
+                atLeft = true;
             }
             else
             {
-                atBot = false;
+                atLeft = false;
             }
-            if (transform.position.y >= topBorder)
+            if (transform.position.y >= border.TopRight.y - padding)
             {
                 atTop = true;
             }
             else
             {
                 atTop = false;
+            }
+            if (transform.position.y <= border.BottomLeft.y + padding)
+            {
+                atBot = true;
+            }
+            else
+            {
+                atBot = false;
             }
         } 
     }

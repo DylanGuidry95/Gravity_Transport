@@ -2,22 +2,24 @@
 using UnityEngine.UI;
 using System.Collections;
 
-
 public class PlayerGUI : MonoBehaviour
 {
     public Image imageRenderer;
     public Sprite[] playerGUI;
-    int hpBar = 0;
+
+    /// <summary>
+    /// When the player gets hit/damage, the screen will flash red.
+    /// </summary>
 
     void Awake()
     {
         Messenger.AddListener<int>("Player took damage", PlayerBarGUI);
-        Messenger.AddListener<int>("Player Created", PlayerBarGUI);
+        Messenger.AddListener<int>("Player Created", PlayerBarGUI); // Broadcast from the game state manager
+        GUIManager.instance.TurnOn(imageRenderer.gameObject);
     }
 
-    void PlayerBarGUI(int hp)
+    public void PlayerBarGUI(int hp)
     {
-
         switch (hp)
         {
             case 1:
@@ -33,13 +35,5 @@ public class PlayerGUI : MonoBehaviour
                 imageRenderer.sprite = playerGUI[3];
                 break;
         }
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    hpBar++;
-        //    if (hpBar >= playerGUI.Length)
-        //    {
-        //        hpBar = 3;
-        //    }
     }
-    
 }

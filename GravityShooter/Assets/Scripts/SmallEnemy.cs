@@ -34,7 +34,7 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
         {
             //Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
             GameObject bullet = Instantiate(BulletPreb) as GameObject;
-            bullet.transform.position = transform.position;
+            bullet.transform.position = transform.position + transform.right * -2;
         
             Vector2 playerDir = (player.transform.position - transform.position).normalized;
             bullet.GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
@@ -78,9 +78,13 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
         }
     }
 
-    void TriggerOnEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
+
     {
-        Destroy(other.gameObject);
-        Destroy(gameObject);
+        if (other.GetComponent<Projectile>())
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
     }
 }
