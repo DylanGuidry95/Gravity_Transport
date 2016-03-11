@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPreb: {fileID: 174390, guid: fb6aaa682cb5baa419a27c62ca0a42c9, type: 2}
   m_player: {fileID: 78158744}
-  bulletSpeed: 1
+  bulletSpeed: 1.1
   enemy_value: 0
   e_value: 3
   e_aim: 3
@@ -268,11 +268,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.36
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.49
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.z
