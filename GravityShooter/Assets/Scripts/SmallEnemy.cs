@@ -16,28 +16,42 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     void Start ()
     {
         count = 0;
-        if (GameObject.Find("Player") != null)
-        { player = GameObject.Find("Player"); }
+        StartCoroutine("findPlayer");
+    }
+
+    IEnumerable findPlayer()
+    {
+        while (player == null)
+        {
+            player = GameObject.Find("Player");
+            yield return null;
+        }
     }
 
     public void Fire()
     {
-        //Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
-        GameObject bullet = Instantiate(BulletPreb) as GameObject;
-        bullet.transform.position = transform.position;
-
-        Vector2 playerDir = player.transform.position.normalized;
-        bullet.GetComponent<Rigidbody2D>().velocity += playerDir.normalized * BulletSpeed;
+        if (player != null)
+        {
+            //Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
+            GameObject bullet = Instantiate(BulletPreb) as GameObject;
+            bullet.transform.position = transform.position;
+        
+            Vector2 playerDir = player.transform.position.normalized;
+            bullet.GetComponent<Rigidbody2D>().velocity += playerDir.normalized * BulletSpeed;
+        }
     }
 
     public bool aim()
     {
         return true;
     }
-
+    
     public void movement()
     {
-        transform.right = transform.position - player.transform.position;   
+        if (player != null)
+        {
+            transform.right = transform.position - player.transform.position;
+        }
     }
 
     // Update is called once per frame
