@@ -236,22 +236,22 @@ public class Player : MonoBehaviour
         if (dir == "Up")
         {
             //If true accelerates the player in the positive y
-            acceleration += new Vector3(0, 1, 1) * movementSpeed;
+            acceleration += new Vector3(0, 1, 0) * movementSpeed;
         }
         if (dir == "Down")
         {
             //If true accelerates the player in the negative y
-            acceleration += new Vector3(0, -1, 1) * movementSpeed;
+            acceleration += new Vector3(0, -1, 0) * movementSpeed;
         }
         if (dir == "Left")
         {
             //If true accelerates the player in the negative x
-            acceleration += new Vector3(-1, 0, 1) * movementSpeed;
+            acceleration += new Vector3(-1, 0, 0) * movementSpeed;
         }
         if (dir == "Right")
         {
             //If true accelerates the player in the positive x
-            acceleration += new Vector3(1, 0, 1) * movementSpeed;
+            acceleration += new Vector3(1, 0, 0) * movementSpeed;
         }
     }
 
