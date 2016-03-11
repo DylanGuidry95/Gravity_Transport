@@ -48,7 +48,8 @@ public class GravityWell : MonoBehaviour
                         g.state = GRAV.END;
                         break;
                     case GRAV.END:
-                        break;
+                        m_gravObjects.Remove(g);
+                        return;
                 };
             }
             else
