@@ -75,7 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPreb: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
   BulletSpeed: 10
-  amo: 10
+  amo: 3
   delay: 3
 --- !u!212 &21290704
 SpriteRenderer:
