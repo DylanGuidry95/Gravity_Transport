@@ -13,8 +13,6 @@ public class PlayerGUI : MonoBehaviour
 
     void Awake()
     {
-        Messenger.AddListener<int>("Player took damage", PlayerBarGUI);
-        Messenger.AddListener<int>("Player Created", PlayerBarGUI); // Broadcast from the game state manager
         GUIManager.instance.TurnOn(imageRenderer.gameObject);
     }
 

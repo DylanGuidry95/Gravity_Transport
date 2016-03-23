@@ -79,6 +79,7 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     }
 
     void OnTriggerEnter2D(Collider2D other)
+
     {
         if (other.GetComponent<Projectile>())
         {

@@ -32,8 +32,11 @@ public class GUIManager : Singleton<GUIManager>
         off.SetActive(false);
     }
 
-    public void Update()
+    public void GuiUpdate(GameObject updateGUI)
     {
-
+        // When the player in game takes damage, 
+        // this function will need to update the player's health
+        // Also I need to keep in mind to update the Boss's health
+        // And also Score
     }
 }

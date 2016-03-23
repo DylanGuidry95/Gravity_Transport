@@ -39,13 +39,11 @@ public class GameStates : Singleton<GameStates>
         AddState();
         AddTransiton();
         Instance = this;
-        GameStateListen();
     }
 
     void Start()
     {
         _fsm.Transition(_fsm.state ,GAMESTATE.mainMenu);
-        DefineControls();
     }
 
     /// <summary>
@@ -99,21 +97,12 @@ public class GameStates : Singleton<GameStates>
 
     }
 
-    /// <summary>
-    /// Defines all the messages we are listening for
-    /// </summary>
-    void GameStateListen()
-    {
-        Messenger.AddListener("Player has died",GameOver); //Broadcasted from the Player
-    }
-
     void StateProperties()
     {
         switch(_fsm.state)
         {
             case GAMESTATE.init:
                 _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
-                Messenger.Broadcast<string>("Entering the main menu", "GameStae:MainMenu"); //Listened to by the GUI
                 break;
             case GAMESTATE.mainMenu:
                 break;
@@ -124,7 +113,6 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.pauseMenu:
                 break;
             case GAMESTATE.gameOver:
-                //Messenger.Broadcast("Player has been defeated");
                 Destroy(player.gameObject);
                 Destroy(gravityWell.gameObject);
                 break;
@@ -147,17 +135,5 @@ public class GameStates : Singleton<GameStates>
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
             StateProperties();
         }
-    }
-
-    /// <summary>
-    /// Called when the game is starting up
-    /// </summary>
-    void DefineControls()
-    {
-        ////Player Movement controls
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.W, "Player:Movement_Up", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.S, "Player:Movement_Down", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.A, "Player:Movement_Left", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
-        Messenger.Broadcast<KeyCode, string, INPUT_DEVICE>("Adding Control", KeyCode.D, "Player:Movement_Right", INPUT_DEVICE.KEYBOARD); //Listened to by the InputHandler
     }
 }
