@@ -74,6 +74,9 @@ public class Player : MonoBehaviour
 
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
 
+
+    private PlayerGUI playerUI;
+
     private bool atTop;
     private bool atBot;
     [SerializeField]
@@ -110,6 +113,7 @@ public class Player : MonoBehaviour
         livesRemaining = maxLives;
         SetPlayerControls();
         well = FindObjectOfType<GravityWell>();
+        playerUI = FindObjectOfType<PlayerGUI>();
         foreach(SpringJoint2D s in gameObject.GetComponents<SpringJoint2D>())
         {
             s.connectedBody = well.GetComponent<Rigidbody2D>();
@@ -118,6 +122,7 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
         //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
+        playerUI.PlayerBarGUI(currentHealth);
     }
 
     /// <summary>
@@ -300,6 +305,7 @@ public class Player : MonoBehaviour
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
             }
         }
+        playerUI.PlayerBarGUI(currentHealth);
     }
 
     /// <summary>

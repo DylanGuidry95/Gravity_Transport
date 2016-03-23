@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameStates : Singleton<GameStates>
 {
@@ -130,10 +131,14 @@ public class GameStates : Singleton<GameStates>
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) && FindObjectOfType<Player>() == null)
         {
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
             StateProperties();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("MainTesting");
         }
     }
 }
