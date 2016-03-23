@@ -14,11 +14,14 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     public float delay;
     private float timer;
 
+    private Vector3 EnemyPos; 
+
     bool on;
     
 
     void Start ()
     {
+        EnemyPos = transform.position;
         StartCoroutine(findPlayer());
         on = true;
     }
@@ -36,10 +39,9 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     {
         if (player != null)
         {
-            //Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
             GameObject bullet = Instantiate(BulletPreb) as GameObject;
             bullet.transform.position = transform.position + transform.right * -2;
-        
+
             Vector2 Look_at_player = (player.transform.position - transform.position).normalized;
             bullet.GetComponent<Rigidbody2D>().velocity = Look_at_player.normalized * BulletSpeed;
         }
@@ -62,8 +64,8 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     {
         if (player != null)
         {
-            Vector2 playerDir = (player.transform.position - RestPoint.transform.position).normalized;
-            gameObject.GetComponent<Rigidbody2D>().velocity += playerDir * EnemySpeed;
+            Vector2 playerDir = (player.transform.position - EnemyPos).normalized;
+            gameObject.GetComponent<Rigidbody2D>().velocity += playerDir.normalized * EnemySpeed;
         }
     }
 
