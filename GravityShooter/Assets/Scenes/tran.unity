@@ -130,7 +130,7 @@ Prefab:
       objectReference: {fileID: 1452297864}
     - target: {fileID: 11490152, guid: 586c352650b97194b995939765f1959c, type: 2}
       propertyPath: EnemySpeed
-      value: 0.01
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 586c352650b97194b995939765f1959c, type: 2}
@@ -188,8 +188,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 171512201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -26.13, y: -0, z: -2.875}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: -2.553, y: 0.529, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3

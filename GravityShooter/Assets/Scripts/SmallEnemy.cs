@@ -62,8 +62,18 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     {
         if (player != null)
         {
-            Vector2 playerDir = (player.transform.position - RestPoint.transform.position).normalized;
-            gameObject.GetComponent<Rigidbody2D>().velocity += playerDir * EnemySpeed;
+            Vector2 playerDir = 
+                (player.transform.position - gameObject.transform.position).normalized;
+
+            Vector3 enemyToPlayer = player.transform.position - transform.position;
+            Vector3.Normalize(enemyToPlayer);
+            Rigidbody2D enemyRB = GetComponent<Rigidbody2D>();
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            Debug.DrawLine(transform.position, player.transform.position,Color.white);
+            Vector3 forceDir = enemyToPlayer;// * (distanceToPlayer / EnemySpeed);
+            Debug.DrawLine(transform.position, forceDir);
+            enemyRB.AddForce(forceDir * (EnemySpeed / distanceToPlayer));// += playerDir * EnemySpeed;
+            //enemyRB.velocity += new Vector2(forceDir.x,forceDir.y).normalized ;
         }
     }
 
