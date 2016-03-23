@@ -15,7 +15,12 @@ public class EntityManager : MonoBehaviour
         {
             foreach (GameObject e in Entities)                                      // For each entity that we are managing
             {
-                if (e.transform.position.x < ScreenBorders.m_bottomLeft.x - 10)     // Check to see if they are still on the screen
+                if (!e)                 // Sees if the entity has been destroyed
+                {
+                    Entities.Remove(e);     // Remove them from the list
+                    return;                 // and restart the check
+                }
+                else if (e.transform.position.x < ScreenBorders.m_bottomLeft.x - 10)     // Check to see if they are still on the screen
                 {                                                                       // if they're not...
                     Destroy(e);             // Destroy them
                     Entities.Remove(e);     // Remove them from the list
