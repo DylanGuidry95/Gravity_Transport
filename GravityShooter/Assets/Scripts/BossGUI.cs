@@ -15,8 +15,8 @@ public class BossGUI : MonoBehaviour
 
     void Awake()
     {
-        GUIManager.instance.TurnOff(bossSlider.gameObject);
-        GUIManager.instance.TurnOff(bossName.gameObject);
+       // GUIManager.instance.TurnOff(bossSlider.gameObject);
+       // GUIManager.instance.TurnOff(bossName.gameObject);
     }
 
     //void Update()
