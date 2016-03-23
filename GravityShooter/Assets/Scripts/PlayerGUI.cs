@@ -16,6 +16,21 @@ public class PlayerGUI : MonoBehaviour
         GUIManager.instance.TurnOn(imageRenderer.gameObject);
     }
 
+    //void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.A))
+    //    {
+    //        GUIManager.instance.TurnOn(gameObject);
+    //        Debug.Log(gameObject + "On");
+    //    }
+            
+    //    if (Input.GetKeyDown(KeyCode.D))
+    //    {
+    //        GUIManager.instance.TurnOff(gameObject);
+    //        Debug.Log(gameObject + "Off");
+    //    }  
+    //}
+
     public void PlayerBarGUI(int hp)
     {
         switch (hp)

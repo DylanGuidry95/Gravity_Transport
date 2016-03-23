@@ -22,6 +22,20 @@ public class GUIManager : Singleton<GUIManager>
     /// Static - they're public but can only be created once
     /// </summary>
 
+    public void RegisterObject()
+    {
+        // When the player in game takes damage, 
+        // this function will need to update the player's health
+        // Also I need to keep in mind to update the Boss's health and also Score
+        // it updates by adding it to the list and calling the function again
+
+        List<Transform> Objects = new List<Transform>();
+        foreach (Transform child in transform)
+        {
+            Objects.Add(child);
+        }
+    }
+
     public void TurnOn(GameObject on)
     {
         on.SetActive(true);
@@ -30,13 +44,5 @@ public class GUIManager : Singleton<GUIManager>
     public void TurnOff(GameObject off)
     {
         off.SetActive(false);
-    }
-
-    public void GuiUpdate(GameObject updateGUI)
-    {
-        // When the player in game takes damage, 
-        // this function will need to update the player's health
-        // Also I need to keep in mind to update the Boss's health
-        // And also Score
-    }
+    }    
 }
