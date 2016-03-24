@@ -239,6 +239,7 @@ public class Player : MonoBehaviour
             if(Input.GetKeyUp(kc))
             {
                 buttonDownTime = 0;
+                acceleration = Vector3.zero;
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
             }         
         }
