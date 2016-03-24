@@ -88,3 +88,18 @@ public class GUIManager : Singleton<GUIManager>
         playerGUI.ShieldChange(num);
     }
 }
+
+/*
+GUIManager.instance.Activate("UIScore", true);
+
+    int health = 0;
+    if (health > 3)
+            {
+                health = 3;
+                GUIManager.instance.Activate("UIPlayer", false);
+            }
+            else
+                GUIManager.instance.ChangeHealth(health);
+
+            health++;
+*/
