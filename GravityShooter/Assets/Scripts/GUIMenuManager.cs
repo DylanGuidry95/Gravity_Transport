@@ -4,6 +4,9 @@ using System.Collections;
 
 public class GUIMenuManager : MonoBehaviour
 {
+/// <summary>
+/// When the game starts, the main menu shows up
+/// </summary>
     void Awake()
     {
         GUIManager.instance.Activate("UITitle", true);
@@ -12,12 +15,10 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIQuitButton", true);
     }
 
-    void Update()
-    {
-        PauseButton();
-        GameOver();
-    }
-
+    /// <summary>
+    /// When the play button is called, the main menu will disappear and UI interface
+    /// will appear.
+    /// </summary>
     public void PlayButton()
     {
             GUIManager.instance.Activate("UITitle", false);
@@ -30,6 +31,9 @@ public class GUIMenuManager : MonoBehaviour
             GUIManager.instance.Activate("UIScore", true);
     }
 
+    /// <summary>
+    /// If the user hits the options, mainly it's just Audio/sound effects
+    /// </summary>
     public void OptionButton()
     {
             GUIManager.instance.Activate("UIPlayButton", false);
@@ -44,6 +48,9 @@ public class GUIMenuManager : MonoBehaviour
             GUIManager.instance.Activate("UIMainMenu", true);
     }
 
+    /// <summary>
+    /// If user wants to exit appilcation, and checks if it's build in WebGL
+    /// </summary>
     public void QuitButton()
     {
         if (Application.platform == RuntimePlatform.WebGLPlayer)
@@ -56,6 +63,10 @@ public class GUIMenuManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Back to Main Menu will always go back to the Main menu, turning off all 
+    /// other GUI elements and just restore back to original state
+    /// </summary>
     public void BackMainMenuButton()
     {
         GUIManager.instance.Activate("UIPlayButton", true);
@@ -78,26 +89,30 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIHighScores", false);
     }
 
+    /// <summary>
+    /// Pause button will need to be checked every frame
+    /// We will also need to check if the user presses the button during 
+    /// main menus and etc.
+    /// just call GUIMenuManager.PauseButton(), and that should work.
+    /// </summary>
     public static void PauseButton()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            GUIManager.instance.Activate("UIPauseText", true);
-            GUIManager.instance.Activate("UIResumeButton", true);
-            GUIManager.instance.Activate("UIQuitButton", true);
-            GUIManager.instance.Activate("UIMainMenu", true);
-        }
+        GUIManager.instance.Activate("UIPauseText", true);
+        GUIManager.instance.Activate("UIResumeButton", true);
+        GUIManager.instance.Activate("UIQuitButton", true);
+        GUIManager.instance.Activate("UIMainMenu", true);
     }
 
+    /// <summary>
+    /// GameOver should be called when the player is dead,
+    /// Use GUIMenuManager.GameOver(), and it work just fine.
+    /// </summary>
     public static void GameOver()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            GUIManager.instance.Activate("UIGameOver", true);
-            GUIManager.instance.Activate("UIHighScores", true);
-            GUIManager.instance.Activate("UICurrentScore", true);
-            GUIManager.instance.Activate("UIQuitButton", true);
-            GUIManager.instance.Activate("UIMainMenu", true);
-        }
+        GUIManager.instance.Activate("UIGameOver", true);
+        GUIManager.instance.Activate("UIHighScores", true);
+        GUIManager.instance.Activate("UICurrentScore", true);
+        GUIManager.instance.Activate("UIQuitButton", true);
+        GUIManager.instance.Activate("UIMainMenu", true);
     }
 }
