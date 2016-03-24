@@ -135,7 +135,7 @@ public class GameStates : Singleton<GameStates>
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("MainTesting");
+            SceneManager.LoadScene("Main");
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
