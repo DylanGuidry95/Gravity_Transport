@@ -21,5 +21,17 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         scoreText.text = "Score: " + score;
+
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    GUIManager.instance.TurnOn(scoreText.gameObject);
+        //    Debug.Log(gameObject + "On");
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    GUIManager.instance.TurnOff(scoreText.gameObject);
+        //    Debug.Log(gameObject + "Off");
+        //}
     }
 }

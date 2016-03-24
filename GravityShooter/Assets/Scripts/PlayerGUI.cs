@@ -5,7 +5,9 @@ using System.Collections;
 public class PlayerGUI : MonoBehaviour
 {
     public Image imageRenderer;
-    public Sprite[] playerGUI;
+    //public Sprite[] playerGUI;
+    public Sprite[] health;
+    public Sprite[] shield;
 
     /// <summary>
     /// When the player gets hit/damage, the screen will flash red.
@@ -13,25 +15,22 @@ public class PlayerGUI : MonoBehaviour
 
     void Awake()
     {
-        GUIManager.instance.TurnOn(imageRenderer.gameObject);
+        GUIManager.instance.TurnOn(gameObject);
+    }
+ 
+    //0 is 0/3
+    //1 is 1/3
+    //2 is 2/3
+    //3 is 3/3
+    public void HPChange(int hp)
+    {
+        imageRenderer.sprite = health[hp];
     }
 
-    public void PlayerBarGUI(int hp)
+    public void ShieldChange(int shields)
     {
-        switch (hp)
-        {
-            case 1:
-                imageRenderer.sprite = playerGUI[2];
-                break;
-            case 2:
-                imageRenderer.sprite = playerGUI[1];
-                break;
-            case 3:
-                imageRenderer.sprite = playerGUI[0];
-                break;
-            case 0:
-                imageRenderer.sprite = playerGUI[3];
-                break;
-        }
+        imageRenderer.sprite = shield[shields];
     }
+
+ 
 }

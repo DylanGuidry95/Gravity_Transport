@@ -122,7 +122,8 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
         //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
-        playerUI.PlayerBarGUI(currentHealth);
+        // playerUI.PlayerBarGUI(currentHealth);
+        GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
@@ -305,7 +306,7 @@ public class Player : MonoBehaviour
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
             }
         }
-        playerUI.PlayerBarGUI(currentHealth);
+        GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>

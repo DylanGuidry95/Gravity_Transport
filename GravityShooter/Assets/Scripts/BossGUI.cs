@@ -15,9 +15,26 @@ public class BossGUI : MonoBehaviour
 
     void Awake()
     {
-        GUIManager.instance.TurnOff(bossSlider.gameObject);
-        GUIManager.instance.TurnOff(bossName.gameObject);
+       // GUIManager.instance.TurnOff(bossSlider.gameObject);
+       // GUIManager.instance.TurnOff(bossName.gameObject);
     }
+
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.A))
+    //    {
+    //        GUIManager.instance.TurnOn(bossName.gameObject);
+    //        GUIManager.instance.TurnOn(bossSlider.gameObject);
+    //        Debug.Log(gameObject + "On");
+    //    }
+
+    //    if (Input.GetKeyDown(KeyCode.D))
+    //    {
+    //        GUIManager.instance.TurnOff(bossName.gameObject);
+    //        GUIManager.instance.TurnOff(bossSlider.gameObject);
+    //        Debug.Log(gameObject + "Off");
+    //    }
+    //}
 
     void bossGUI()
     {
