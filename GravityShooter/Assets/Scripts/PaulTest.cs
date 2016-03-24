@@ -3,13 +3,8 @@ using System.Collections;
 
 public class PaulTest : MonoBehaviour
 {
-    bool positive = false;
-    int health = 3;
-    void Awake()
-    {
-        
-    }
-    // Update is called once per frame
+    int health = 0;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -36,21 +31,17 @@ public class PaulTest : MonoBehaviour
         {
             GUIManager.instance.Activate("UIScore", true);
         }
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (health >= 3)
-                positive = true;
-            else if (health <= 0)
-                positive = false;
-            if (positive)
-                health--;
-            if (!positive)
-                health++;
-            
-                
+            if (health > 3)
+            {
+                health = 3;
+                GUIManager.instance.Activate("UIPlayer", false);
+            }
+            else
+                GUIManager.instance.ChangeHealth(health);
 
-            GUIManager.instance.ChangeHealth(health);
-
+            health++;
         }
     }
 }

@@ -5,9 +5,6 @@ using System.Collections.Generic;
 
 public class GUIManager : Singleton<GUIManager>
 {
-    public PlayerGUI playerGUI;
-    public BossGUI bossGUI;
-    //public ScoreUI scoreGUI;
     /// <summary>
     /// Singleton = restricts the Instantiation of a class to one object
     /// Static classes are lazy-loaded when they are first referenced, 
@@ -24,44 +21,40 @@ public class GUIManager : Singleton<GUIManager>
     /// Must use instance to access information
     /// Static - they're public but can only be created once
     /// </summary>
-    protected override void Awake()
-    {
-        base.Awake();
-        //create the elements for the dictionary
-        m_elements = new Dictionary<string, GameObject>();
-        foreach(Transform t in GetComponentInChildren<Transform>())
-        {
-            m_elements.Add(t.name, t.gameObject);
-        }
-        PlayerGUI pg = gameObject.GetComponentInChildren<PlayerGUI>();
-        BossGUI bg = gameObject.GetComponentInChildren<BossGUI>();
-        // RegisterObjects();
-    }
+
+    public PlayerGUI playerGUI;
+    public BossGUI bossGUI;
+    public ScoreManager scoreGUI;
+
     /// <summary>
     /// dictionary of all the elements that the gui will have
     /// turn on and turn off using the key
     /// </summary>
     private Dictionary<string, GameObject> m_elements;
-   
-    public void RegisterObjects()
-    {
-        // When the player in game takes damage, 
-        // this function will need to update the player's health
-        // Also I need to keep in mind to update the Boss's health and also Score
-        // it updates by adding it to the list and calling the function again
 
-        List<Transform> Objects = new List<Transform>();
-        foreach (Transform child in transform)
+    protected override void Awake()
+    {
+        // base keeps the orignal function, if you want to change a function, you override it.
+        base.Awake();
+
+        //create the elements for the dictionary
+        m_elements = new Dictionary<string, GameObject>();
+
+        foreach(Transform t in GetComponentInChildren<Transform>())
         {
-            Objects.Add(child);
+            m_elements.Add(t.name, t.gameObject);
         }
+
+        PlayerGUI pg = gameObject.GetComponentInChildren<PlayerGUI>();
+        BossGUI bg = gameObject.GetComponentInChildren<BossGUI>();
+        ScoreManager sg = gameObject.GetComponentInChildren<ScoreManager>();
     }
 
     /// <summary>
     /// either activate or deactivate a gui element
     /// </summary>
     /// <param name="name">string name or key of the gui element</param>
-    /// <param name="state">true is on#false is off</param>
+    /// <param name="state">true is on/false is off</param>
     public void Activate(string name, bool state)
     {   
         m_elements[name].SetActive(state);
@@ -77,7 +70,6 @@ public class GUIManager : Singleton<GUIManager>
     {
         try
         {
-           // m_elements.Add(name, go);
             return true;
         }
         catch
@@ -95,16 +87,4 @@ public class GUIManager : Singleton<GUIManager>
     {
         playerGUI.ShieldChange(num);
     }
-
-
-
-    public void TurnOn(GameObject on)
-    {
-      //  on.SetActive(true);
-    }
-
-    public void TurnOff(GameObject off)
-    {
-      //  off.SetActive(false);
-    }    
 }
