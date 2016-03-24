@@ -93,9 +93,6 @@ public class GameStates : Singleton<GameStates>
         _fsm.AddTransition(GAMESTATE.gameOver, GAMESTATE.mainMenu, false);
         //endGame -> exit
         _fsm.AddTransition(GAMESTATE.gameOver, GAMESTATE.exit, false);
-        
-         
-
     }
 
     void StateProperties()
@@ -129,7 +126,7 @@ public class GameStates : Singleton<GameStates>
         StateProperties();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.T) && FindObjectOfType<Player>() == null)
         {
@@ -139,6 +136,20 @@ public class GameStates : Singleton<GameStates>
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("MainTesting");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.timeScale != 0)
+            {
+                Time.timeScale = 0;
+                _fsm.Transition(_fsm.state, GAMESTATE.pauseMenu);
+            }            
+            else
+            {
+                Time.timeScale = 1;
+                _fsm.Transition(_fsm.state,GAMESTATE.gamePlay);
+            }
+
         }
     }
 }
