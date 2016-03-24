@@ -74,9 +74,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletPreb: {fileID: 172252, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
-  RestPoint: {fileID: 0}
   BulletSpeed: 10
-  EnemySpeed: 10
+  EnemySpeed: 0.1
   amo: 5
   delay: 3
 --- !u!212 &21290704
@@ -135,6 +134,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: EnemySpeed
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
