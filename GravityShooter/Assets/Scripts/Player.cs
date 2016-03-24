@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
 
 
-    public PlayerGUI playerUI;
+    private PlayerGUI playerUI;
 
     private bool atTop;
     private bool atBot;
