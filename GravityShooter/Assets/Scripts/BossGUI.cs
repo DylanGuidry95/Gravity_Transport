@@ -15,8 +15,6 @@ public class BossGUI : MonoBehaviour
 
     void Awake()
     {
-        Messenger.AddListener("Boss Created", bossGUI);
-        Messenger.AddListener("Boss took damage", bossGUI);
         GUIManager.instance.TurnOff(bossSlider.gameObject);
         GUIManager.instance.TurnOff(bossName.gameObject);
     }
@@ -24,7 +22,6 @@ public class BossGUI : MonoBehaviour
     void bossGUI()
     {
         // When the boss appears, I need to turn on the bossSlider and bossName on.
-
         if (bossSlider.value == 0)
         {
             GUIManager.instance.TurnOff(bossSlider.gameObject);

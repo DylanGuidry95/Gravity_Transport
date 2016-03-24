@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
 
     private FSM<PLAYERSTATES> _fsm; //Used a refrence to an instance of the state machine for the player
 
+    List<KeyCode> PlayerControls = new List<KeyCode>();
+
     [Header("Lives and Health")]
     [SerializeField]
     private int maxHealth; //Max amount of health the player can have at any time during the game
@@ -72,6 +74,9 @@ public class Player : MonoBehaviour
 
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
 
+
+    private PlayerGUI playerUI;
+
     private bool atTop;
     private bool atBot;
     [SerializeField]
@@ -80,8 +85,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GravityWell well;
-    [SerializeField]
-    private ScreenBorders border;
+
     [SerializeField]
     private float padding = 0.5f;
     //Power ups will go here later on in development
@@ -95,8 +99,6 @@ public class Player : MonoBehaviour
     {
         _fsm = new FSM<PLAYERSTATES>();
         AddToFSM();
-        PlayerListen();
-        border = FindObjectOfType<ScreenBorders>();
     }
 
     /// <summary>
@@ -106,12 +108,12 @@ public class Player : MonoBehaviour
     void Start()
     {
         gameObject.name = "Player";
-        PlayerBroadcast();
         CheckPlayerBounds();
         currentHealth = maxHealth;
         livesRemaining = maxLives;
-
+        SetPlayerControls();
         well = FindObjectOfType<GravityWell>();
+        playerUI = FindObjectOfType<PlayerGUI>();
         foreach(SpringJoint2D s in gameObject.GetComponents<SpringJoint2D>())
         {
             s.connectedBody = well.GetComponent<Rigidbody2D>();
@@ -120,24 +122,7 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
         //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
-    }
-
-    /// <summary>
-    /// Braodcasts messages from the player to be listened to some other object
-    /// when the player is created
-    /// </summary>
-    void PlayerBroadcast()
-    {
-        Messenger.Broadcast<int>("Player Created", maxHealth); //Listend to by the GUI
-    }
-
-    /// <summary>
-    /// Sets the messages the player will be listening for
-    /// all messages recived will be sent into the PlayerActionTriggers function as arguments
-    /// </summary>
-    void PlayerListen()
-    {
-        Messenger.AddListener<string>("User triggered the", PlayerActionTriggers); //Braodcasted from the InputHandler
+        playerUI.PlayerBarGUI(currentHealth);
     }
 
     /// <summary>
@@ -177,13 +162,14 @@ public class Player : MonoBehaviour
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
 
-        PlayerSpawn();
-
         if (Input.GetKeyDown(KeyCode.C))
             PlayerDamage();
 
-        if(_fsm.state != PLAYERSTATES.dead)
+        PlayerSpawn();
+
+        if (_fsm.state != PLAYERSTATES.dead)
         {
+            PlayerMovement();
             if (buttonDownTime == 0)
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
             ///////////////////////////////////////////////
@@ -215,7 +201,6 @@ public class Player : MonoBehaviour
             //To move the object we take its current position and add it to the velocity * how long any of the movement keys have been held down for
             transform.position += velocity * buttonDownTime;
             //Sets the buttonDownTime to 0 to stop the player from moving while no movement inputs are happening
-            buttonDownTime = 0;
             ///////////////////////////////////////////////
         }
     }
@@ -228,30 +213,33 @@ public class Player : MonoBehaviour
     /// <param name="dir">
     /// s should be a direction we want the player to move in
     /// </param>
-    void PlayerMovement(string dir)
+    void PlayerMovement()
     {
-        //When this function is called the timer for how long a key has been pressed will start
-        buttonDownTime = Time.deltaTime * movementSpeed;
-
-        if (dir == "Up")
+        foreach(KeyCode kc in PlayerControls)
         {
-            //If true accelerates the player in the positive y
-            acceleration += new Vector3(0, 1, 0) * movementSpeed;
-        }
-        if (dir == "Down")
-        {
-            //If true accelerates the player in the negative y
-            acceleration += new Vector3(0, -1, 0) * movementSpeed;
-        }
-        if (dir == "Left")
-        {
-            //If true accelerates the player in the negative x
-            acceleration += new Vector3(-1, 0, 0) * movementSpeed;
-        }
-        if (dir == "Right")
-        {
-            //If true accelerates the player in the positive x
-            acceleration += new Vector3(1, 0, 0) * movementSpeed;
+            if (Input.GetKey(kc))
+            {
+                buttonDownTime = Time.deltaTime * movementSpeed;
+                switch (kc)
+                {
+                    case KeyCode.W:
+                        acceleration += new Vector3(0, 1, 0);
+                        break;
+                    case KeyCode.S:
+                        acceleration += new Vector3(0, -1, 0);
+                        break;
+                    case KeyCode.D:
+                        acceleration += new Vector3(1, 0, 0);
+                        break;
+                    case KeyCode.A:
+                        acceleration += new Vector3(-1, 0, 0);
+                        break;
+                }
+            } 
+            if(Input.GetKeyUp(kc))
+            {
+                buttonDownTime = 0;
+            }         
         }
     }
 
@@ -272,7 +260,6 @@ public class Player : MonoBehaviour
         {
             //If true we will call PlayerMovement  and pass the string at the third index as an arguement
             //into the function call
-            PlayerMovement(temp[2]);
             _fsm.Transition(_fsm.state, PLAYERSTATES.flying);
         }
     }
@@ -280,6 +267,11 @@ public class Player : MonoBehaviour
     void OnTriggerEnter2D(Collider2D c)
     {
         if (c.GetComponent<Projectile>() != null)
+        {
+            PlayerDamage();
+            Destroy(c.gameObject);
+        }
+        if(c.GetComponent<SmallEnemy>() != null)
         {
             PlayerDamage();
             Destroy(c.gameObject);
@@ -295,7 +287,6 @@ public class Player : MonoBehaviour
     {
         _cAction = PLAYERACTIONS.takeDamage;
         currentHealth -= 1;
-        Messenger.Broadcast<int>("Player took damage", currentHealth); //Listened to by the GUI
         if(currentHealth == 0)
         {
             _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
@@ -308,14 +299,13 @@ public class Player : MonoBehaviour
                 well.transform.position = spawnPosition;
                 PlayerSpawn();
                 currentHealth = maxHealth;
-                PlayerBroadcast();
             }
             else if (livesRemaining < 0)
             {
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
-                Messenger.Broadcast("Player has died"); //Listened to by the GameState manager
             }
         }
+        playerUI.PlayerBarGUI(currentHealth);
     }
 
     /// <summary>
@@ -339,7 +329,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    [ContextMenu("Spawn")]
+    /// <summary>
+    /// Spawns the player into the scene and does its spawn animation
+    /// </summary>
     void PlayerSpawn()
     {
         GetComponent<MeshRenderer>().enabled = true;
@@ -360,9 +352,9 @@ public class Player : MonoBehaviour
     /// </summary>
     void CheckPlayerBounds()
     {
-        if (_fsm.state != PLAYERSTATES.dead && border != null)
+        if (_fsm.state != PLAYERSTATES.dead)
         {
-            if (transform.position.x >= border.TopRight.x - padding)
+            if (transform.position.x >= ScreenBorders.m_topRight.x - padding)
             {
                 atRight = true;
             }
@@ -370,7 +362,7 @@ public class Player : MonoBehaviour
             {
                 atRight = false;
             }
-            if (transform.position.x <= border.BottomLeft.x + padding)
+            if (transform.position.x <= ScreenBorders.m_bottomLeft.x + padding)
             {
                 atLeft = true;
             }
@@ -378,7 +370,7 @@ public class Player : MonoBehaviour
             {
                 atLeft = false;
             }
-            if (transform.position.y >= border.TopRight.y - padding)
+            if (transform.position.y >= ScreenBorders.m_topRight.y - padding)
             {
                 atTop = true;
             }
@@ -386,7 +378,7 @@ public class Player : MonoBehaviour
             {
                 atTop = false;
             }
-            if (transform.position.y <= border.BottomLeft.y + padding)
+            if (transform.position.y <= ScreenBorders.m_bottomLeft.y + padding)
             {
                 atBot = true;
             }
@@ -395,5 +387,16 @@ public class Player : MonoBehaviour
                 atBot = false;
             }
         } 
+    }
+
+    /// <summary>
+    /// Defines the controls the player uses for various actions
+    /// </summary>
+    void SetPlayerControls()
+    {
+        PlayerControls.Add(KeyCode.W);
+        PlayerControls.Add(KeyCode.S);
+        PlayerControls.Add(KeyCode.D);
+        PlayerControls.Add(KeyCode.A);
     }
 }
