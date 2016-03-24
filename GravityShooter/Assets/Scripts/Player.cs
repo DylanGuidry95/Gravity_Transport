@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
         //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
-        // playerUI.PlayerBarGUI(currentHealth);
+        GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
@@ -260,6 +260,7 @@ public class Player : MonoBehaviour
     /// and also does the checks to see how much health the player has left
     /// along with how many lives it has remaning.
     /// </summary>
+    [ContextMenu("DMG")]
     void PlayerDamage()
     {
         _cAction = PLAYERACTIONS.takeDamage;
@@ -282,7 +283,7 @@ public class Player : MonoBehaviour
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
             }
         }
-
+        GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
