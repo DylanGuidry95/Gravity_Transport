@@ -19,6 +19,7 @@ public class GravityWell : MonoBehaviour
                 {
                     case GRAV.INIT:
                         gameObject.GetComponent<AudioSource>().pitch += 0.25f;
+                        g.entity.GetComponent<Projectile>().isEnemy = false;
                         g.state = GRAV.ENTER;
                         break;
 
