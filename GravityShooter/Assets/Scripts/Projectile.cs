@@ -6,7 +6,15 @@ public class Projectile : MonoBehaviour
 {
     void Start()
     {
-        FindObjectOfType<AudioManager>().PlayLaserAudio();
+        switch (type)
+        {
+            case TYPE.LASER:
+                FindObjectOfType<AudioManager>().PlayLaserAudio();
+                break;
+            case TYPE.ROCKET:
+                FindObjectOfType<AudioManager>().PlayRocketAudio();
+                break;
+        }
         isEnemy = true;
     }
 
@@ -21,6 +29,13 @@ public class Projectile : MonoBehaviour
         }
      }
 
+    public enum TYPE
+    {
+        LASER,
+        ROCKET,
+    }
+
+    public TYPE type;
     public int damage;
     public float speed;
     public bool isEnemy;

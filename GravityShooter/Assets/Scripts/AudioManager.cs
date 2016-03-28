@@ -28,6 +28,12 @@ public class AudioManager : Singleton<AudioManager>
             StartCoroutine(CreateAndPlayAudio(Laser));
     }
 
+    public void PlayRocketAudio()
+    {
+        if (Rocket)
+            StartCoroutine(CreateAndPlayAudio(Rocket));
+    }
+
     public void PlayExplodeAudio()
     {
         if (Explode)
@@ -35,5 +41,6 @@ public class AudioManager : Singleton<AudioManager>
     }
 
     public AudioClip Laser;
+    public AudioClip Rocket;
     public AudioClip Explode;
 }
