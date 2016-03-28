@@ -126,5 +126,4 @@ public class MdEnemy : EnemyBase
             fireDelay = 1;
         }
     }
-
 }
