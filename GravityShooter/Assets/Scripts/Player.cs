@@ -158,6 +158,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
+
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
 
@@ -165,6 +166,8 @@ public class Player : MonoBehaviour
 
         if (_fsm.state != PLAYERSTATES.dead)
         {
+            PlayerMouseMovement();
+
             PlayerMovement();
             if (buttonDownTime == 0)
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
@@ -246,6 +249,15 @@ public class Player : MonoBehaviour
     }
 
 
+    void PlayerMouseMovement()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            Vector3 screenPoint = Input.mousePosition;
+            screenPoint.z = 10;
+            transform.position -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)) * (Time.deltaTime * 1);
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D c)
     {
