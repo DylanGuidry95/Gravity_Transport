@@ -322,7 +322,6 @@ public class Player : MonoBehaviour
         {
             _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
         }
-
     }
 
     /// <summary>
