@@ -253,9 +253,14 @@ public class Player : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
+            buttonDownTime = Time.deltaTime * movementSpeed;
             Vector3 screenPoint = Input.mousePosition;
             screenPoint.z = 10;
-            transform.position -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)) * (Time.deltaTime * 1);
+            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            buttonDownTime = 0;
         }
     }
 
@@ -285,7 +290,6 @@ public class Player : MonoBehaviour
             if (livesRemaining >= 0)
             {
                 _cAction = PLAYERACTIONS.die;
-                GetComponent<MeshRenderer>().enabled = false;
                 transform.position = spawnPosition;
                 well.transform.position = spawnPosition;
                 PlayerSpawn();
@@ -325,7 +329,6 @@ public class Player : MonoBehaviour
     /// </summary>
     void PlayerSpawn()
     {
-        GetComponent<MeshRenderer>().enabled = true;
         if (Vector3.Distance(transform.position, startPosition) > .1 && _fsm.state == PLAYERSTATES.dead)
         {
             transform.position += new Vector3(1, 0, 0) * (Time.deltaTime * movementSpeed);

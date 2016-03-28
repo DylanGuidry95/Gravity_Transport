@@ -7,7 +7,6 @@ public class SmEnemy : EnemyBase
 	protected override void Start()
     {
         base.Start();
-        SpawnPosition = new Vector3(1f, 0, 0);
 	}
 
     protected override void GenerateFSM()

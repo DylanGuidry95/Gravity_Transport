@@ -29,6 +29,7 @@ public class EnemyBase : MonoBehaviour
 
     protected Player player;
     protected GameObject bullet;
+    [SerializeField]
     protected Vector3 SpawnPosition;
 
     [SerializeField]
@@ -75,7 +76,7 @@ public class EnemyBase : MonoBehaviour
     {
         if (timer >= fireDelay && player != null && ammoAvailiable > 0)
         {
-            bullet = Instantiate(Resources.Load("Bullet"), transform.position + transform.right * -transform.localScale.x, Quaternion.identity) as GameObject;
+            bullet = Instantiate(Resources.Load("Bullet"), transform.position + transform.right * -transform.localScale.x, transform.localRotation) as GameObject;
 
             Vector2 Look_at_player = (player.transform.position - transform.position).normalized;
             bullet.GetComponent<Rigidbody2D>().velocity = Look_at_player.normalized * bulletSpeed;
@@ -84,9 +85,9 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    virtual protected void OnTriggerEnter(Collider c)
+    virtual protected void OnTriggerEnter2D(Collider2D c)
     {
-        if(c.GetComponent<Projectile>())
+        if(c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false)
         {
             Destroy(c.gameObject);
             Destroy(this.gameObject);

@@ -15,7 +15,6 @@ public class MdEnemy : EnemyBase
         ammoCapacity = 500;
         hp = 2;
         base.Start();
-        SpawnPosition = new Vector3(2, 1, 0);
     }
 
     protected override void GenerateFSM()
