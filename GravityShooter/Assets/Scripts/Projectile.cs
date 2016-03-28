@@ -4,4 +4,8 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
+    void Start()
+    {
+        FindObjectOfType<AudioManager>().PlayLaserAudio();
+    }
 }
