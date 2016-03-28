@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GUIMenuManager : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class GUIMenuManager : MonoBehaviour
 /// </summary>
     void Awake()
     {
+        //SceneManager.LoadScene("MainMenu");
         GUIManager.instance.Activate("UITitle", true);
         GUIManager.instance.Activate("UIPlayButton", true);
         GUIManager.instance.Activate("UIOptionsButton", true);
@@ -27,8 +30,8 @@ public class GUIMenuManager : MonoBehaviour
             GUIManager.instance.Activate("UIQuitButton", false);
 
             GUIManager.instance.Activate("UIPlayer", true);
-            GUIManager.instance.Activate("UIBoss", true);
             GUIManager.instance.Activate("UIScore", true);
+            GUIManager.instance.Activate("UIBoss", false);
     }
 
     /// <summary>
