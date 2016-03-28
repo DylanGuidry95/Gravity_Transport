@@ -180,7 +180,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
       propertyPath: EntityWaves.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 493718, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
       propertyPath: m_LocalPosition.x
