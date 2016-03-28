@@ -8,4 +8,7 @@ public class Projectile : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().PlayLaserAudio();
     }
+
+    public int damage;
+    public float speed;
 }
