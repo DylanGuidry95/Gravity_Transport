@@ -22,21 +22,90 @@ public class GUIManager : Singleton<GUIManager>
     /// Static - they're public but can only be created once
     /// </summary>
 
-    public void TurnOn(GameObject on)
+    public PlayerGUI playerGUI;
+    public BossGUI bossGUI;
+    public ScoreManager scoreGUI;
+
+    /// <summary>
+    /// dictionary of all the elements that the gui will have
+    /// turn on and turn off using the key
+    /// </summary>
+    private Dictionary<string, GameObject> m_elements;
+
+    protected override void Awake()
     {
-        on.SetActive(true);
+        // base keeps the orignal function, if you want to change a function, you override it.
+        base.Awake();
+
+        //create the elements for the dictionary
+        m_elements = new Dictionary<string, GameObject>();
+
+        foreach(Transform t in GetComponentInChildren<Transform>())
+        {
+            m_elements.Add(t.name, t.gameObject);
+        }
+
+        PlayerGUI pg = gameObject.GetComponentInChildren<PlayerGUI>();
+        BossGUI bg = gameObject.GetComponentInChildren<BossGUI>();
+        ScoreManager sg = gameObject.GetComponentInChildren<ScoreManager>();
     }
 
-    public void TurnOff(GameObject off)
-    {
-        off.SetActive(false);
+    /// <summary>
+    /// either activate or deactivate a gui element
+    /// </summary>
+    /// <param name="name">string name or key of the gui element</param>
+    /// <param name="state">true is on/false is off</param>
+    public void Activate(string name, bool state)
+    {   
+        m_elements[name].SetActive(state);
     }
 
-    public void GuiUpdate(GameObject updateGUI)
+    /// <summary>
+    /// let gui elements add themselves to this guimanager
+    /// </summary>
+    /// <param name="name">the string name of the go</param>
+    /// <param name="go">the actual go</param>
+    /// <returns></returns>
+    public bool Register(string name, GameObject go)
     {
-        // When the player in game takes damage, 
-        // this function will need to update the player's health
-        // Also I need to keep in mind to update the Boss's health
-        // And also Score
+        try
+        {
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public void ChangeHealth(int num)
+    {
+        playerGUI.HPChange(num);
+    }
+
+    public void ChangeShield(int num)
+    {
+        playerGUI.ShieldChange(num);
     }
 }
+
+/*
+GUIManager.instance.Activate("UIScore", true);
+
+int health = 3;
+	void Update ()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            if(health < 0)
+            {
+                health = 0;
+                GUIManager.instance.Activate("UIPlayer", false);
+            }
+            else
+                GUIManager.instance.ChangeHealth(health);
+
+            health--;
+        }
+	}
+*/

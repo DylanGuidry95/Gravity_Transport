@@ -13,19 +13,12 @@ public class BossGUI : MonoBehaviour
     public Slider bossSlider;
     public int damage = 10;
 
-    void Awake()
-    {
-        GUIManager.instance.TurnOff(bossSlider.gameObject);
-        GUIManager.instance.TurnOff(bossName.gameObject);
-    }
-
     void bossGUI()
     {
         // When the boss appears, I need to turn on the bossSlider and bossName on.
         if (bossSlider.value == 0)
         {
-            GUIManager.instance.TurnOff(bossSlider.gameObject);
-            GUIManager.instance.TurnOff(bossName.gameObject);
+            GUIManager.instance.Activate("UIBoss", false);
         }
     }
 }

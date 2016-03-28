@@ -8,15 +8,21 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     public GameObject BulletPreb;
 
     public int BulletSpeed;
+    public float EnemySpeed;
     public int amo;
     public float delay;
     private float timer;
-    private int count;
+
+    private Vector3 EnemyPos;
+
+    bool turn_movement_on;
+    bool found;
+    
 
     void Start ()
     {
-        count = 1;
         StartCoroutine(findPlayer());
+        turn_movement_on = true;
     }
 
     IEnumerator findPlayer()
@@ -32,12 +38,11 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     {
         if (player != null)
         {
-            //Vector2 accuracy = new Vector2(0, Random.Range(-0.1f, 0.1f));
             GameObject bullet = Instantiate(BulletPreb) as GameObject;
             bullet.transform.position = transform.position + transform.right * -2;
-        
-            Vector2 playerDir = (player.transform.position - transform.position).normalized;
-            bullet.GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
+
+            Vector2 Look_at_player = (player.transform.position - transform.position).normalized;
+            bullet.GetComponent<Rigidbody2D>().velocity = Look_at_player.normalized * BulletSpeed;
         }
     }
 
@@ -45,7 +50,7 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
     {
         return true;
     }
-    
+
     public void movement()
     {
         if (player != null)
@@ -54,32 +59,49 @@ public class SmallEnemy : MonoBehaviour, EnemyManager
         }
     }
 
+    void MoveTowardPlayer()
+    {
+        if (player != null)
+        {
+            EnemyPos = transform.position;
+            Vector2 playerDir = player.transform.position - EnemyPos;
+            Vector3 enemyToPlayer = player.transform.position - transform.position;
+
+            Rigidbody2D enemyRB = GetComponent<Rigidbody2D>();
+            //float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            //Vector3 forceDir = enemyToPlayer.normalized;
+            enemyRB.velocity = transform.forward * EnemySpeed;
+            //enemyRB.AddForce(new Vector2(transform.forward.x, transform.forward.y)* EnemySpeed);
+        }
+    }
+
     void FixedUpdate ()
     {
-        movement();
-
         timer += Time.deltaTime;
         if (timer > delay)
         {
-            if (count > amo)
+            if (amo == 0)
             {
-                if (player != null)
-                {
-                    Vector2 playerDir = (player.transform.position - transform.position).normalized;
-                    GetComponent<Rigidbody2D>().velocity = playerDir.normalized * BulletSpeed;
-                }
+                //MoveTowardPlayer();
+                float enemyAngel = transform.eulerAngles.z * Mathf.Deg2Rad;
+                transform.position -= new Vector3(Mathf.Cos(enemyAngel), Mathf.Sin(enemyAngel), 0) * EnemySpeed;
+                turn_movement_on = false;
             }
             else
             {
-                count++;
+                amo--;
                 Fire();
                 timer = 0;
             }
         }
+
+        if (turn_movement_on == true)
+        {
+            movement();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
-
     {
         if (other.GetComponent<Projectile>())
         {

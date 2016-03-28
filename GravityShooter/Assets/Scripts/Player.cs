@@ -74,10 +74,13 @@ public class Player : MonoBehaviour
 
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
 
+    [SerializeField]
     private bool atTop;
+    [SerializeField]
     private bool atBot;
     [SerializeField]
     private bool atLeft;
+    [SerializeField]
     private bool atRight;
 
     [SerializeField]
@@ -118,6 +121,7 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
         //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
+        GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
@@ -156,9 +160,6 @@ public class Player : MonoBehaviour
     {
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
-
-        if (Input.GetKeyDown(KeyCode.C))
-            PlayerDamage();
 
         PlayerSpawn();
 
@@ -214,6 +215,10 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKey(kc))
             {
+                if(_fsm.state != PLAYERSTATES.flying)
+                {
+                    _fsm.Transition(_fsm.state, PLAYERSTATES.flying);
+                }
                 buttonDownTime = Time.deltaTime * movementSpeed;
                 switch (kc)
                 {
@@ -234,39 +239,17 @@ public class Player : MonoBehaviour
             if(Input.GetKeyUp(kc))
             {
                 buttonDownTime = 0;
+                acceleration = Vector3.zero;
+                _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
             }         
         }
     }
 
-    /// <summary>
-    /// When the player hears a message it is listening for this function is called
-    /// It will parse the msg and depending on the message it recives different functions
-    /// will be called
-    /// </summary>
-    /// <param name="msg">
-    /// msg is the message the player was listening for
-    /// </param>
-    void PlayerActionTriggers(string msg)
-    {
-        //parses through the message and divides it twice once at the ':' and once and the '_'
-        string[] temp = msg.Split(':','_');
-        //Checks to see if the string at the index after the first split which is after the ':' character equals "Movement"
-        if (temp[1] == "Movement")
-        {
-            //If true we will call PlayerMovement  and pass the string at the third index as an arguement
-            //into the function call
-            _fsm.Transition(_fsm.state, PLAYERSTATES.flying);
-        }
-    }
+
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.GetComponent<Projectile>() != null)
-        {
-            PlayerDamage();
-            Destroy(c.gameObject);
-        }
-        if(c.GetComponent<SmallEnemy>() != null)
+        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmallEnemy>() != null)
         {
             PlayerDamage();
             Destroy(c.gameObject);
@@ -278,6 +261,7 @@ public class Player : MonoBehaviour
     /// and also does the checks to see how much health the player has left
     /// along with how many lives it has remaning.
     /// </summary>
+    [ContextMenu("DMG")]
     void PlayerDamage()
     {
         _cAction = PLAYERACTIONS.takeDamage;
@@ -300,6 +284,7 @@ public class Player : MonoBehaviour
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
             }
         }
+        GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
