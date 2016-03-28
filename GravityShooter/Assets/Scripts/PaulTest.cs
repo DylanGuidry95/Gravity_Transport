@@ -12,11 +12,17 @@ public class PaulTest : MonoBehaviour
             {
                 health = 0;
                 GUIManager.instance.Activate("UIPlayer", false);
+                GUIMenuManager.GameOver();
             }
             else
                 GUIManager.instance.ChangeHealth(health);
 
             health--;
+        }
+
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            GUIMenuManager.PauseButton();
         }
 	}
 }

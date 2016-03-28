@@ -1,17 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GUIMenuManager : MonoBehaviour
 {
-/// <summary>
-/// When the game starts, the main menu shows up
-/// </summary>
-    void Awake()
+    public static void MainMenu()
     {
-        //SceneManager.LoadScene("MainMenu");
         GUIManager.instance.Activate("UITitle", true);
         GUIManager.instance.Activate("UIPlayButton", true);
         GUIManager.instance.Activate("UIOptionsButton", true);
@@ -19,25 +13,23 @@ public class GUIMenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// When the play button is called, the main menu will disappear and UI interface
-    /// will appear.
+    /// When the play button is called, Game Play scene will be loaded in
     /// </summary>
-    public void PlayButton()
+    public static void PlayButton()
     {
-            GUIManager.instance.Activate("UITitle", false);
-            GUIManager.instance.Activate("UIPlayButton", false);
-            GUIManager.instance.Activate("UIOptionsButton", false);
-            GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UITitle", false);
+        GUIManager.instance.Activate("UIPlayButton", false);
+        GUIManager.instance.Activate("UIOptionsButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
 
-            GUIManager.instance.Activate("UIPlayer", true);
-            GUIManager.instance.Activate("UIScore", true);
-            GUIManager.instance.Activate("UIBoss", false);
+        GUIManager.instance.Activate("UIPlayer", true);
+        GUIManager.instance.Activate("UIScore", true);
     }
 
     /// <summary>
-    /// If the user hits the options, mainly it's just Audio/sound effects
+    /// When the Optiton Button is called, gui elements just turn on/off for audio
     /// </summary>
-    public void OptionButton()
+    public static void OptionButton()
     {
             GUIManager.instance.Activate("UIPlayButton", false);
             GUIManager.instance.Activate("UIOptionsButton", false);
@@ -48,13 +40,13 @@ public class GUIMenuManager : MonoBehaviour
             GUIManager.instance.Activate("UIMusicToggleSlider", true);
             GUIManager.instance.Activate("UISoundEffectsToggle", true);
             GUIManager.instance.Activate("UISoundEffectsSlider", true);
-            GUIManager.instance.Activate("UIMainMenu", true);
+            GUIManager.instance.Activate("UIBackButton", true);
     }
 
     /// <summary>
     /// If user wants to exit appilcation, and checks if it's build in WebGL
     /// </summary>
-    public void QuitButton()
+    public static void QuitButton()
     {
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
@@ -67,36 +59,29 @@ public class GUIMenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Back to Main Menu will always go back to the Main menu, turning off all 
-    /// other GUI elements and just restore back to original state
+    /// Button just made to go backwards in Main Menu
     /// </summary>
-    public void BackMainMenuButton()
+    public static void BackButton()
     {
         GUIManager.instance.Activate("UIPlayButton", true);
         GUIManager.instance.Activate("UIOptionsButton", true);
         GUIManager.instance.Activate("UIQuitButton", true);
 
-        GUIManager.instance.Activate("UIPlayer", false);
-        GUIManager.instance.Activate("UIBoss", false);
-        GUIManager.instance.Activate("UIScore", false);
         GUIManager.instance.Activate("UIAudioText", false);
         GUIManager.instance.Activate("UIMusicToggle", false);
         GUIManager.instance.Activate("UIMusicToggleSlider", false);
         GUIManager.instance.Activate("UISoundEffectsToggle", false);
         GUIManager.instance.Activate("UISoundEffectsSlider", false);
-        GUIManager.instance.Activate("UIMainMenu", false);
+        GUIManager.instance.Activate("UIBackButton", false);
         GUIManager.instance.Activate("UIPauseText", false);
         GUIManager.instance.Activate("UIResumeButton", false);
         GUIManager.instance.Activate("UIGameOver", false);
-        GUIManager.instance.Activate("UICurrentScore", false);
         GUIManager.instance.Activate("UIHighScores", false);
     }
 
     /// <summary>
-    /// Pause button will need to be checked every frame
-    /// We will also need to check if the user presses the button during 
-    /// main menus and etc.
-    /// just call GUIMenuManager.PauseButton(), and that should work.
+    /// PauseButton will pause the game play
+    /// Needs to be checked every frame in gameplay scene
     /// </summary>
     public static void PauseButton()
     {
@@ -107,8 +92,7 @@ public class GUIMenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// GameOver should be called when the player is dead,
-    /// Use GUIMenuManager.GameOver(), and it work just fine.
+    /// Should be called when user completed level or has died
     /// </summary>
     public static void GameOver()
     {
