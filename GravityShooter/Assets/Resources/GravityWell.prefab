@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speedModifier: 1
-  m_gravMax: 9
+  m_gravMax: 1
 --- !u!212 &21261734
 SpriteRenderer:
   m_ObjectHideFlags: 1
