@@ -8,21 +8,18 @@ public class LevelLoader : MonoBehaviour
     /// <summary>
     /// Will go back to the main menu scene
     /// </summary>
-    //public void BackMainMenuButton()
-    //{
-    //    SceneManager.LoadScene("GamePlay");
-    //    SceneManager.LoadScene("MainMenu");
-    //}
+
+    GUIMenuManager loadingMenus;
 
     public void Mainmenu()
     {
-        GUIMenuManager.MainMenu();
+        loadingMenus.MainMenu();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void GamePlay()
     {
-        GUIMenuManager.PlayButton();
-        SceneManager.LoadScene("GamePlayGUI");
-        SceneManager.SetActiveScene("MainMenuGUI", false);
+        loadingMenus.PlayButton();
+        SceneManager.LoadScene("GamePlay");
     }
 }

@@ -1,11 +1,23 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
 public class GUIMenuManager : MonoBehaviour
 {
-    public static void MainMenu()
+    /// <summary>
+    /// Main Menu by just activing some GUI elements
+    /// </summary>
+    public void MainMenu()
     {
+        GUIManager.instance.Activate("UIPauseText", false);
+        GUIManager.instance.Activate("UIResumeButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UIMainMenu", false);
+        GUIManager.instance.Activate("UIGameOver", false);
+        GUIManager.instance.Activate("UIHighScores", false);
+        GUIManager.instance.Activate("UICurrentScore", false);
+
         GUIManager.instance.Activate("UITitle", true);
         GUIManager.instance.Activate("UIPlayButton", true);
         GUIManager.instance.Activate("UIOptionsButton", true);
@@ -15,7 +27,7 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// When the play button is called, Game Play scene will be loaded in
     /// </summary>
-    public static void PlayButton()
+    public void PlayButton()
     {
         GUIManager.instance.Activate("UITitle", false);
         GUIManager.instance.Activate("UIPlayButton", false);
@@ -29,7 +41,7 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// When the Optiton Button is called, gui elements just turn on/off for audio
     /// </summary>
-    public static void OptionButton()
+    public void OptionButton()
     {
             GUIManager.instance.Activate("UIPlayButton", false);
             GUIManager.instance.Activate("UIOptionsButton", false);
@@ -46,7 +58,7 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// If user wants to exit appilcation, and checks if it's build in WebGL
     /// </summary>
-    public static void QuitButton()
+    public void QuitButton()
     {
         if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
@@ -61,7 +73,7 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// Button just made to go backwards in Main Menu
     /// </summary>
-    public static void BackButton()
+    public void BackButton()
     {
         GUIManager.instance.Activate("UIPlayButton", true);
         GUIManager.instance.Activate("UIOptionsButton", true);
