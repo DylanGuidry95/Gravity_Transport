@@ -90,7 +90,12 @@ public class EnemyBase : MonoBehaviour
         if(c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false)
         {
             Destroy(c.gameObject);
-            Destroy(this.gameObject);
+            hp--;
+            if(hp == 0)
+            {
+                Destroy(this.gameObject);
+                FindObjectOfType<AudioManager>().PlayExplodeAudio();
+            }
         }
     }
 

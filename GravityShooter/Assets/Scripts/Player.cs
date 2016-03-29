@@ -285,6 +285,7 @@ public class Player : MonoBehaviour
         currentHealth -= 1;
         if(currentHealth == 0)
         {
+            FindObjectOfType<AudioManager>().PlayExplodeAudio();
             _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
             livesRemaining -= 1;
             if (livesRemaining >= 0)
@@ -317,10 +318,6 @@ public class Player : MonoBehaviour
             case PLAYERACTIONS.die:
                 //Plays the death animation
                 break;
-            case PLAYERACTIONS.spawn:
-                //Plays the spawn animation
-                break;
-
         }
     }
 

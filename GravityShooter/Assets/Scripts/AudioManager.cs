@@ -36,11 +36,15 @@ public class AudioManager : Singleton<AudioManager>
 
     public void PlayExplodeAudio()
     {
-        if (Explode)
+        int rand = Random.Range(1, 10);
+        if (Explode && rand < 7)
             StartCoroutine(CreateAndPlayAudio(Explode));
+        else if(EXPLOSIONS && rand > 7)
+            StartCoroutine(CreateAndPlayAudio(EXPLOSIONS));
     }
 
     public AudioClip Laser;
     public AudioClip Rocket;
     public AudioClip Explode;
+    public AudioClip EXPLOSIONS;
 }
