@@ -9,35 +9,41 @@
     <script src="TemplateData/UnityProgress.js"></script>
   </head>
   <body class="template">
-    <p class="header"><span>Unity WebGL Player | </span>GravityTransport 	<br>
-	<h1>Controls</h1><br>
-	<p>
-	W - Move up;<br>
-	S - Move down;<br>
-	A - Move left;<br>
-	D - Move right;<br>
-	Escape - Pause;<br>
-	R - Reload Game;<br>
-	T - Start Game;<br></p>
+  <div style="float:left;">
+  <u><b>Controls</u></b><br>
+  W - Up<br>
+  S - Down<br>
+  A - Left<br>
+  D - Right<br>
+  T - Start<br>
+  R - Reload Game<br>
+  <br>
+  <u><b>How to Play</u></b><br>
+  Reflect projectiles back at<br>
+  the Enemy ships to destroy<br>
+  them using the gravity well<br>
+  behind your ship.<br>
+  </div>
+    <p class="header"><span>Unity WebGL Player | </span>GravityShooter</p>
     <div class="template-wrap clear">
-      <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="900px" width="1600px"></canvas>
+      <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="600px" width="960px"></canvas>
       <br>
       <div class="logo"></div>
       <div class="fullscreen"><img src="TemplateData/fullscreen.png" width="38" height="38" alt="Fullscreen" title="Fullscreen" onclick="SetFullscreen(1);" /></div>
       <div class="title">GravityShooter</div>
     </div>
     <p class="footer">&laquo; created with <a href="http://unity3d.com/" title="Go to unity3d.com">Unity</a> &raquo;</p>
-
     <script type='text/javascript'>
   var Module = {
-    TOTAL_MEMORY: 268435456,
+    TOTAL_MEMORY: 1073741824,
     errorhandler: null,			// arguments: err, url, line. This function must return 'true' if the error is handled, otherwise 'false'
     compatibilitycheck: null,
-    dataUrl: "Release/WEB Build.data",
-    codeUrl: "Release/WEB Build.js",
-    memUrl: "Release/WEB Build.mem",
+    dataUrl: "Release/GShooter.data",
+    codeUrl: "Release/GShooter.js",
+    memUrl: "Release/GShooter.mem",
   };
 </script>
 <script src="Release/UnityLoader.js"></script>
+
   </body>
 </html>
