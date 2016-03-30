@@ -92,14 +92,20 @@ public class GUIManager : Singleton<GUIManager>
 /*
 GUIManager.instance.Activate("UIScore", true);
 
-    int health = 0;
-    if (health > 3)
+int health = 3;
+	void Update ()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            if(health < 0)
             {
-                health = 3;
+                health = 0;
                 GUIManager.instance.Activate("UIPlayer", false);
             }
             else
                 GUIManager.instance.ChangeHealth(health);
 
-            health++;
+            health--;
+        }
+	}
 */

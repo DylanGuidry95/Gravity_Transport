@@ -121,7 +121,7 @@ public class Player : MonoBehaviour
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
         //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
-        GUIManager.instance.ChangeHealth(currentHealth);
+        //GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
@@ -158,6 +158,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void Update()
     {
+
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
 
@@ -165,6 +166,8 @@ public class Player : MonoBehaviour
 
         if (_fsm.state != PLAYERSTATES.dead)
         {
+            PlayerMouseMovement();
+
             PlayerMovement();
             if (buttonDownTime == 0)
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
@@ -246,6 +249,20 @@ public class Player : MonoBehaviour
     }
 
 
+    void PlayerMouseMovement()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            buttonDownTime = Time.deltaTime * movementSpeed;
+            Vector3 screenPoint = Input.mousePosition;
+            screenPoint.z = 10;
+            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            buttonDownTime = 0;
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D c)
     {
@@ -268,12 +285,12 @@ public class Player : MonoBehaviour
         currentHealth -= 1;
         if(currentHealth == 0)
         {
+            FindObjectOfType<AudioManager>().PlayExplodeAudio();
             _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
             livesRemaining -= 1;
             if (livesRemaining >= 0)
             {
                 _cAction = PLAYERACTIONS.die;
-                GetComponent<MeshRenderer>().enabled = false;
                 transform.position = spawnPosition;
                 well.transform.position = spawnPosition;
                 PlayerSpawn();
@@ -284,7 +301,7 @@ public class Player : MonoBehaviour
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
             }
         }
-        GUIManager.instance.ChangeHealth(currentHealth);
+        //GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
@@ -301,10 +318,6 @@ public class Player : MonoBehaviour
             case PLAYERACTIONS.die:
                 //Plays the death animation
                 break;
-            case PLAYERACTIONS.spawn:
-                //Plays the spawn animation
-                break;
-
         }
     }
 
@@ -313,7 +326,6 @@ public class Player : MonoBehaviour
     /// </summary>
     void PlayerSpawn()
     {
-        GetComponent<MeshRenderer>().enabled = true;
         if (Vector3.Distance(transform.position, startPosition) > .1 && _fsm.state == PLAYERSTATES.dead)
         {
             transform.position += new Vector3(1, 0, 0) * (Time.deltaTime * movementSpeed);
@@ -322,7 +334,6 @@ public class Player : MonoBehaviour
         {
             _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
         }
-
     }
 
     /// <summary>

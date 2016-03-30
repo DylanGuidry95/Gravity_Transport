@@ -39,7 +39,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118d589e6767e9b44824d0644c50b4b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EntityWaves: []
+  EntityWaves:
+  - {fileID: 138676, guid: 298f3c4c521427c468d3b42972285596, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
