@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -505,7 +505,6 @@ GameObject:
   - 114: {fileID: 392492087}
   - 114: {fileID: 392492082}
   - 114: {fileID: 392492081}
-  - 114: {fileID: 392492080}
   - 114: {fileID: 392492079}
   m_Layer: 5
   m_Name: CanvasMainGUI
@@ -525,18 +524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b09397ffe5c90e44b40dba3fa890940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &392492080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11444354, guid: e42c2443a63f6eb43878c667727858af,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 392492078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8508d5b7c229ca747a286197b8ca46a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &392492081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,6 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d13b319c9ab35c4d94dfbe9c1ecbd6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  load: {fileID: 392492079}
 --- !u!114 &392492082
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,20 +6,14 @@ using System.Collections.Generic;
 public class LevelLoader : MonoBehaviour
 {
     /// <summary>
-    /// Will go back to the main menu scene
+    /// Task: Set up a system to handle scene transitions 
+    /// as the the user progresses through the game.
+    /// 
+    /// Pass in a string to call whatever scene you please.
     /// </summary>
 
-    GUIMenuManager loadingMenus;
-
-    public void Mainmenu()
+    public void LoadLevel(string scene)
     {
-        loadingMenus.MainMenu();
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void GamePlay()
-    {
-        loadingMenus.PlayButton();
-        SceneManager.LoadScene("GamePlay");
+        SceneManager.LoadScene(scene);
     }
 }

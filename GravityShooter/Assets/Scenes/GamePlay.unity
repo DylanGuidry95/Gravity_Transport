@@ -1497,6 +1497,9 @@ GameObject:
   - 223: {fileID: 1911791493}
   - 114: {fileID: 1911791492}
   - 114: {fileID: 1911791491}
+  - 114: {fileID: 1911791496}
+  - 114: {fileID: 1911791495}
+  - 114: {fileID: 1911791490}
   - 114: {fileID: 1911791489}
   - 114: {fileID: 1911791488}
   m_Layer: 5
@@ -1509,13 +1512,12 @@ GameObject:
 --- !u!114 &1911791488
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11444354, guid: e42c2443a63f6eb43878c667727858af,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1911791487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8508d5b7c229ca747a286197b8ca46a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b09397ffe5c90e44b40dba3fa890940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1911791489
@@ -1530,6 +1532,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d13b319c9ab35c4d94dfbe9c1ecbd6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  load: {fileID: 1911791488}
+--- !u!114 &1911791490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1911791487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76044b1c38fda4648b1aa4259f0e6d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerGUI: {fileID: 633108699}
+  bossGUI: {fileID: 1921016888}
+  scoreGUI: {fileID: 1911710923}
 --- !u!114 &1911791491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1616,6 +1633,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1911791495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1911791487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1911791496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1911791487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5
 --- !u!1 &1921016886
 GameObject:
   m_ObjectHideFlags: 0
