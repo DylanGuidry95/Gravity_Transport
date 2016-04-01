@@ -12,8 +12,8 @@ public class LevelLoader : MonoBehaviour
     /// Pass in a string to call whatever scene you please.
     /// </summary>
 
-    public void LoadLevel(string scene)
+    public void LoadLevel(string scene, LoadSceneMode mode)
     {
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene(scene, mode);
     }
 }

@@ -13,7 +13,7 @@ public class GUIMenuManager : MonoBehaviour
 
     public void MainMenu()
     {
-        load.LoadLevel("MainMenu");
+        load.LoadLevel("MainMenu", LoadSceneMode.Single);
         GUIManager.instance.Activate("UIPauseText", false);
         GUIManager.instance.Activate("UIResumeButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
@@ -26,7 +26,6 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIPlayButton", true);
         GUIManager.instance.Activate("UIOptionsButton", true);
         GUIManager.instance.Activate("UIQuitButton", true);
-        Destroy(gameObject);
     }
 
     /// <summary>
@@ -34,7 +33,8 @@ public class GUIMenuManager : MonoBehaviour
     /// </summary>
     public void PlayButton()
     {
-        load.LoadLevel("GamePlay");
+        load.LoadLevel("GamePlay", LoadSceneMode.Single);
+        DontDestroyOnLoad(gameObject);
         GUIManager.instance.Activate("UITitle", false);
         GUIManager.instance.Activate("UIPlayButton", false);
         GUIManager.instance.Activate("UIOptionsButton", false);
@@ -42,7 +42,6 @@ public class GUIMenuManager : MonoBehaviour
 
         GUIManager.instance.Activate("UIPlayer", true);
         GUIManager.instance.Activate("UIScore", true);
-        Destroy(gameObject);
     }
 
     /// <summary>
