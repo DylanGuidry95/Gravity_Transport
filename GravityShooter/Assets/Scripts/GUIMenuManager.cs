@@ -8,12 +8,9 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// Main Menu by just activing some GUI elements
     /// </summary>
-
-    public LevelLoader load;
-
     public void MainMenu()
     {
-        load.LoadLevel("MainMenu", LoadSceneMode.Single);
+        LevelLoader.LoadLevel("MainMenu", LoadSceneMode.Single);
         GUIManager.instance.Activate("UIPauseText", false);
         GUIManager.instance.Activate("UIResumeButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
@@ -21,11 +18,6 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIGameOver", false);
         GUIManager.instance.Activate("UIHighScores", false);
         GUIManager.instance.Activate("UICurrentScore", false);
-
-        GUIManager.instance.Activate("UITitle", true);
-        GUIManager.instance.Activate("UIPlayButton", true);
-        GUIManager.instance.Activate("UIOptionsButton", true);
-        GUIManager.instance.Activate("UIQuitButton", true);
     }
 
     /// <summary>
@@ -33,15 +25,11 @@ public class GUIMenuManager : MonoBehaviour
     /// </summary>
     public void PlayButton()
     {
-        load.LoadLevel("GamePlay", LoadSceneMode.Single);
-        DontDestroyOnLoad(gameObject);
+        LevelLoader.LoadLevel("GamePlay", LoadSceneMode.Single);
         GUIManager.instance.Activate("UITitle", false);
         GUIManager.instance.Activate("UIPlayButton", false);
         GUIManager.instance.Activate("UIOptionsButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
-
-        GUIManager.instance.Activate("UIPlayer", true);
-        GUIManager.instance.Activate("UIScore", true);
     }
 
     /// <summary>

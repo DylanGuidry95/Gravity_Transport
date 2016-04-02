@@ -10,8 +10,8 @@ public class BossGUI : MonoBehaviour
     /// Enemy Boss GUI slider needs to be handle on enemy side
     /// </summary>
     public Text bossName;
-    public Slider bossSlider;
-    public int damage = 10;
+    public static Slider bossSlider;
+    public static int damage = 10;
 
     void bossGUI()
     {

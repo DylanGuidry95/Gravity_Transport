@@ -6,10 +6,10 @@ using System.Collections.Generic;
 public class ScoreManager : MonoBehaviour
 {
     public static int score;
-    public int scoreSmallEnemy = 5;
-    public int scoreMediumEnemy = 10;
-    public int scoreLargeEnemy = 15;
-    public int scoreBoss = 20;
+    public static int scoreSmallEnemy = 5;
+    public static int scoreMediumEnemy = 10;
+    public static int scoreLargeEnemy = 15;
+    public static int scoreBoss = 20;
     public Text scoreText;
    
     void Awake()

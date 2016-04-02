@@ -9,10 +9,10 @@ public class LevelLoader : MonoBehaviour
     /// Task: Set up a system to handle scene transitions 
     /// as the the user progresses through the game.
     /// 
-    /// Pass in a string to call whatever scene you please.
+    /// Pass in a string to call scene and what kind of mode = singlar/additive .
     /// </summary>
 
-    public void LoadLevel(string scene, LoadSceneMode mode)
+    public static void LoadLevel(string scene, LoadSceneMode mode)
     {
         SceneManager.LoadScene(scene, mode);
     }
