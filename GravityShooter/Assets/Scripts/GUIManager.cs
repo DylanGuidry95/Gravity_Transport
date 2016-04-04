@@ -22,14 +22,6 @@ public class GUIManager : Singleton<GUIManager>
     /// Static - they're public but can only be created once
     /// </summary>
 
-    // I commented out player, boss and score because 
-    //I just want to use them in the gameplay scene
-    // So I just reference Player, Boss and Score
-
-    //public PlayerGUI playerGUI;
-    //public BossGUI bossGUI;
-    //public ScoreManager scoreGUI;
-
     /// <summary>
     /// dictionary of all the elements that the gui will have
     /// turn on and turn off using the key
@@ -44,6 +36,7 @@ public class GUIManager : Singleton<GUIManager>
         //create the elements for the dictionary
         m_elements = new Dictionary<string, GameObject>();
 
+        // check parent's children for GUI elements
         foreach(Transform t in transform.parent.GetComponentInChildren<Transform>())
         {
             m_elements.Add(t.name, t.gameObject);

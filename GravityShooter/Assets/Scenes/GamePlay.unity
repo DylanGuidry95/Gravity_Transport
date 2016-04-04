@@ -1497,7 +1497,6 @@ GameObject:
   - 114: {fileID: 1911791490}
   - 114: {fileID: 1911791489}
   - 114: {fileID: 1911791488}
-  - 114: {fileID: 1911791496}
   m_Layer: 5
   m_Name: CanvasGamePlayGUI
   m_TagString: Untagged
@@ -1647,18 +1646,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
---- !u!114 &1911791496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1911791487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a2d02079e1fc345a297649e8ce4811, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerGUI: {fileID: 633108699}
 --- !u!1 &1921016886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,6 +1698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossName: {fileID: 1499219199}
+  bossSlider: {fileID: 0}
 --- !u!114 &1921016889
 MonoBehaviour:
   m_ObjectHideFlags: 0

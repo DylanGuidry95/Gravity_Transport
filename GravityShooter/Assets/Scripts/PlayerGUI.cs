@@ -22,8 +22,7 @@ public class PlayerGUI : MonoBehaviour
     /// 
     /// In order to use PlayerGUI now, you must 
     /// make an instance of it, and then call in the function
-    /// Remember to make the instance public and add it in from the
-    /// hierarchy.
+    /// Remember to make the instance public and add it in from the hierarchy.
     /// </summary>
     /// <param name="hp"></param>
 

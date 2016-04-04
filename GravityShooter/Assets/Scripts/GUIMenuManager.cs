@@ -6,34 +6,34 @@ using System.Collections.Generic;
 public class GUIMenuManager : MonoBehaviour
 {
     /// <summary>
-    /// Main Menu by just activing some GUI elements
+    /// Loads Main Menu scene
     /// </summary>
     public void MainMenu()
     {
         LevelLoader.LoadLevel("MainMenu", LoadSceneMode.Single);
-        GUIManager.instance.Activate("UIPauseText", false);
-        GUIManager.instance.Activate("UIResumeButton", false);
-        GUIManager.instance.Activate("UIQuitButton", false);
-        GUIManager.instance.Activate("UIMainMenu", false);
-        GUIManager.instance.Activate("UIGameOver", false);
-        GUIManager.instance.Activate("UIHighScores", false);
-        GUIManager.instance.Activate("UICurrentScore", false);
+        //GUIManager.instance.Activate("UIPauseText", false);
+        //GUIManager.instance.Activate("UIResumeButton", false);
+        //GUIManager.instance.Activate("UIQuitButton", false);
+        //GUIManager.instance.Activate("UIMainMenu", false);
+        //GUIManager.instance.Activate("UIGameOver", false);
+        //GUIManager.instance.Activate("UIHighScores", false);
+        //GUIManager.instance.Activate("UICurrentScore", false);
     }
 
     /// <summary>
-    /// When the play button is called, Game Play scene will be loaded in
+    /// Loads GamePlay scene
     /// </summary>
     public void PlayButton()
     {
         LevelLoader.LoadLevel("GamePlay", LoadSceneMode.Single);
-        GUIManager.instance.Activate("UITitle", false);
-        GUIManager.instance.Activate("UIPlayButton", false);
-        GUIManager.instance.Activate("UIOptionsButton", false);
-        GUIManager.instance.Activate("UIQuitButton", false);
+        //GUIManager.instance.Activate("UITitle", false);
+        //GUIManager.instance.Activate("UIPlayButton", false);
+        //GUIManager.instance.Activate("UIOptionsButton", false);
+        //GUIManager.instance.Activate("UIQuitButton", false);
     }
 
     /// <summary>
-    /// When the Optiton Button is called, gui elements just turn on/off for audio
+    /// Turns off GUI elements for audio gui elements
     /// </summary>
     public void OptionButton()
     {
@@ -88,6 +88,7 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// PauseButton will pause the game play
     /// Needs to be checked every frame in gameplay scene
+    /// Does need timeScale = 0 or 1 to pause game
     /// </summary>
     public static void PauseButton()
     {
