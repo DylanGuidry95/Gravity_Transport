@@ -89,6 +89,8 @@ public class Player : Singleton<Player>
     [SerializeField]
     private float padding = 0.5f;
     //Power ups will go here later on in development
+    [SerializeField]
+    private PlayerGUI playerGUI;
 
     /// <summary>
     /// Function Calls
@@ -121,8 +123,6 @@ public class Player : Singleton<Player>
         well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
-        //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
-        //GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
@@ -159,7 +159,6 @@ public class Player : Singleton<Player>
     /// </summary>
     void Update()
     {
-
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
 
@@ -284,7 +283,8 @@ public class Player : Singleton<Player>
     {
         _cAction = PLAYERACTIONS.takeDamage;
         currentHealth -= 1;
-        if(currentHealth == 0)
+        playerGUI.HPChange(currentHealth);
+        if (currentHealth == 0)
         {
             FindObjectOfType<AudioManager>().PlayExplodeAudio();
             _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
@@ -302,7 +302,7 @@ public class Player : Singleton<Player>
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
             }
         }
-        //GUIManager.instance.ChangeHealth(currentHealth);
+
     }
 
     /// <summary>
@@ -327,6 +327,9 @@ public class Player : Singleton<Player>
     /// </summary>
     void PlayerSpawn()
     {
+        if(playerGUI == null)
+            playerGUI = FindObjectOfType<PlayerGUI>();
+        playerGUI.HPChange(currentHealth);
         if (Vector3.Distance(transform.position, startPosition) > .1 && _fsm.state == PLAYERSTATES.dead)
         {
             transform.position += new Vector3(1, 0, 0) * (Time.deltaTime * movementSpeed);

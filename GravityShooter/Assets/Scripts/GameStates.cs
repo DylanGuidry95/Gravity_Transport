@@ -86,7 +86,7 @@ public class GameStates : Singleton<GameStates>
 
         ////Transitions from the pauseMenu
         //pauseMenu -> mainMenu
-        _fsm.AddTransition(GAMESTATE.pauseMenu, GAMESTATE.mainMenu, false);
+        _fsm.AddTransition(GAMESTATE.pauseMenu, GAMESTATE.gameOver, false);
         //pauseMenu -> exit
         _fsm.AddTransition(GAMESTATE.pauseMenu, GAMESTATE.exit, false);
 
@@ -109,13 +109,13 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.gamePlay:
                 player = Instantiate(Resources.Load(PlayerName, typeof(Player))) as Player;
                 gravityWell = Instantiate(Resources.Load(GravityWellName, typeof(GravityWell))) as GravityWell;
-                //WaveSpawner = Instantiate(Resources.Load(SpawnerName, typeof(EntityManager))) as EntityManager;
                 break;
             case GAMESTATE.pauseMenu:
                 break;
             case GAMESTATE.gameOver:
                 Destroy(player.gameObject);
                 Destroy(gravityWell.gameObject);
+                _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
                 break;
             case GAMESTATE.exit:
                 break;
@@ -131,13 +131,14 @@ public class GameStates : Singleton<GameStates>
 
     public static void ChangeState(string GameState)
     {
-
         switch (GameState)
         {
             case "MainMenu":
-                _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
+                LevelLoader.LoadLevel("Main_Menu", LoadSceneMode.Single);
+                _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
                 break;
             case "Game":
+                Debug.Log(_fsm.state)
                 LevelLoader.LoadLevel("Level_One", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
                 break;
@@ -149,11 +150,6 @@ public class GameStates : Singleton<GameStates>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene("Main");
-        }
-
         if(Input.GetKeyDown(KeyCode.T))
         {
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
