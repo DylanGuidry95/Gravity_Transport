@@ -17,7 +17,7 @@ public class GameStates : Singleton<GameStates>
         count
     }
 
-    protected FSM<GAMESTATE> _fsm;
+    protected static FSM<GAMESTATE> _fsm;
 
     private GameStates Instance;
     public GameStates _instance
@@ -28,10 +28,12 @@ public class GameStates : Singleton<GameStates>
         }
     }
 
-    private Player player;
-    private GravityWell gravityWell;
-    private string PlayerName = "Player";
-    private string GravityWellName = "GravityWell";
+    private static Player player;
+    private static GravityWell gravityWell;
+    private static EntityManager WaveSpawner;
+    private static string SpawnerName = "Spawner";
+    private static string PlayerName = "Player";
+    private static string GravityWellName = "GravityWell";
 
     protected override void Awake()
     {
@@ -95,7 +97,7 @@ public class GameStates : Singleton<GameStates>
         _fsm.AddTransition(GAMESTATE.gameOver, GAMESTATE.exit, false);
     }
 
-    void StateProperties()
+    static void StateProperties()
     {
         switch(_fsm.state)
         {
@@ -107,6 +109,7 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.gamePlay:
                 player = Instantiate(Resources.Load(PlayerName, typeof(Player))) as Player;
                 gravityWell = Instantiate(Resources.Load(GravityWellName, typeof(GravityWell))) as GravityWell;
+                //WaveSpawner = Instantiate(Resources.Load(SpawnerName, typeof(EntityManager))) as EntityManager;
                 break;
             case GAMESTATE.pauseMenu:
                 break;
@@ -126,30 +129,51 @@ public class GameStates : Singleton<GameStates>
         StateProperties();
     }
 
+    public static void ChangeState(string GameState)
+    {
+
+        switch (GameState)
+        {
+            case "MainMenu":
+                _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
+                break;
+            case "Game":
+                LevelLoader.LoadLevel("Level_One", LoadSceneMode.Single);
+                _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+                break;
+            default:
+                break;
+        }
+        StateProperties();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T) && FindObjectOfType<Player>() == null)
-        {
-            _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
-            StateProperties();
-        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("Main");
         }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+            StateProperties();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Time.timeScale != 0)
             {
                 Time.timeScale = 0;
                 _fsm.Transition(_fsm.state, GAMESTATE.pauseMenu);
+                GUIMenuManager.PauseButton();
             }            
             else
             {
                 Time.timeScale = 1;
+                GUIMenuManager.PauseButton();
                 _fsm.Transition(_fsm.state,GAMESTATE.gamePlay);
             }
-
         }
     }
 }

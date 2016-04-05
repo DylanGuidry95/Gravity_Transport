@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     /// <summary>
     /// Enum values used to represent each of the states the
@@ -95,8 +95,9 @@ public class Player : MonoBehaviour
     /// AddToFSM()
     /// PlayerListen()
     /// </summary>
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _fsm = new FSM<PLAYERSTATES>();
         AddToFSM();
     }
