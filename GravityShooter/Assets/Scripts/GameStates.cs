@@ -138,7 +138,7 @@ public class GameStates : Singleton<GameStates>
                 _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
                 break;
             case "Game":
-                Debug.Log(_fsm.state)
+                Debug.Log(_fsm.state);
                 LevelLoader.LoadLevel("Level_One", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
                 break;
