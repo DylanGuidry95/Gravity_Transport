@@ -22,10 +22,6 @@ public class GUIManager : Singleton<GUIManager>
     /// Static - they're public but can only be created once
     /// </summary>
 
-    public PlayerGUI playerGUI;
-    public BossGUI bossGUI;
-    public ScoreManager scoreGUI;
-
     /// <summary>
     /// dictionary of all the elements that the gui will have
     /// turn on and turn off using the key
@@ -40,14 +36,11 @@ public class GUIManager : Singleton<GUIManager>
         //create the elements for the dictionary
         m_elements = new Dictionary<string, GameObject>();
 
-        foreach(Transform t in GetComponentInChildren<Transform>())
+        // check parent's children for GUI elements
+        foreach(Transform t in transform.parent.GetComponentInChildren<Transform>())
         {
             m_elements.Add(t.name, t.gameObject);
         }
-
-        PlayerGUI pg = gameObject.GetComponentInChildren<PlayerGUI>();
-        BossGUI bg = gameObject.GetComponentInChildren<BossGUI>();
-        ScoreManager sg = gameObject.GetComponentInChildren<ScoreManager>();
     }
 
     /// <summary>
@@ -56,8 +49,13 @@ public class GUIManager : Singleton<GUIManager>
     /// <param name="name">string name or key of the gui element</param>
     /// <param name="state">true is on/false is off</param>
     public void Activate(string name, bool state)
-    {   
-        m_elements[name].SetActive(state);
+    {
+        if (m_elements.ContainsKey(name))
+        {
+            m_elements[name].SetActive(state);
+        }
+        else
+            Debug.Log("No element with name: " + name + " was registered with the GUIManager, but you're trying to activate it.");
     }
 
     /// <summary>
@@ -77,35 +75,28 @@ public class GUIManager : Singleton<GUIManager>
             return false;
         }
     }
-
-    public void ChangeHealth(int num)
-    {
-        playerGUI.HPChange(num);
-    }
-
-    public void ChangeShield(int num)
-    {
-        playerGUI.ShieldChange(num);
-    }
 }
 
 /*
 GUIManager.instance.Activate("UIScore", true);
 
 int health = 3;
-	void Update ()
+    public PlayerGUI playerGUI;
+
+    void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            if(health < 0)
+            if (health < 0)
             {
                 health = 0;
                 GUIManager.instance.Activate("UIPlayer", false);
             }
             else
-                GUIManager.instance.ChangeHealth(health);
+                playerGUI.HPChange(health);
 
             health--;
         }
-	}
+    }
+}
 */
