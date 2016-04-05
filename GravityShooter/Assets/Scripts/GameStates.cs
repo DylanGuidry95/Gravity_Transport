@@ -46,7 +46,7 @@ public class GameStates : Singleton<GameStates>
 
     void Start()
     {
-        _fsm.Transition(_fsm.state ,GAMESTATE.mainMenu);
+        StateProperties();
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public class GameStates : Singleton<GameStates>
 
         ////Transitions from the pauseMenu
         //pauseMenu -> mainMenu
-        _fsm.AddTransition(GAMESTATE.pauseMenu, GAMESTATE.gameOver, false);
+        _fsm.AddTransition(GAMESTATE.pauseMenu, GAMESTATE.mainMenu, false);
         //pauseMenu -> exit
         _fsm.AddTransition(GAMESTATE.pauseMenu, GAMESTATE.exit, false);
 
@@ -105,8 +105,14 @@ public class GameStates : Singleton<GameStates>
                 _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
                 break;
             case GAMESTATE.mainMenu:
+                Time.timeScale = 1;
+                if (player != null)
+                    Destroy(player.gameObject);
+                if (gravityWell != null)
+                    Destroy(gravityWell.gameObject);
                 break;
             case GAMESTATE.gamePlay:
+                Time.timeScale = 1;
                 player = Instantiate(Resources.Load(PlayerName, typeof(Player))) as Player;
                 gravityWell = Instantiate(Resources.Load(GravityWellName, typeof(GravityWell))) as GravityWell;
                 break;
@@ -115,7 +121,6 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.gameOver:
                 Destroy(player.gameObject);
                 Destroy(gravityWell.gameObject);
-                _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
                 break;
             case GAMESTATE.exit:
                 break;
@@ -135,7 +140,7 @@ public class GameStates : Singleton<GameStates>
         {
             case "MainMenu":
                 LevelLoader.LoadLevel("Main_Menu", LoadSceneMode.Single);
-                _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
+                _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
                 break;
             case "Game":
                 Debug.Log(_fsm.state);
@@ -150,6 +155,10 @@ public class GameStates : Singleton<GameStates>
 
     void Update()
     {
+
+        if (_fsm.state == GAMESTATE.init)
+            _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
+
         if(Input.GetKeyDown(KeyCode.T))
         {
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
