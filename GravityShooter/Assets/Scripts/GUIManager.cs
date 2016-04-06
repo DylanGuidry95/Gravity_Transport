@@ -26,6 +26,7 @@ public class GUIManager : Singleton<GUIManager>
     /// dictionary of all the elements that the gui will have
     /// turn on and turn off using the key
     /// </summary>
+
     private Dictionary<string, GameObject> m_elements;
 
     protected override void Awake()

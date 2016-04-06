@@ -6,18 +6,29 @@ using System.Collections.Generic;
 public class GUIMenuManager : MonoBehaviour
 {
     /// <summary>
+    /// Checks to see if the platform is build in WebGL.
+    /// </summary>
+    void Awake()
+    {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            GUIManager.instance.Activate("UIQuitButton", false);
+        }
+    }
+
+    /// <summary>
     /// Loads Main Menu scene
     /// </summary>
     public void MainMenu()
     {
-        LevelLoader.LoadLevel("MainMenu", LoadSceneMode.Single);
-        //GUIManager.instance.Activate("UIPauseText", false);
-        //GUIManager.instance.Activate("UIResumeButton", false);
-        //GUIManager.instance.Activate("UIQuitButton", false);
-        //GUIManager.instance.Activate("UIMainMenu", false);
-        //GUIManager.instance.Activate("UIGameOver", false);
-        //GUIManager.instance.Activate("UIHighScores", false);
-        //GUIManager.instance.Activate("UICurrentScore", false);
+        GUIManager.instance.Activate("UIPauseText", false);
+        GUIManager.instance.Activate("UIResumeButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UIMainMenu", false);
+        GUIManager.instance.Activate("UIGameOver", false);
+        GUIManager.instance.Activate("UIHighScores", false);
+        GUIManager.instance.Activate("UICurrentScore", false);
+        LevelLoader.LoadLevel("MainMenu");
     }
 
     /// <summary>
@@ -25,11 +36,11 @@ public class GUIMenuManager : MonoBehaviour
     /// </summary>
     public void PlayButton()
     {
-        LevelLoader.LoadLevel("GamePlay", LoadSceneMode.Single);
-        //GUIManager.instance.Activate("UITitle", false);
-        //GUIManager.instance.Activate("UIPlayButton", false);
-        //GUIManager.instance.Activate("UIOptionsButton", false);
-        //GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UITitle", false);
+        GUIManager.instance.Activate("UIPlayButton", false);
+        GUIManager.instance.Activate("UIOptionsButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
+        LevelLoader.LoadLevel("GamePlay");
     }
 
     /// <summary>
@@ -50,18 +61,11 @@ public class GUIMenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// If user wants to exit appilcation, and checks if it's build in WebGL
+    /// If user wants to exit appilcation
     /// </summary>
     public void QuitButton()
     {
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            GUIManager.instance.Activate("UIQuitButton", false);
-        }
-        else
-        {
-            Application.Quit();
-        }
+        Application.Quit();
     }
 
     /// <summary>
@@ -79,10 +83,6 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UISoundEffectsToggle", false);
         GUIManager.instance.Activate("UISoundEffectsSlider", false);
         GUIManager.instance.Activate("UIBackButton", false);
-        GUIManager.instance.Activate("UIPauseText", false);
-        GUIManager.instance.Activate("UIResumeButton", false);
-        GUIManager.instance.Activate("UIGameOver", false);
-        GUIManager.instance.Activate("UIHighScores", false);
     }
 
     /// <summary>
@@ -99,10 +99,22 @@ public class GUIMenuManager : MonoBehaviour
     }
 
     /// <summary>
+    /// To go back to the gameplay
+    /// </summary>
+    public void ResumeButton()
+    {
+        GUIManager.instance.Activate("UIPauseText", false);
+        GUIManager.instance.Activate("UIResumeButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UIMainMenu", false);
+    }
+
+    /// <summary>
     /// Should be called when user completed level or has died
     /// </summary>
-    public static void GameOver()
+    public void GameOver()
     {
+        LevelLoader.LoadLevel("GameOver");
         GUIManager.instance.Activate("UIGameOver", true);
         GUIManager.instance.Activate("UIHighScores", true);
         GUIManager.instance.Activate("UICurrentScore", true);
