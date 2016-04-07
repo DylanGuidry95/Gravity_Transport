@@ -121,11 +121,11 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.gameOver:
                 Destroy(player.gameObject);
                 Destroy(gravityWell.gameObject);
+                GUIMenuManager.GameOver();
                 break;
             case GAMESTATE.exit:
                 break;
         }
-        Debug.Log(_fsm.state);
     }
 
     void GameOver()
@@ -139,13 +139,16 @@ public class GameStates : Singleton<GameStates>
         switch (GameState)
         {
             case "MainMenu":
-                LevelLoader.LoadLevel("Main_Menu", LoadSceneMode.Single);
+                LevelLoader.LoadLevel("Main_Menu");
                 _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
                 break;
             case "Game":
-                Debug.Log(_fsm.state);
-                LevelLoader.LoadLevel("Level_One", LoadSceneMode.Single);
+                LevelLoader.LoadLevel("Level_One");
                 _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+                break;
+            case "GameOver":
+                LevelLoader.LoadLevel("GameOver");
+                _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
                 break;
             default:
                 break;
@@ -159,11 +162,11 @@ public class GameStates : Singleton<GameStates>
         if (_fsm.state == GAMESTATE.init)
             _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
 
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
-            StateProperties();
-        }
+        //if(Input.GetKeyDown(KeyCode.T))
+        //{
+        //    _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+        //    StateProperties();
+        //}
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

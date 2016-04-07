@@ -248,7 +248,6 @@ public class Player : Singleton<Player>
         }
     }
 
-
     void PlayerMouseMovement()
     {
         if(Input.GetMouseButton(0))
@@ -266,7 +265,7 @@ public class Player : Singleton<Player>
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmallEnemy>() != null)
+        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null)
         {
             PlayerDamage();
             Destroy(c.gameObject);
@@ -302,6 +301,7 @@ public class Player : Singleton<Player>
             else if (livesRemaining < 0)
             {
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
+                GameStates.ChangeState("GameOver");
             }
         }
 
