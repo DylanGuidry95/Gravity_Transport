@@ -283,7 +283,9 @@ public class Player : Singleton<Player>
     {
         _cAction = PLAYERACTIONS.takeDamage;
         currentHealth -= 1;
-        playerGUI.HPChange(currentHealth);
+        if(playerGUI != null)
+            playerGUI.HPChange(currentHealth);
+
         if (currentHealth == 0)
         {
             FindObjectOfType<AudioManager>().PlayExplodeAudio();
@@ -329,7 +331,8 @@ public class Player : Singleton<Player>
     {
         if(playerGUI == null)
             playerGUI = FindObjectOfType<PlayerGUI>();
-        playerGUI.HPChange(currentHealth);
+        if(playerGUI != null)
+            playerGUI.HPChange(currentHealth);
         if (Vector3.Distance(transform.position, startPosition) > .1 && _fsm.state == PLAYERSTATES.dead)
         {
             transform.position += new Vector3(1, 0, 0) * (Time.deltaTime * movementSpeed);
