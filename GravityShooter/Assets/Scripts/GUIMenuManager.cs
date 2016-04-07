@@ -28,6 +28,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIGameOver", false);
         GUIManager.instance.Activate("UIHighScores", false);
         GUIManager.instance.Activate("UICurrentScore", false);
+        GameStates.ChangeState("MainMenu");
         // Load MainMenu scene
     }
 
@@ -40,6 +41,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIPlayButton", false);
         GUIManager.instance.Activate("UIOptionsButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
+        GameStates.ChangeState("Game");
         // Load GamePlay scene
     }
 
@@ -112,7 +114,7 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// Should be called when user completed level or has died
     /// </summary>
-    public void GameOver()
+    public static void GameOver()
     {
         GUIManager.instance.Activate("UIPlayer", false);
         GUIManager.instance.Activate("UIBoss", false);
