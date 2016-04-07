@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class MdEnemy : EnemyBase
 {
-    
     public int MultiShoot;
     bool swithcDir = false;
     public float TravelDistance;
