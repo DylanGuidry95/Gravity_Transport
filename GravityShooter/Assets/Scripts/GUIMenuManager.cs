@@ -17,7 +17,7 @@ public class GUIMenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads Main Menu scene
+    /// Turning off gui elements to able to load scene
     /// </summary>
     public void MainMenu()
     {
@@ -28,11 +28,11 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIGameOver", false);
         GUIManager.instance.Activate("UIHighScores", false);
         GUIManager.instance.Activate("UICurrentScore", false);
-        LevelLoader.LoadLevel("MainMenu");
+        // Load MainMenu scene
     }
 
     /// <summary>
-    /// Loads GamePlay scene
+    /// Turning off gui elements to able to load scene
     /// </summary>
     public void PlayButton()
     {
@@ -40,7 +40,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIPlayButton", false);
         GUIManager.instance.Activate("UIOptionsButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
-        LevelLoader.LoadLevel("GamePlay");
+        // Load GamePlay scene
     }
 
     /// <summary>
@@ -114,11 +114,9 @@ public class GUIMenuManager : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        LevelLoader.LoadLevel("GameOver");
-        GUIManager.instance.Activate("UIGameOver", true);
-        GUIManager.instance.Activate("UIHighScores", true);
-        GUIManager.instance.Activate("UICurrentScore", true);
-        GUIManager.instance.Activate("UIQuitButton", true);
-        GUIManager.instance.Activate("UIMainMenu", true);
+        GUIManager.instance.Activate("UIPlayer", false);
+        GUIManager.instance.Activate("UIBoss", false);
+        GUIManager.instance.Activate("UIScore", false);
+        // Load GameOver scene
     }
 }
