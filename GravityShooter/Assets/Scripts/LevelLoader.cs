@@ -12,8 +12,8 @@ public class LevelLoader : MonoBehaviour
     /// Pass in a string to call scene and what kind of mode = singlar/additive .
     /// </summary>
 
-    public static void LoadLevel(string scene, LoadSceneMode mode)
+    public static void LoadLevel(string scene)
     {
-        SceneManager.LoadScene(scene, mode);
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 }

@@ -26,6 +26,7 @@ public class GUIManager : Singleton<GUIManager>
     /// dictionary of all the elements that the gui will have
     /// turn on and turn off using the key
     /// </summary>
+
     private Dictionary<string, GameObject> m_elements;
 
     protected override void Awake()
@@ -87,16 +88,20 @@ int health = 3;
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (health < 0)
+            health--;
+            if (health <= 0)
             {
                 health = 0;
                 GUIManager.instance.Activate("UIPlayer", false);
+                LevelLoader.LoadLevel("GameOver");
             }
             else
                 playerGUI.HPChange(health);
+        }
 
-            health--;
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            GUIMenuManager.PauseButton();
         }
     }
-}
 */
