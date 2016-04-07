@@ -39,6 +39,7 @@ public class EnemyBase : MonoBehaviour
     protected float movementSpeed; //How fast the enemy moves in world space
     [SerializeField]
     protected float ammoCapacity; //Max ammo the enemy has
+    [SerializeField]
     protected float ammoAvailiable;  //Ammo availiable to the enemy
     [SerializeField] 
     protected float fireDelay; //Time between shoots
@@ -46,7 +47,7 @@ public class EnemyBase : MonoBehaviour
     protected float bulletSpeed; //speed at which bullets move when fired
     [SerializeField]
     protected int hp; //Hp the enemy has
-
+    [SerializeField]
     protected Player player; //Refrence to the play object the enemy is locating
     protected GameObject bullet; //Refrence the bullet prefab the enemy will use to shoot
     [SerializeField]
