@@ -162,11 +162,11 @@ public class GameStates : Singleton<GameStates>
         if (_fsm.state == GAMESTATE.init)
             _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
 
-        //if(Input.GetKeyDown(KeyCode.T))
-        //{
-        //    _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
-        //    StateProperties();
-        //}
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+            StateProperties();
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

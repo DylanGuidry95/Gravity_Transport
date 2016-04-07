@@ -32,9 +32,9 @@ public class BossEnemy : EnemyBase
             for (int i = 0; i < MultiShoot; i++)
             {
                 GameObject a = Instantiate(Resources.Load("Bullet")) as GameObject;
-                a.transform.position = transform.position + transform.right * -transform.localScale.x;
-                a.transform.position += new Vector3(0, y_offset, 0);
-                y_offset += (transform.localScale.y / a.transform.localScale.y);
+                //a.transform.position = transform.position + transform.right * -transform.localScale.x;
+                a.transform.position += new Vector3(transform.position.x + transform.right.x * -transform.localScale.x, y_offset, 0);
+                y_offset +=  a.transform.localScale.y;
                 shoots.Add(a);
             }
             foreach (GameObject a in shoots)
