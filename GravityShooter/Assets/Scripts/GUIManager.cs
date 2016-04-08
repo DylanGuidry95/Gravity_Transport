@@ -88,16 +88,20 @@ int health = 3;
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (health < 0)
+            health--;
+            if (health <= 0)
             {
                 health = 0;
                 GUIManager.instance.Activate("UIPlayer", false);
+                LevelLoader.LoadLevel("GameOver");
             }
             else
                 playerGUI.HPChange(health);
+        }
 
-            health--;
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            GUIMenuManager.PauseButton();
         }
     }
-}
 */

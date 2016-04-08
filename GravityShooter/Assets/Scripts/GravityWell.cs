@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// A rail system for objects in a "GravityWell"
 /// </summary>
-public class GravityWell : MonoBehaviour
+public class GravityWell : Singleton<GravityWell>
 {
     void FixedUpdate()
     {

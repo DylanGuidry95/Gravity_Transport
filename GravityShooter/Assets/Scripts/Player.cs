@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     /// <summary>
     /// Enum values used to represent each of the states the
@@ -89,14 +89,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float padding = 0.5f;
     //Power ups will go here later on in development
+    [SerializeField]
+    private PlayerGUI playerGUI;
 
     /// <summary>
     /// Function Calls
     /// AddToFSM()
     /// PlayerListen()
     /// </summary>
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _fsm = new FSM<PLAYERSTATES>();
         AddToFSM();
     }
@@ -120,8 +123,6 @@ public class Player : MonoBehaviour
         well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
         transform.position = spawnPosition;
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
-        //_fsm.Transition(_fsm.state, PLAYERSTATES.idle);
-        //GUIManager.instance.ChangeHealth(currentHealth);
     }
 
     /// <summary>
@@ -165,6 +166,8 @@ public class Player : MonoBehaviour
 
         if (_fsm.state != PLAYERSTATES.dead)
         {
+            PlayerMouseMovement();
+
             PlayerMovement();
             if (buttonDownTime == 0)
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
@@ -245,11 +248,24 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    void PlayerMouseMovement()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            buttonDownTime = Time.deltaTime * movementSpeed;
+            Vector3 screenPoint = Input.mousePosition;
+            screenPoint.z = 10;
+            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            buttonDownTime = 0;
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmallEnemy>() != null)
+        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null)
         {
             PlayerDamage();
             Destroy(c.gameObject);
@@ -266,14 +282,17 @@ public class Player : MonoBehaviour
     {
         _cAction = PLAYERACTIONS.takeDamage;
         currentHealth -= 1;
-        if(currentHealth == 0)
+        if(playerGUI != null)
+            playerGUI.HPChange(currentHealth);
+
+        if (currentHealth == 0)
         {
+            FindObjectOfType<AudioManager>().PlayExplodeAudio();
             _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
             livesRemaining -= 1;
             if (livesRemaining >= 0)
             {
                 _cAction = PLAYERACTIONS.die;
-                GetComponent<MeshRenderer>().enabled = false;
                 transform.position = spawnPosition;
                 well.transform.position = spawnPosition;
                 PlayerSpawn();
@@ -282,9 +301,10 @@ public class Player : MonoBehaviour
             else if (livesRemaining < 0)
             {
                 _fsm.Transition(_fsm.state, PLAYERSTATES.destroyed);
+                GameStates.ChangeState("GameOver");
             }
         }
-        //GUIManager.instance.ChangeHealth(currentHealth);
+
     }
 
     /// <summary>
@@ -301,10 +321,6 @@ public class Player : MonoBehaviour
             case PLAYERACTIONS.die:
                 //Plays the death animation
                 break;
-            case PLAYERACTIONS.spawn:
-                //Plays the spawn animation
-                break;
-
         }
     }
 
@@ -313,7 +329,10 @@ public class Player : MonoBehaviour
     /// </summary>
     void PlayerSpawn()
     {
-        GetComponent<MeshRenderer>().enabled = true;
+        if(playerGUI == null)
+            playerGUI = FindObjectOfType<PlayerGUI>();
+        if(playerGUI != null)
+            playerGUI.HPChange(currentHealth);
         if (Vector3.Distance(transform.position, startPosition) > .1 && _fsm.state == PLAYERSTATES.dead)
         {
             transform.position += new Vector3(1, 0, 0) * (Time.deltaTime * movementSpeed);
@@ -322,7 +341,6 @@ public class Player : MonoBehaviour
         {
             _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
         }
-
     }
 
     /// <summary>

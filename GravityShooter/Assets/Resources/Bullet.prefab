@@ -76,7 +76,7 @@ MonoBehaviour:
   type: 0
   damage: 1
   speed: 100
-  isEnemy: 0
+  isEnemy: 1
 --- !u!212 &21278384
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -129,6 +129,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: type
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: isEnemy
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
