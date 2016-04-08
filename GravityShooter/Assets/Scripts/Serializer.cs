@@ -1,8 +1,16 @@
 ﻿using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 static public class Serializer
 {
+    /// <summary>
+    /// Save
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="t"></param>
+    /// <param name="a_filename"></param>
+    /// <param name="a_path"></param>
     public static void SerializeXML<T>(T t, string a_filename, string a_path)
     {
         if (Directory.Exists(a_path))
@@ -18,20 +26,19 @@ static public class Serializer
         {
             Directory.CreateDirectory(a_path);
         }
-
     }
-
+    
     /// <summary>
-    /// deserialize from a path
+    /// Load
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="s"></param>
     /// <returns></returns>
-    public static T DeserializeXML<T>(string s)
+    public static T DeserializeXML<T>(string a_path)
     {
         T t;    
 
-        using (FileStream fs = File.OpenRead(s + ".xml"))
+        using (FileStream fs = File.OpenRead(a_path + ".xml"))
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(T));
             t = (T)deserializer.Deserialize(fs);

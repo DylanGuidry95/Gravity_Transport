@@ -11,14 +11,24 @@ public class ScoreManager : MonoBehaviour
     public static int scoreLargeEnemy = 15;
     public static int scoreBoss = 20;
     public Text scoreText;
-   
+
+    public List<int> highScores = new List<int>();
+    public int highestScore;
+
     void Awake()
-    { 
+    {
+        highScores = Serializer.DeserializeXML<List<int>>(@"..\HighScore");
         score = 0;
     }
 
     void Update()
     {
-        scoreText.text = "Score: " + score;
+        if(scoreText)
+            scoreText.text = "Score: " + score;
+    }
+
+    void OnApplicationQuit()
+    {
+        Serializer.SerializeXML(highScores, "HighScore", @"..\");
     }
 }
