@@ -52,6 +52,7 @@ public class GUIMenuManager : MonoBehaviour
     {
             GUIManager.instance.Activate("UIPlayButton", false);
             GUIManager.instance.Activate("UIOptionsButton", false);
+            GUIManager.instance.Activate("UICreditButton", false);
             GUIManager.instance.Activate("UIQuitButton", false);
 
             GUIManager.instance.Activate("UIAudioText", true);
@@ -60,6 +61,18 @@ public class GUIMenuManager : MonoBehaviour
             GUIManager.instance.Activate("UISoundEffectsToggle", true);
             GUIManager.instance.Activate("UISoundEffectsSlider", true);
             GUIManager.instance.Activate("UIBackButton", true);
+    }
+
+    public void CreditButton()
+    {
+        GUIManager.instance.Activate("UIPlayButton", false);
+        GUIManager.instance.Activate("UIOptionsButton", false);
+        GUIManager.instance.Activate("UICreditButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
+
+        GUIManager.instance.Activate("UIProgrammers", true);
+        GUIManager.instance.Activate("UIArtists", true);
+        GUIManager.instance.Activate("UIBackButton", true);
     }
 
     /// <summary>
@@ -77,6 +90,7 @@ public class GUIMenuManager : MonoBehaviour
     {
         GUIManager.instance.Activate("UIPlayButton", true);
         GUIManager.instance.Activate("UIOptionsButton", true);
+        GUIManager.instance.Activate("UICreditButton", true);
         GUIManager.instance.Activate("UIQuitButton", true);
 
         GUIManager.instance.Activate("UIAudioText", false);
@@ -84,6 +98,8 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIMusicToggleSlider", false);
         GUIManager.instance.Activate("UISoundEffectsToggle", false);
         GUIManager.instance.Activate("UISoundEffectsSlider", false);
+        GUIManager.instance.Activate("UIProgrammers", false);
+        GUIManager.instance.Activate("UIArtists", false);
         GUIManager.instance.Activate("UIBackButton", false);
     }
 
