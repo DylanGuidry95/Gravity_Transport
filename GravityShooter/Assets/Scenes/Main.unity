@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0
-  ammoCapacity: 1
+  ammoCapacity: 4
   ammoAvailiable: 0
   fireDelay: 3
   bulletSpeed: 5
