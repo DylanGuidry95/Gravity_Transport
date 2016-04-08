@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+//using System;
 
 public class LgEnemy : EnemyBase
 {
@@ -24,7 +24,7 @@ public class LgEnemy : EnemyBase
 
     void Update()
     {
-        timer += Time.deltaTime;
+        
         if (player == null)
             player = FindObjectOfType<Player>();
         CheckState();
@@ -39,7 +39,8 @@ public class LgEnemy : EnemyBase
                 _fsm.Transition(_fsm.state, ENEMYSTATES.fly);
                 break;
             case ENEMYSTATES.idle:
-                
+              
+
                 break;
             case ENEMYSTATES.fly:
                 Movement();
@@ -52,20 +53,46 @@ public class LgEnemy : EnemyBase
         }
     }
 
-    void Movement()
+    void changeDirection(Vector3 direction)
     {
-        transform.position += move * Time.deltaTime * movementSpeed;
-        if (transform.position.y > ScreenBorders.m_topLeft.y)
+        bool timerRun;
+        timerRun = true;
+        if (timerRun)
         {
-            move = new Vector3(0, -0.1f, 0);
+            timer += Time.deltaTime;
         }
 
-        if (transform.position.y < ScreenBorders.m_bottomLeft.y)
+        movementSpeed = 0; // stop the enemy
+        if (timer > fireDelay)
         {
-            move = new Vector3(0, 0.1f, 0);
+            fireDelay = Random.Range(1, 4);  // random number for how long the enemy need to wait
+            move = direction;
+            movementSpeed = 10;
+            timer = 0;
+            timerRun = false;
         }
     }
 
+    void Movement()
+    {
+        transform.position += move * Time.deltaTime * movementSpeed;
+
+        if (transform.position.y > ScreenBorders.m_topLeft.y + 1.5f)
+        {
+            changeDirection(new Vector3(0, -0.1f, 0));       
+        }
+
+        if (transform.position.y < ScreenBorders.m_bottomLeft.y - 1.5f)
+        { 
+            changeDirection(new Vector3(0, 0.1f, 0));
+        }
+    }
+
+
+    protected override void Fire()
+    {
+        base.Fire();
+    }
 
     void Special()
     {
