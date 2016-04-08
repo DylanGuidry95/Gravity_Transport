@@ -6,6 +6,11 @@ using System.Collections.Generic;
 public class GUIMenuManager : MonoBehaviour
 {
     /// <summary>
+    /// When the button is pressed, it plays an animation
+    /// but until the animation is finished, it does whatever.
+    /// </summary>
+
+    /// <summary>
     /// Checks to see if the platform is build in WebGL.
     /// </summary>
     void Awake()
@@ -15,7 +20,7 @@ public class GUIMenuManager : MonoBehaviour
             GUIManager.instance.Activate("UIQuitButton", false);
         }
     }
-
+    
     /// <summary>
     /// Turning off gui elements to able to load scene
     /// </summary>
@@ -40,6 +45,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UITitle", false);
         GUIManager.instance.Activate("UIPlayButton", false);
         GUIManager.instance.Activate("UIOptionsButton", false);
+        GUIManager.instance.Activate("UICreditButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
         GameStates.ChangeState("Game");
         // Load GamePlay scene
@@ -134,6 +140,7 @@ public class GUIMenuManager : MonoBehaviour
     {
         GUIManager.instance.Activate("UIPlayer", false);
         GUIManager.instance.Activate("UIBoss", false);
+        GUIManager.instance.Activate("UICreditButton", false);
         GUIManager.instance.Activate("UIScore", false);
         // Load GameOver scene
     }
