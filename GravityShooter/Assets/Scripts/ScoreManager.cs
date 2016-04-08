@@ -11,7 +11,9 @@ public class ScoreManager : Singleton<ScoreManager>
         base.Awake();
 
         LoadScores();
+
         currentScore = 0;
+        scoreText = GetComponent<Text>();
     }
 
     public static int IncreasScoreBy(int a_score)
@@ -42,6 +44,16 @@ public class ScoreManager : Singleton<ScoreManager>
         return 0;
     }
 
+    // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING 
+
+
+    void OnApplicationQuit()
+    {
+        SaveScores();
+    }
+
+    // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING
+
     private static int m_currentScore;
     public static Text scoreText;
 
@@ -59,7 +71,7 @@ public class ScoreManager : Singleton<ScoreManager>
         {
             m_currentScore = value;
             if (scoreText)
-                scoreText.text = m_currentScore.ToString();
+                scoreText.text = "Score: " + m_currentScore.ToString();
         }
     }
 }

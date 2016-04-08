@@ -15,7 +15,7 @@ static public class Serializer
     {
         if (Directory.Exists(a_path))
         {
-            using (FileStream fs = File.Create(a_path + a_filename + ".xml"))
+            using (FileStream fs = new FileStream(a_path + a_filename + ".xml", FileMode.OpenOrCreate, FileAccess.Write))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 serializer.Serialize(fs, t);
@@ -38,7 +38,7 @@ static public class Serializer
     {
         T t;    
 
-        using (FileStream fs = File.OpenRead(a_path + ".xml"))
+        using (FileStream fs = new FileStream(a_path + ".xml", FileMode.OpenOrCreate, FileAccess.Read))
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(T));
             t = (T)deserializer.Deserialize(fs);
