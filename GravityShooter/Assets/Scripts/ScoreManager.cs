@@ -10,7 +10,7 @@ public class ScoreManager : Singleton<ScoreManager>
     protected override void Awake()
     {
         base.Awake();
-        
+
         LoadScores();
 
         currentScore = 0;
@@ -24,12 +24,15 @@ public class ScoreManager : Singleton<ScoreManager>
         return 0;
     }
 
+    [ContextMenu("SAVE")]
     private int SaveScores()
     {
-        HighScore hs = new HighScore(scoreText.text, currentScore);
+        string s = "ass".ToUpper();
+       
+        HighScore hs = new HighScore(s, currentScore);
 
         highScores.Add(hs);
-        highScores = highScores.OrderByDescending(x => x).ToList();
+        highScores = highScores.OrderByDescending(x => x.score).ToList();
 
         if (highScores.Count > maxHighScores)
             highScores.RemoveRange(maxHighScores, highScores.Count - maxHighScores);
@@ -59,7 +62,9 @@ public class ScoreManager : Singleton<ScoreManager>
     public static Text scoreText;
 
     public int maxHighScores;
-    
+
+    [XmlArray("HighScores")]
+    [XmlArrayItem("HighScore")]
     public List<HighScore> highScores = new List<HighScore>();
 
     public int highestScore;
@@ -77,16 +82,21 @@ public class ScoreManager : Singleton<ScoreManager>
                 scoreText.text = "Score: " + m_currentScore.ToString();
         }
     }
-    
-    [XmlRoot ("HighScores")]
+
+    [XmlRoot("HighScores")]
     public class HighScore
     {
+        [XmlArrayItem("Name")]
         public string name;
+        [XmlArrayItem("Score")]
         public int score;
 
         public HighScore() { }
+
         public HighScore(string n, int s)
         {
+            if (n == null)
+                n = "ass".ToUpper();
             name = n;
             score = s;
         }
