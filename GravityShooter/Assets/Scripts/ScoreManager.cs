@@ -4,45 +4,32 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : Singleton<ScoreManager>
 {
-    public static int score;
-    public static int scoreSmallEnemy = 5;
-    public static int scoreMediumEnemy = 10;
-    public static int scoreLargeEnemy = 15;
-    public static int scoreBoss = 20;
-    public Text scoreText;
-
-    public int maxHighScores = 3;
-    public List<int> highScores = new List<int>();
-    public int highestScore;
-
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         LoadScores();
-        score = 0;
+        currentScore = 0;
     }
 
-    void Update()
+    public static int IncreasScoreBy(int a_score)
     {
-        if(scoreText)
-            scoreText.text = "Score: " + score;
-    }
+        currentScore += a_score;
 
-    void OnApplicationQuit()
-    {
-        SaveScores();
-
-        Serializer.SerializeXML(highScores, "HighScore", @"..\");
+        return 0;
     }
 
     private int SaveScores()
     {
-        highScores.Add(score);
+        highScores.Add(currentScore);
         highScores = highScores.OrderByDescending(x => x).ToList();
 
         if (highScores.Count > maxHighScores)
             highScores.RemoveRange(maxHighScores, highScores.Count - maxHighScores);
+
+        Serializer.SerializeXML(highScores, "HighScore", @"..\");
 
         return 0;
     }
@@ -53,5 +40,26 @@ public class ScoreManager : MonoBehaviour
         highestScore = highScores[0];
 
         return 0;
+    }
+
+    private static int m_currentScore;
+    public static Text scoreText;
+
+    public int maxHighScores = 3;
+    public List<int> highScores = new List<int>();
+    public int highestScore;
+
+    public static int currentScore
+    {
+        get
+        {
+            return m_currentScore;
+        }
+        set
+        {
+            m_currentScore = value;
+            if (scoreText)
+                scoreText.text = m_currentScore.ToString();
+        }
     }
 }
