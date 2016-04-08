@@ -41,6 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EntityWaves:
   - {fileID: 138676, guid: 298f3c4c521427c468d3b42972285596, type: 2}
+  - {fileID: 156886, guid: 58e49dcdac7502946aa71ddff5123c50, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

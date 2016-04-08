@@ -10,6 +10,7 @@ public class LgEnemy : EnemyBase
     {
         move = new Vector3(0, 0.1f, 0);
         hp = 2;
+        ScoreValue = 25;
         StartCoroutine(Special());
         base.Start();
     }

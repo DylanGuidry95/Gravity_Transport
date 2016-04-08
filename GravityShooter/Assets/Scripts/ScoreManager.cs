@@ -45,17 +45,21 @@ public class ScoreManager : Singleton<ScoreManager>
     private int LoadScores()
     {
         highScores = Serializer.DeserializeXML<List<HighScore>>(@"..\HighScore");
-        highestScore = highScores[0].score;
-
+        if(highScores.Count > 0)
+            highestScore = highScores[0].score;
+        
         return 0;
     }
 
-    // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING 
-    void OnApplicationQuit()
+    void Update()
     {
-        SaveScores();
+        if(GameStates.ExitGamePlay)
+        {
+            Debug.Log("Save");
+            SaveScores();
+        }
+
     }
-    // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING // TESTING
 
     private static int m_currentScore;
     public string playerName;

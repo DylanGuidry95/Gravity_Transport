@@ -35,6 +35,8 @@ public class GameStates : Singleton<GameStates>
     private static string PlayerName = "Player";
     private static string GravityWellName = "GravityWell";
 
+    public static bool ExitGamePlay = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -99,6 +101,7 @@ public class GameStates : Singleton<GameStates>
 
     static void StateProperties()
     {
+        ExitGamePlay = false;
         switch(_fsm.state)
         {
             case GAMESTATE.init:
@@ -136,6 +139,12 @@ public class GameStates : Singleton<GameStates>
 
     public static void ChangeState(string GameState)
     {
+        if (_fsm.state == GAMESTATE.pauseMenu || _fsm.state == GAMESTATE.gamePlay)
+        {
+            Debug.Log("Hit");
+            ExitGamePlay = true;
+        }
+
         switch (GameState)
         {
             case "MainMenu":
