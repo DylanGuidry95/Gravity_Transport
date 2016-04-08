@@ -9,7 +9,8 @@ public class LgEnemy : EnemyBase
     protected override void Start()
     {
         move = new Vector3(0, 0.1f, 0);
-        hp = 3;
+        hp = 2;
+        StartCoroutine(Special());
         base.Start();
     }
 
@@ -37,10 +38,6 @@ public class LgEnemy : EnemyBase
             case ENEMYSTATES.spawn:
                 //EnemySpawn();
                 _fsm.Transition(_fsm.state, ENEMYSTATES.fly);
-                break;
-            case ENEMYSTATES.idle:
-              
-
                 break;
             case ENEMYSTATES.fly:
                 Movement();
@@ -94,8 +91,12 @@ public class LgEnemy : EnemyBase
         base.Fire();
     }
 
-    void Special()
+    IEnumerator Special()
     {
-
+        while (gameObject)
+        {
+            yield return new WaitForSeconds(10);
+            if (hp == 1 || hp < 3) { hp++; }
+        }
     }
 }
