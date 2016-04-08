@@ -48,6 +48,8 @@ public class EnemyBase : MonoBehaviour
     [SerializeField]
     protected int hp; //Hp the enemy has
     [SerializeField]
+    protected int ScoreValue; //Points the player is rewareded with when enemy dies
+    [SerializeField]
     protected Player player; //Refrence to the play object the enemy is locating
     protected GameObject bullet; //Refrence the bullet prefab the enemy will use to shoot
     [SerializeField]
@@ -140,6 +142,7 @@ public class EnemyBase : MonoBehaviour
             //Checks if the hp is equal to zero
             if(hp == 0)
             {
+                //Calls score functions to increase current score
                 //Destorys the enemy
                 Destroy(this.gameObject);
                 //Plays the explosion audio
