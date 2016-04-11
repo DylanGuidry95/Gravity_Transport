@@ -33,7 +33,7 @@ public class GUIManager : Singleton<GUIManager>
     {
         // base keeps the orignal function, if you want to change a function, you override it.
         base.Awake();
-
+        
         //create the elements for the dictionary
         m_elements = new Dictionary<string, GameObject>();
 

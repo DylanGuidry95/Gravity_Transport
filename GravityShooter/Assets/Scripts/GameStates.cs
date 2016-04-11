@@ -17,7 +17,7 @@ public class GameStates : Singleton<GameStates>
         count
     }
 
-    protected static FSM<GAMESTATE> _fsm;
+    protected static FSM<GAMESTATE> _fsm = new FSM<GAMESTATE>();
 
     private GameStates Instance;
     public GameStates _instance
@@ -40,7 +40,8 @@ public class GameStates : Singleton<GameStates>
     protected override void Awake()
     {
         base.Awake();
-        _fsm = new FSM<GAMESTATE>();
+        if(_fsm == null)
+            _fsm = new FSM<GAMESTATE>();
         AddState();
         AddTransiton();
         Instance = this;
@@ -139,11 +140,7 @@ public class GameStates : Singleton<GameStates>
 
     public static void ChangeState(string GameState)
     {
-        if (_fsm.state == GAMESTATE.pauseMenu || _fsm.state == GAMESTATE.gamePlay)
-        {
-            Debug.Log("Hit");
-            ExitGamePlay = true;
-        }
+
 
         switch (GameState)
         {

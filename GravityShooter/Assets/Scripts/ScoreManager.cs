@@ -11,7 +11,7 @@ public class ScoreManager : Singleton<ScoreManager>
     {
         base.Awake();
 
-        LoadScores();
+        //LoadScores();
 
         currentScore = 0;
         scoreText = GetComponent<Text>();
@@ -56,7 +56,7 @@ public class ScoreManager : Singleton<ScoreManager>
         if(GameStates.ExitGamePlay)
         {
             Debug.Log("Save");
-            SaveScores();
+            //SaveScores();
         }
 
     }
