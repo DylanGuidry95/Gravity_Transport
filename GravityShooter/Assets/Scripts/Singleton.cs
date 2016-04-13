@@ -14,7 +14,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             if (_instance == null)
             {
                 _instance = GameObject.FindObjectOfType<T>();
-                DontDestroyOnLoad(_instance.gameObject);
+                DontDestroyOnLoad(_instance.GetComponent<GameObject>());
             }
 
             return _instance;
@@ -30,7 +30,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 it will not destroy the object when a scene is loaded
             */
             _instance = this.gameObject.GetComponent<T>();
-            DontDestroyOnLoad(_instance);
+            DontDestroyOnLoad(_instance.GetComponent<GameObject>());
 
         }
 

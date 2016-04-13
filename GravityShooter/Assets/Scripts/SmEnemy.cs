@@ -7,6 +7,7 @@ public class SmEnemy : EnemyBase
 	protected override void Start()
     {
         base.Start();
+        ScoreValue = 5;
 	}
 
     protected override void GenerateFSM()

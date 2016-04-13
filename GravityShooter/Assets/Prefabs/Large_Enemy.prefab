@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.05, y: 0.85, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,11 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c760b36af31e443aa4b1fc49de59c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  movementSpeed: 20
   ammoCapacity: 0
   ammoAvailiable: 0
-  fireDelay: 3
-  bulletSpeed: 5
+  fireDelay: 2
+  bulletSpeed: 0
   hp: 0
   player: {fileID: 0}
   SpawnPosition: {x: 0, y: 0, z: 0}

@@ -17,7 +17,7 @@ public class GameStates : Singleton<GameStates>
         count
     }
 
-    protected static FSM<GAMESTATE> _fsm;
+    protected static FSM<GAMESTATE> _fsm = new FSM<GAMESTATE>();
 
     private GameStates Instance;
     public GameStates _instance
@@ -35,10 +35,13 @@ public class GameStates : Singleton<GameStates>
     private static string PlayerName = "Player";
     private static string GravityWellName = "GravityWell";
 
+    public static bool ExitGamePlay = false;
+
     protected override void Awake()
     {
         base.Awake();
-        _fsm = new FSM<GAMESTATE>();
+        if(_fsm == null)
+            _fsm = new FSM<GAMESTATE>();
         AddState();
         AddTransiton();
         Instance = this;
@@ -99,6 +102,7 @@ public class GameStates : Singleton<GameStates>
 
     static void StateProperties()
     {
+        ExitGamePlay = false;
         switch(_fsm.state)
         {
             case GAMESTATE.init:
@@ -136,6 +140,8 @@ public class GameStates : Singleton<GameStates>
 
     public static void ChangeState(string GameState)
     {
+
+
         switch (GameState)
         {
             case "MainMenu":

@@ -144,6 +144,7 @@ public class EnemyBase : MonoBehaviour
             {
                 //Calls score functions to increase current score
                 //Destorys the enemy
+                ScoreManager.IncreasScoreBy(ScoreValue);
                 Destroy(this.gameObject);
                 //Plays the explosion audio
                 FindObjectOfType<AudioManager>().PlayExplodeAudio();

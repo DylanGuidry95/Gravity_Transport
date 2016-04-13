@@ -13,6 +13,7 @@ public class MdEnemy : EnemyBase
     {
         ammoCapacity = 500;
         hp = 2;
+        ScoreValue = 15;
         base.Start();
     }
 
