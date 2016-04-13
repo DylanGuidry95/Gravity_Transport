@@ -32,6 +32,10 @@ public class EntityManager : MonoBehaviour
         {                                                   // AND there is a NEXT wave
             SpawnNextWave();                            // spawn the next wave
         }
+        else
+        {
+            GameStates.ChangeState("GameOver");
+        }
     }
 
     void SpawnNextWave()

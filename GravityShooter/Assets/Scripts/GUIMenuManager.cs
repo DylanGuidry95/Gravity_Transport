@@ -125,7 +125,7 @@ public class GUIMenuManager : MonoBehaviour
     /// <summary>
     /// To go back to the gameplay
     /// </summary>
-    public void ResumeButton()
+    public static void ResumeButton()
     {
         GUIManager.instance.Activate("UIPauseText", false);
         GUIManager.instance.Activate("UIResumeButton", false);

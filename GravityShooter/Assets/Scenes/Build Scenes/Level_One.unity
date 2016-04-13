@@ -281,6 +281,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 493718, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -313,6 +317,34 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.data[0]
+      value: 
+      objectReference: {fileID: 187632, guid: dc6012d8c50a1654d9a6da395dd87c2c, type: 2}
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.data[1]
+      value: 
+      objectReference: {fileID: 154138, guid: afd0b5f312d50d545ab51a0736a3a761, type: 2}
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.data[2]
+      value: 
+      objectReference: {fileID: 120484, guid: 4ae8e08980e8dfe439c917d7c13abd23, type: 2}
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.data[3]
+      value: 
+      objectReference: {fileID: 121874, guid: 2a031547064f36a4cb6410c5d5d8d5e9, type: 2}
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.data[4]
+      value: 
+      objectReference: {fileID: 123044, guid: 2191d755763e7204ea0e1c9903b439bf, type: 2}
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.data[5]
+      value: 
+      objectReference: {fileID: 115474, guid: f2314d83ae662b646aa6076a0c2588ed, type: 2}
+    - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
+      propertyPath: EntityWaves.Array.data[6]
+      value: 
+      objectReference: {fileID: 148410, guid: a32de70b0eb801b4f854f3ded0fd19c3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
   m_IsPrefabParent: 0
@@ -442,6 +474,14 @@ Prefab:
     - target: {fileID: 11407868, guid: 8ea6a1b4725f46141b7582c85cafd97b, type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11411154, guid: 8ea6a1b4725f46141b7582c85cafd97b, type: 2}
+      propertyPath: m_Value
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11411154, guid: 8ea6a1b4725f46141b7582c85cafd97b, type: 2}
+      propertyPath: m_MaxValue
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ea6a1b4725f46141b7582c85cafd97b, type: 2}

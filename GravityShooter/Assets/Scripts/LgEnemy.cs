@@ -18,10 +18,8 @@ public class LgEnemy : EnemyBase
     protected override void GenerateFSM()
     {
         base.GenerateFSM();
-        _fsm.AddTransition(ENEMYSTATES.fly, ENEMYSTATES.dead, false);
-        //_fsm.AddTransition(ENEMYSTATES.fly, ENEMYSTATES.special, false);
-        //_fsm.AddTransition(ENEMYSTATES.special, ENEMYSTATES.dead, false);
-        _fsm.AddTransition(ENEMYSTATES.spawn, ENEMYSTATES.fly, false);
+        _fsm.AddTransition(ENEMYSTATES.fly, ENEMYSTATES.special, false);
+        _fsm.AddTransition(ENEMYSTATES.special, ENEMYSTATES.dead, false);
     }
 
     void Update()
@@ -37,8 +35,7 @@ public class LgEnemy : EnemyBase
         switch (_fsm.state)
         {
             case ENEMYSTATES.spawn:
-                //EnemySpawn();
-                _fsm.Transition(_fsm.state, ENEMYSTATES.fly);
+                EnemySpawn();
                 break;
             case ENEMYSTATES.fly:
                 Movement();
@@ -71,19 +68,28 @@ public class LgEnemy : EnemyBase
         }
     }
 
+    bool intial = true;
     void Movement()
     {
+        if(intial == true)
+        {
+            int i = Random.Range(1,10);
+            move = i > 5 ? move : -move;
+        }
+
         transform.position += move * Time.deltaTime * movementSpeed;
 
-        if (transform.position.y > ScreenBorders.m_topLeft.y + 1.5f)
+        if (transform.position.y > ScreenBorders.m_topLeft.y - 1.5f)
         {
             changeDirection(new Vector3(0, -0.1f, 0));       
         }
 
-        if (transform.position.y < ScreenBorders.m_bottomLeft.y - 1.5f)
+        if (transform.position.y < ScreenBorders.m_bottomLeft.y + 1.5f)
         { 
             changeDirection(new Vector3(0, 0.1f, 0));
         }
+        if (intial != false)
+            intial = false;
     }
 
 
@@ -99,5 +105,11 @@ public class LgEnemy : EnemyBase
             yield return new WaitForSeconds(10);
             hp++; 
         }
+    }
+
+    protected override void EnemySpawn()
+    {
+        base.EnemySpawn();
+        _fsm.Transition(_fsm.state, ENEMYSTATES.fly);
     }
 }

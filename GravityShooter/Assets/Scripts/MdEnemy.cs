@@ -7,13 +7,14 @@ public class MdEnemy : EnemyBase
     public int MultiShoot;
     bool swithcDir = false;
     public float TravelDistance;
-
+    float initDelay;
     // Use this for initialization
     protected override void Start()
     {
         ammoCapacity = 500;
         hp = 2;
         ScoreValue = 15;
+        initDelay = fireDelay;
         base.Start();
     }
 
@@ -89,7 +90,7 @@ public class MdEnemy : EnemyBase
             foreach(GameObject a in shoots)
             {
                 Vector2 Look_at_player = (player.transform.position - transform.position).normalized;
-                a.GetComponent<Rigidbody2D>().velocity = Look_at_player.normalized * bulletSpeed;
+                a.GetComponent<Rigidbody2D>().velocity = Vector3.left * bulletSpeed;
                 timer = 0;
             }
         }
@@ -120,7 +121,7 @@ public class MdEnemy : EnemyBase
 
     void Special()
     {
-        if(fireDelay == 3)
+        if(fireDelay == initDelay)
         {
             fireDelay = 1;
         }

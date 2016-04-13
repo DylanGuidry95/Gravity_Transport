@@ -185,7 +185,7 @@ public class GameStates : Singleton<GameStates>
             else
             {
                 Time.timeScale = 1;
-                GUIMenuManager.PauseButton();
+                GUIMenuManager.ResumeButton();
                 _fsm.Transition(_fsm.state,GAMESTATE.gamePlay);
             }
         }
