@@ -94,10 +94,10 @@ public class LgEnemy : EnemyBase
 
     IEnumerator Special()
     {
-        while (gameObject)
+        while (hp == 1 || hp < 3)
         {
             yield return new WaitForSeconds(10);
-            if (hp == 1 || hp < 3) { hp++; }
+            hp++; 
         }
     }
 }

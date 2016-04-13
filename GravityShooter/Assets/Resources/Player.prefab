@@ -15,7 +15,7 @@ GameObject:
   - 231: {fileID: 23154196}
   - 120: {fileID: 12062740}
   - 212: {fileID: 21277636}
-  - 95: {fileID: 9565626}
+  - 95: {fileID: 9537592}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -66,7 +66,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
---- !u!95 &9565626
+--- !u!95 &9537592
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -75,7 +75,7 @@ Animator:
   m_GameObject: {fileID: 150572}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f5ad112672d48184792f438661a06ff3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6a8b896c027b2cc4c837e079333ddfcd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   atRight: 0
   well: {fileID: 0}
   padding: 0.5
+  playerGUI: {fileID: 0}
 --- !u!120 &12062740
 LineRenderer:
   m_ObjectHideFlags: 1

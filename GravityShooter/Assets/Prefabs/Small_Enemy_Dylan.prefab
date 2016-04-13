@@ -12,6 +12,7 @@ GameObject:
   - 50: {fileID: 5033894}
   - 61: {fileID: 6141668}
   - 114: {fileID: 11422938}
+  - 95: {fileID: 9507196}
   m_Layer: 0
   m_Name: Small_Enemy_Dylan
   m_TagString: Untagged
@@ -26,8 +27,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 7.51, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,7 +62,24 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 3.1, y: 3.3}
+  m_Size: {x: 0.5, y: 0.5}
+--- !u!95 &9507196
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136256}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d51f43bb000b9a2429858ece689c255f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11422938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -75,10 +93,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 10
   ammoCapacity: 3
+  ammoAvailiable: 0
   fireDelay: 3
   bulletSpeed: 5
   hp: 1
-  SpawnPosition: {x: 4, y: 4, z: 0}
+  ScoreValue: 0
+  player: {fileID: 0}
+  SpawnPosition: {x: 0, y: 0, z: 0}
   timer: 0
 --- !u!212 &21283956
 SpriteRenderer:
@@ -106,7 +127,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6c158ce9afc920c40b338b3b473069df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9894ad945fb13ce478f98276ed0043e9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
