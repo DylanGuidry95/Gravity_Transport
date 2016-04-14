@@ -225,6 +225,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 235555165}
   - 222: {fileID: 235555169}
+  - 61: {fileID: 235555172}
   - 114: {fileID: 235555168}
   - 114: {fileID: 235555167}
   - 114: {fileID: 235555166}
@@ -388,6 +389,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 270b86017e960f64986bab9600c4af74, type: 3}
   - {fileID: 21300000, guid: 4838e958807c1e3499b0a519deb6394d, type: 3}
   - {fileID: 21300000, guid: f233ff72df493354eb20747fa09a49fd, type: 3}
+--- !u!61 &235555172
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 235555164}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!1 &359118382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1984,7 +1999,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1136, y: 639}
+  m_SizeDelta: {x: 1136, y: 638}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125574526
 MonoBehaviour:
