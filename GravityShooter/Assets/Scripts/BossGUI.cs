@@ -13,13 +13,13 @@ public class BossGUI : MonoBehaviour
     public Slider bossSlider;
     public static int damage = 10;
 
-    void bossGUI()
+    public void ToggleBossGUI(bool state)
     {
-        // When the boss appears, I need to turn on the bossSlider and bossName on.
-        // If the boss is dead, turn off boss GUI element
-        if (bossSlider.value == 0)
-        {
-            GUIManager.instance.Activate("UIBoss", false);
-        }
+        GUIManager.instance.Activate("UIBoss", state);
+    }
+
+    public void HPChange(int dmg)
+    {
+        bossSlider.value -= dmg;
     }
 }

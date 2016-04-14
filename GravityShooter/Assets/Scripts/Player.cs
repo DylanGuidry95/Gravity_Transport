@@ -154,11 +154,15 @@ public class Player : Singleton<Player>
         _fsm.AddTransition(PLAYERSTATES.dead, PLAYERSTATES.destroyed, false);
     }
 
+    public bool GODMODE = false;
+
     /// <summary>
     /// Handles all the behavior that needs to happed every frame
     /// </summary>
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.N))
+            GODMODE = !GODMODE;
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
 
@@ -265,7 +269,7 @@ public class Player : Singleton<Player>
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null)
+        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null && _fsm.state != PLAYERSTATES.dead)
         {
             PlayerDamage();
             Destroy(c.gameObject);
@@ -278,7 +282,7 @@ public class Player : Singleton<Player>
     /// along with how many lives it has remaning.
     /// </summary>
     [ContextMenu("DMG")]
-    void PlayerDamage()
+    public void PlayerDamage()
     {
         _cAction = PLAYERACTIONS.takeDamage;
         currentHealth -= 1;
@@ -297,6 +301,8 @@ public class Player : Singleton<Player>
                 well.transform.position = spawnPosition;
                 PlayerSpawn();
                 currentHealth = maxHealth;
+                if (GODMODE == true)
+                    livesRemaining += 1;
             }
             else if (livesRemaining < 0)
             {

@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9221f5290548c8449af4dc9caddeaba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
+  movementSpeed: 20
   ammoCapacity: 1
   ammoAvailiable: 0
   fireDelay: 3
@@ -181,6 +181,7 @@ MonoBehaviour:
   LaserEnd: {fileID: 114032}
   laserSpeed: 0.5
   MultiShoot: 5
+  BossUI: {fileID: 0}
 --- !u!120 &12051384
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -256,7 +257,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: movementSpeed
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 137194}

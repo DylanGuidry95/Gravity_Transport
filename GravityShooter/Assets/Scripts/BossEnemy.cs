@@ -9,17 +9,54 @@ public class BossEnemy : EnemyBase
     float reloadSpeed;
     public int MultiShoot;
 
+    [SerializeField]
+    private BossGUI BossUI;
+
 	// Use this for initialization
 	protected override void Start ()
     {
+        GUIManager.instance.Activate("UIBoss",true);
+        if (BossUI == null)
+            BossUI = FindObjectOfType<BossGUI>();
+        hp = 15;
         base.Start();   
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    protected override void GenerateFSM()
     {
+        base.GenerateFSM();
+    }
+
+    void CheckState()
+    {
+        switch (_fsm.state)
+        {
+            case ENEMYSTATES.spawn:
+                EnemySpawn();
+                break;
+            case ENEMYSTATES.idle:
+                Fire();
+                _fsm.Transition(_fsm.state, ENEMYSTATES.fly);
+                break;
+            case ENEMYSTATES.fly:
+                Fire();
+                break;
+            case ENEMYSTATES.special:
+                Fire();
+                break;
+            case ENEMYSTATES.dead:
+                Destroy(this.gameObject);
+                break;
+        }
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+        if(player == null)
+            player = FindObjectOfType<Player>(); //Locates the player
         timer += Time.deltaTime;
-        Fire();
+        CheckState();
 
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, LaserEnd.transform.position);
@@ -98,14 +135,33 @@ public class BossEnemy : EnemyBase
             {
                 if (hit.collider != null && hit.collider.GetComponent<Player>() != null)
                 {
-                    LaserEnd.gameObject.GetComponent<MeshRenderer>().materials[0].color = Color.black;
-                }
-                else if(hit.collider != null && hit.collider.GetComponent<Player>() == null)
-                {
-                    LaserEnd.gameObject.GetComponent<MeshRenderer>().materials[0].color = Color.white;
+                    hit.collider.GetComponent<Player>().PlayerDamage();
                 }
             }
         }
 
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D c)
+    {
+        if (c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false)
+        {
+            //Destroys the bullet
+            Destroy(c.gameObject);
+            //Subtracts one hp from the enemy current hp
+            hp--;
+            BossUI.HPChange(1);
+            //Checks if the hp is equal to zero
+            if (hp == 0)
+            {
+                BossUI.ToggleBossGUI(false);
+                //Calls score functions to increase current score
+                //Destorys the enemy
+                ScoreManager.IncreasScoreBy(ScoreValue);
+                Destroy(this.gameObject);
+                //Plays the explosion audio
+                FindObjectOfType<AudioManager>().PlayExplodeAudio();
+            }
+        }
     }
 }

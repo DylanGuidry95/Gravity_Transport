@@ -133,7 +133,7 @@ public class EnemyBase : MonoBehaviour
     {
         //Checks to see if the object collided with the enemey is a projectile and it
         //was not fired by an allied enemy ship
-        if(c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false)
+        if(c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false && _fsm.state != ENEMYSTATES.spawn)
         {
             //Destroys the bullet
             Destroy(c.gameObject);
