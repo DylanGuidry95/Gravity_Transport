@@ -1,0 +1,4 @@
+medium enemy ship 2 read me
+
+Enemyships_Beam_003 conects to the black part of Enemyship_MediumShip_003  when it gets ready to charge, using it like a flame thrower 
+when he charges at the main player after fiering off a few shoots

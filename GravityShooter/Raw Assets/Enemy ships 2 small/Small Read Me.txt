@@ -1,0 +1,3 @@
+Small Ship 2 Read me
+
+This version of the small enemys do not ram into the player and insted stay on the screen to keep fiering at the player
