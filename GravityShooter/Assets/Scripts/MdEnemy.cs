@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class MdEnemy : EnemyBase
 {
     public int MultiShoot;
-    bool swithcDir = false;
+    bool switchDir = false;
     public float TravelDistance;
     float initDelay;
     // Use this for initialization
@@ -100,22 +100,23 @@ public class MdEnemy : EnemyBase
     {
         Vector3 UpMax = new Vector3(SpawnPosition.x, SpawnPosition.y + TravelDistance, 0);
         Vector3 DownMax = new Vector3(SpawnPosition.x, SpawnPosition.y - TravelDistance, 0);
-        if (Vector3.Distance(transform.position,UpMax) > .1f && swithcDir != true)
+        if (Vector3.Distance(transform.position,UpMax) > .1f && switchDir != true)
         {
             transform.position += new Vector3(0, .1f, 0) * (Time.deltaTime * movementSpeed);
+            if(Vector3.Distance(transform.position, UpMax) < .1f) { switchDir = true; }
         }
         else
         {
-            swithcDir = true;
+            switchDir = true;
         }
 
-        if(Vector3.Distance(transform.position, DownMax) > .1f && swithcDir == true)
+        if(Vector3.Distance(transform.position, DownMax) > .1f && switchDir == true)
         {
             transform.position -= new Vector3(0, .1f, 0) * (Time.deltaTime * movementSpeed);
         }
         else
         {
-            swithcDir = false;
+            switchDir = false;
         }
     }
 
