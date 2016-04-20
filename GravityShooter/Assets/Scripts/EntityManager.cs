@@ -11,7 +11,7 @@ public class EntityManager : MonoBehaviour
 
     void Update()
     {
-        if (Entities.Count > 0)                                                 // Makes sure that there are still entities alive
+        if (Entities.Count > 0 && Reset == false)                                                 // Makes sure that there are still entities alive
         {
             foreach (GameObject e in Entities)                                      // For each entity that we are managing
             {
@@ -27,6 +27,15 @@ public class EntityManager : MonoBehaviour
                     return;                 // and restart the check
                 }
             }
+        }
+        else if(Reset == true)
+        {
+            foreach(GameObject e in Entities)
+            {
+                Destroy(e);
+            }
+            Reset = false;
+            SpawnNextWave();
         }
         else if(++m_currentWave < EntityWaves.Count)    // If all the entites are dead
         {                                                   // AND there is a NEXT wave
@@ -53,8 +62,15 @@ public class EntityManager : MonoBehaviour
         Destroy(wave);                      // and destroy the now empty wave
     }
 
+    public static bool Reset = false;
+
+    public static void ResetWave()
+    {
+        Reset = true;
+    }
+
     private int m_currentWave;
 
     public List<GameObject> EntityWaves = new List<GameObject>();
-    private List<GameObject> Entities = new List<GameObject>();
+    public static List<GameObject> Entities = new List<GameObject>();
 }

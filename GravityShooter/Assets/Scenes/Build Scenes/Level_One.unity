@@ -483,9 +483,23 @@ Prefab:
       propertyPath: m_MaxValue
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 11471112, guid: 8ea6a1b4725f46141b7582c85cafd97b, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1732972635}
+    - target: {fileID: 11471112, guid: 8ea6a1b4725f46141b7582c85cafd97b, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HitResumeButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ea6a1b4725f46141b7582c85cafd97b, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1732972635 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11408666, guid: 8ea6a1b4725f46141b7582c85cafd97b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1732972634}
+  m_Script: {fileID: 11500000, guid: 6d13b319c9ab35c4d94dfbe9c1ecbd6a, type: 3}
 --- !u!1001 &1784910558
 Prefab:
   m_ObjectHideFlags: 0

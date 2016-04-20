@@ -133,6 +133,15 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIMainMenu", false);
     }
 
+    public void HitResumeButton()
+    {
+        GUIManager.instance.Activate("UIPauseText", false);
+        GUIManager.instance.Activate("UIResumeButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UIMainMenu", false);
+        GameStates.PauseGame();
+    }
+
     /// <summary>
     /// Should be called when user completed level or has died
     /// </summary>
