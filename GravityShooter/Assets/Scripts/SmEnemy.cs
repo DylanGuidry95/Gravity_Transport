@@ -36,9 +36,11 @@ public class SmEnemy : EnemyBase
                 EnemySpawn();
                 break;
             case ENEMYSTATES.idle:
-                Fire();
+                _fsm.Transition(_fsm.state, ENEMYSTATES.fly);
                 break;
             case ENEMYSTATES.fly:
+                Movement();
+                Fire();
                 break;
             case ENEMYSTATES.special:
                 Special();
@@ -52,16 +54,26 @@ public class SmEnemy : EnemyBase
     protected override void Fire()
     {
         base.Fire();
-        if(ammoAvailiable <= 0)
-        {
-            transform.right = (transform.position - player.transform.position).normalized;
-            _fsm.Transition(_fsm.state, ENEMYSTATES.special);
-        }
     }
 
     void Special()
     {
-        float enemyAngel = transform.eulerAngles.z * Mathf.Deg2Rad;
-        transform.position -= new Vector3(Mathf.Cos(enemyAngel), Mathf.Sin(enemyAngel), 0) * (Time.deltaTime * movementSpeed);
+            float enemyAngel = transform.eulerAngles.z * Mathf.Deg2Rad;
+            transform.position -= new Vector3(Mathf.Cos(enemyAngel), Mathf.Sin(enemyAngel), 0) * (Time.deltaTime * movementSpeed);
+    }
+
+    void Movement()
+    {
+        bool on_movement = true;
+        if (on_movement)
+        { transform.right = (transform.position - player.transform.position).normalized; }
+
+        if (ammoAvailiable <= 0)
+        {
+            on_movement = false;
+            transform.right = (transform.position - player.transform.position).normalized;
+            if (timer > fireDelay)
+            { _fsm.Transition(_fsm.state, ENEMYSTATES.special); timer = 0; }
+        }
     }
 }
