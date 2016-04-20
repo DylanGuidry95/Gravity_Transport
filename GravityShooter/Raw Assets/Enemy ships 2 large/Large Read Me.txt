@@ -1,0 +1,6 @@
+Enemy Ship Large 2 Read Me
+
+LargeShip_004 starts off the animation for the lazer canon and ends at Largship_007 when it fires the lazer
+
+Largeship_008 after the lazer fires off and gose through Largeship_009 befor reverting back to Largeship_001
+

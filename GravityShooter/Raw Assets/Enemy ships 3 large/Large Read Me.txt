@@ -1,0 +1,10 @@
+Large enemy ship Read Me 3
+
+LargeShip_005 fires off the beam, the top beam will just go straight but the botom beam will track the players ship whall the enemy ship is still 
+moving draging the top beam with it to try and vice grip the player ship betwen it
+
+LargeShip_006 fires off a shoot gun of balistik spray
+
+LargeShip_007  cycles through to LargeShip_009 and than fires off 4 rockets at the players ship
+
+Revers LargeShip_009 back to largeShip_007 befor returning to LargeShip_001

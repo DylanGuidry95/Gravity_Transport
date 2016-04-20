@@ -1,0 +1,7 @@
+Medium Enemy ship Read Me 3
+
+MediumShip_005 fires off two beams on each side of the ship atempting to trap the ship in betwen the lazers
+
+MediumShip_006 Fires out the Rockets at the player ship
+
+MediumShip_007 fires off the balistik shoots
