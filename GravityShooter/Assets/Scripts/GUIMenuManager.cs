@@ -6,11 +6,6 @@ using System.Collections.Generic;
 public class GUIMenuManager : MonoBehaviour
 {
     /// <summary>
-    /// When the button is pressed, it plays an animation
-    /// but until the animation is finished, it does whatever.
-    /// </summary>
-
-    /// <summary>
     /// Checks to see if the platform is build in WebGL.
     /// </summary>
     void Awake()
@@ -22,7 +17,7 @@ public class GUIMenuManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Turning off gui elements to able to load scene
+    /// Turning off gui elements to able to load scene to Main Menu
     /// </summary>
     public void MainMenu()
     {
@@ -34,21 +29,20 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIHighScores", false);
         GUIManager.instance.Activate("UICurrentScore", false);
         GameStates.ChangeState("MainMenu");
-        // Load MainMenu scene
     }
 
     /// <summary>
-    /// Turning off gui elements to able to load scene
+    /// Turning off gui elements to able to load scene to GamePlay
     /// </summary>
     public void PlayButton()
     {
+        GUIManager.instance.Activate("UIBackground", false);
         GUIManager.instance.Activate("UITitle", false);
         GUIManager.instance.Activate("UIPlayButton", false);
         GUIManager.instance.Activate("UIOptionsButton", false);
         GUIManager.instance.Activate("UICreditButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
         GameStates.ChangeState("Game");
-        // Load GamePlay scene
     }
 
     /// <summary>
@@ -111,8 +105,6 @@ public class GUIMenuManager : MonoBehaviour
 
     /// <summary>
     /// PauseButton will pause the game play
-    /// Needs to be checked every frame in gameplay scene
-    /// Does need timeScale = 0 or 1 to pause game
     /// </summary>
     public static void PauseButton()
     {
@@ -134,7 +126,7 @@ public class GUIMenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Should be called when user completed level or has died
+    /// Should be called when user completed level or player died, also load GameOver Scene
     /// </summary>
     public static void GameOver()
     {
@@ -142,6 +134,5 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIBoss", false);
         GUIManager.instance.Activate("UICreditButton", false);
         GUIManager.instance.Activate("UIScore", false);
-        // Load GameOver scene
     }
 }

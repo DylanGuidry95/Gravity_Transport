@@ -133,6 +133,7 @@ GameObject:
   - 114: {fileID: 235555166}
   - 95: {fileID: 235555172}
   - 114: {fileID: 235555170}
+  - 114: {fileID: 235555171}
   m_Layer: 5
   m_Name: UIPlayButton
   m_TagString: Untagged
@@ -272,6 +273,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &235555171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 235555164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d13b319c9ab35c4d94dfbe9c1ecbd6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &235555172
 Animator:
   serializedVersion: 3
@@ -1882,7 +1894,7 @@ GameObject:
   - 222: {fileID: 1125574527}
   - 114: {fileID: 1125574526}
   m_Layer: 5
-  m_Name: Image
+  m_Name: UIBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2755,7 +2767,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -93.6, y: -3.2}
+  m_AnchoredPosition: {x: -100, y: 0.000012159}
   m_SizeDelta: {x: 105.6, y: 103.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1471998458
