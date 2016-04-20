@@ -94,11 +94,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 412800, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.534696
+      value: 4.18
       objectReference: {fileID: 0}
     - target: {fileID: 412800, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.6461059
+      value: -4.72
       objectReference: {fileID: 0}
     - target: {fileID: 412800, guid: c6a68f2a96b899a4096a3363b8ad23ee, type: 2}
       propertyPath: m_LocalPosition.z
@@ -155,7 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Laser: {fileID: 8300000, guid: 00421e1994b9fe042a58901f675596bf, type: 3}
+  Rocket: {fileID: 0}
   Explode: {fileID: 8300000, guid: 8ae93c2586c0ad64590c534c9367e360, type: 3}
+  EXPLOSIONS: {fileID: 0}
 --- !u!4 &1775624445
 Transform:
   m_ObjectHideFlags: 0
@@ -177,11 +179,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.22
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 487204, guid: ff39d6ddfb89bd841af855a81638aa6b, type: 2}
       propertyPath: m_LocalPosition.z

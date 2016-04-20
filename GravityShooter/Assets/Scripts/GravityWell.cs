@@ -41,7 +41,9 @@ public class GravityWell : Singleton<GravityWell>
                         if (toBreak > 0.1f)
                         {
                             g.entity.transform.RotateAround(transform.position, Vector3.forward *
-                                (g.entry.x / Mathf.Abs(g.entry.x) * g.entry.y / Mathf.Abs(g.entry.y)),
+
+                                (g.thres.y < 0 ? -1 : 1),
+
                                 g.velocity.magnitude * speed * 100/toWell);
                         }
                         else
@@ -107,6 +109,10 @@ public class GravityWell : Singleton<GravityWell>
                                                                     // Used for poprerly moving the object in a "simulated gravity" fashion
 
             m_gravObjects.Add(g);                               // Add it to the list of GravityObjects
+
+            print(g.entry);
+            print(g.thres);
+            print(g.brake);
         }
     }
 
