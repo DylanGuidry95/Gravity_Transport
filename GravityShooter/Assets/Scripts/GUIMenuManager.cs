@@ -37,7 +37,6 @@ public class GUIMenuManager : MonoBehaviour
     public void PlayButton()
     {
         GUIManager.instance.Activate("UIBackground", false);
-        GUIManager.instance.Activate("UITitle", false);
         GUIManager.instance.Activate("UIPlayButton", false);
         GUIManager.instance.Activate("UIOptionsButton", false);
         GUIManager.instance.Activate("UICreditButton", false);
