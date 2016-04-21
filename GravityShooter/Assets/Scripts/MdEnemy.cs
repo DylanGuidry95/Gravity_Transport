@@ -103,7 +103,7 @@ public class MdEnemy : EnemyBase
         if (Vector3.Distance(transform.position,UpMax) > .1f && switchDir != true)
         {
             transform.position += new Vector3(0, .1f, 0) * (Time.deltaTime * movementSpeed);
-            if(Vector3.Distance(transform.position, UpMax) < .1f) { switchDir = true; }
+            if(Vector3.Distance(transform.position, UpMax) < 0) { switchDir = true; }
         }
         else
         {
@@ -113,6 +113,7 @@ public class MdEnemy : EnemyBase
         if(Vector3.Distance(transform.position, DownMax) > .1f && switchDir == true)
         {
             transform.position -= new Vector3(0, .1f, 0) * (Time.deltaTime * movementSpeed);
+            if (Vector3.Distance(transform.position, DownMax) < 0) { switchDir = false; }
         }
         else
         {
