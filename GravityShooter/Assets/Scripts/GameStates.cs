@@ -140,8 +140,6 @@ public class GameStates : Singleton<GameStates>
 
     public static void ChangeState(string GameState)
     {
-
-
         switch (GameState)
         {
             case "MainMenu":
@@ -176,18 +174,23 @@ public class GameStates : Singleton<GameStates>
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Time.timeScale != 0)
-            {
-                Time.timeScale = 0;
-                _fsm.Transition(_fsm.state, GAMESTATE.pauseMenu);
-                GUIMenuManager.PauseButton();
-            }            
-            else
-            {
-                Time.timeScale = 1;
-                GUIMenuManager.ResumeButton();
-                _fsm.Transition(_fsm.state,GAMESTATE.gamePlay);
-            }
+            PauseGame();
+        }
+    }
+
+    public static void PauseGame()
+    {
+        if (Time.timeScale != 0)
+        {
+            Time.timeScale = 0;
+            _fsm.Transition(_fsm.state, GAMESTATE.pauseMenu);
+            GUIMenuManager.PauseButton();
+        }
+        else
+        {
+            Time.timeScale = 1;
+            GUIMenuManager.ResumeButton();
+            _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
         }
     }
 }

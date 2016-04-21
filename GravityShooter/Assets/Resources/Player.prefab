@@ -65,7 +65,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 0.7}
 --- !u!95 &9537592
 Animator:
   serializedVersion: 3
@@ -109,6 +109,7 @@ MonoBehaviour:
   well: {fileID: 0}
   padding: 0.5
   playerGUI: {fileID: 0}
+  GODMODE: 0
 --- !u!120 &12062740
 LineRenderer:
   m_ObjectHideFlags: 1
