@@ -131,32 +131,32 @@ public class LgEnemy : EnemyBase
         }
     }
 
-    protected override void OnTriggerEnter2D(Collider2D c)
-    {
-        //Checks to see if the object collided with the enemey is a projectile and it
-        //was not fired by an allied enemy ship
-        if (c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false && _fsm.state != ENEMYSTATES.spawn)
-        {
-            //Destroys the bullet
-            Destroy(c.gameObject);
-            //Subtracts one hp from the enemy current hp
-            hp--;
-            //Checks if the hp is equal to zero
-            if (hp == 0)
-            {
-                foreach(GameObject g in SmEnemy)
-                {
-                    Destroy(g);
-                }
-                //Calls score functions to increase current score
-                //Destorys the enemy
-                ScoreManager.IncreasScoreBy(ScoreValue);
-                Destroy(this.gameObject);
-                //Plays the explosion audio
-                FindObjectOfType<AudioManager>().PlayExplodeAudio();
-            }
-        }
-    }
+    //protected override void OnTriggerEnter2D(Collider2D c)
+    //{
+    //    //Checks to see if the object collided with the enemey is a projectile and it
+    //    //was not fired by an allied enemy ship
+    //    if (c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false && _fsm.state != ENEMYSTATES.spawn)
+    //    {
+    //        //Destroys the bullet
+    //        Destroy(c.gameObject);
+    //        //Subtracts one hp from the enemy current hp
+    //        hp--;
+    //        //Checks if the hp is equal to zero
+    //        if (hp == 0)
+    //        {
+    //            foreach(GameObject g in SmEnemy)
+    //            {
+    //                Destroy(g);
+    //            }
+    //            //Calls score functions to increase current score
+    //            //Destorys the enemy
+    //            ScoreManager.IncreasScoreBy(ScoreValue);
+    //            Destroy(this.gameObject);
+    //            //Plays the explosion audio
+    //            FindObjectOfType<AudioManager>().PlayExplodeAudio();
+    //        }
+    //    }
+    //}
 
     public List<GameObject> SmEnemy;
 }

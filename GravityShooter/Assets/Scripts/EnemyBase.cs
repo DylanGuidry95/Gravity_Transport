@@ -135,6 +135,7 @@ public class EnemyBase : MonoBehaviour
         //was not fired by an allied enemy ship
         if(c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false && _fsm.state != ENEMYSTATES.spawn)
         {
+            Instantiate(Resources.Load("MultiExplosion"), c.transform.position, c.transform.localRotation);
             //Destroys the bullet
             Destroy(c.gameObject);
             //Subtracts one hp from the enemy current hp
