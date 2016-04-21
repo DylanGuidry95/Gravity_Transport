@@ -275,6 +275,7 @@ public class Player : Singleton<Player>
     {
         if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null && _fsm.state != PLAYERSTATES.dead)
         {
+            Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
             PlayerDamage();
             Destroy(c.gameObject);
         }
@@ -288,6 +289,7 @@ public class Player : Singleton<Player>
     [ContextMenu("DMG")]
     public void PlayerDamage()
     {
+        
         _cAction = PLAYERACTIONS.takeDamage;
         if (shield != true)
             currentHealth -= 1;
@@ -302,6 +304,7 @@ public class Player : Singleton<Player>
 
         if (currentHealth == 0)
         {
+            Instantiate(Resources.Load("BigExsplosion"), transform.position, transform.localRotation);
             EntityManager.ResetWave();
             acceleration = Vector3.zero;
             velocity = Vector3.zero;
@@ -310,6 +313,7 @@ public class Player : Singleton<Player>
             livesRemaining -= 1;
             if (livesRemaining >= 0)
             {
+                LivesRemaining.RemoveLife();
                 _cAction = PLAYERACTIONS.die;
                 transform.position = spawnPosition;
                 well.transform.position = spawnPosition;

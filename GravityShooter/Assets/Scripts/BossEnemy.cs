@@ -147,6 +147,7 @@ public class BossEnemy : EnemyBase
     {
         if (c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false)
         {
+            Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
             //Destroys the bullet
             Destroy(c.gameObject);
             //Subtracts one hp from the enemy current hp
@@ -155,6 +156,7 @@ public class BossEnemy : EnemyBase
             //Checks if the hp is equal to zero
             if (hp == 0)
             {
+                Instantiate(Resources.Load("BossExplosion"), transform.position, transform.localRotation);
                 BossUI.ToggleBossGUI(false);
                 //Calls score functions to increase current score
                 //Destorys the enemy

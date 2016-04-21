@@ -7,8 +7,8 @@ public class Shield : MonoBehaviour
     {
         if(c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false || c.GetComponent<Player>())
         {
-            Player.AddShield(true);
             Destroy(gameObject);
+            Player.AddShield(true);
         }
     }
 }

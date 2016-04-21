@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class EntityManager : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class EntityManager : MonoBehaviour
         }
         else
         {
-            GameStates.ChangeState("GameOver");
+            StartCoroutine(EndWait());
         }
     }
 
@@ -98,6 +99,12 @@ public class EntityManager : MonoBehaviour
     }
 
     public static bool Reset = false;
+
+    IEnumerator EndWait()
+    {
+        yield return new WaitForSeconds(3.0f);
+        GameStates.ChangeState("GameOver");
+    }
 
     public static void ResetWave()
     {
