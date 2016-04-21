@@ -26,10 +26,10 @@ public class SmEnemy : EnemyBase
             player = FindObjectOfType<Player>();
         CheckState();
         
-        if (transform.position.x < ScreenBorders.m_bottomLeft.x - 10)    // Check to see if they are still on the screen
-        {                                                                       // if they're not...
-            Destroy(gameObject);             // Destroy them
-        }
+        //if (transform.position.x < ScreenBorders.m_bottomLeft.x - 10)    // Check to see if they are still on the screen
+        //{                                                                       // if they're not...
+        //    Destroy(gameObject);             // Destroy them
+        //}
     }
 
     void CheckState()

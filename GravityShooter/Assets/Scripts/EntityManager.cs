@@ -24,9 +24,19 @@ public class EntityManager : MonoBehaviour
         {
             foreach (GameObject e in Entities)                                      // For each entity that we are managing
             {
+                if(e)
+                {
+                    if (e.transform.position.x < ScreenBorders.m_bottomLeft.x - 10)
+                    {
+                        Destroy(e);
+                    }
+                }
+
                 if (!e)                 // Sees if the entity has been destroyed
                 {
+                    print("Dead");
                     Entities.Remove(e);     // Remove them from the list
+                    //Destroy(e);
                     for (int i = 0; i < Entities.Count; i++)
                     {
                         if (Entities[i].GetComponent<LgEnemy>())
@@ -45,18 +55,15 @@ public class EntityManager : MonoBehaviour
                             return;                 // and restart the check
                         }
                     }
+                    return;
 
-                }
-                else if (e.transform.position.x < ScreenBorders.m_bottomLeft.x - 10 && !e.GetComponent<SmEnemy>())// == null)    // Check to see if they are still on the screen
-                {                                                                       // if they're not...
-                    Destroy(e);             // Destroy them
-                    //Entities.Remove(e);     // Remove them from the list
-                    return;                 // and restart the check
                 }
             }
         }
+
         else if(Reset == true)
         {
+            print("Reset");
             foreach(GameObject e in Entities)
             {
                 Destroy(e);
@@ -65,7 +72,8 @@ public class EntityManager : MonoBehaviour
             SpawnNextWave();
         }
         else if(++m_currentWave < EntityWaves.Count)    // If all the entites are dead
-        {                                                   // AND there is a NEXT wave
+        {
+            print("wave");// AND there is a NEXT wave
             SpawnNextWave();                            // spawn the next wave
         }
         else

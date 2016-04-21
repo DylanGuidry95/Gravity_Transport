@@ -19,6 +19,7 @@ public class BossEnemy : EnemyBase
         if (BossUI == null)
             BossUI = FindObjectOfType<BossGUI>();
         hp = 15;
+        BossUI.HPChange(hp);
         base.Start();   
 	}
 
@@ -68,13 +69,13 @@ public class BossEnemy : EnemyBase
     {
         if (timer >= fireDelay && player != null && ammoAvailiable > 0)
         {
-            float y_offset = -transform.localScale.y ;
+            float y_offset = -GetComponent<SpriteRenderer>().bounds.size.y / 2;
             List<GameObject> shoots = new List<GameObject>();
             for (int i = 0; i < MultiShoot; i++)
             {
                 GameObject a = Instantiate(Resources.Load("Bullet")) as GameObject;
                 a.transform.position += new Vector3(transform.position.x + transform.right.x * -transform.localScale.x, y_offset, 0);
-                y_offset +=  a.transform.localScale.y;
+                y_offset += GetComponent<SpriteRenderer>().bounds.size.y / MultiShoot;
                 shoots.Add(a);
             }
             foreach (GameObject a in shoots)
@@ -150,7 +151,7 @@ public class BossEnemy : EnemyBase
             Destroy(c.gameObject);
             //Subtracts one hp from the enemy current hp
             hp--;
-            BossUI.HPChange(1);
+            BossUI.HPChange(hp);
             //Checks if the hp is equal to zero
             if (hp == 0)
             {
