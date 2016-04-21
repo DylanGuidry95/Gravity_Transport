@@ -109,10 +109,6 @@ public class GravityWell : Singleton<GravityWell>
                                                                     // Used for poprerly moving the object in a "simulated gravity" fashion
 
             m_gravObjects.Add(g);                               // Add it to the list of GravityObjects
-
-            print(g.entry);
-            print(g.thres);
-            print(g.brake);
         }
     }
 

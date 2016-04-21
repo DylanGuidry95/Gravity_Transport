@@ -283,7 +283,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
       propertyPath: EntityWaves.Array.size
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 493718, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
       propertyPath: m_LocalPosition.x
@@ -320,7 +320,7 @@ Prefab:
     - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
       propertyPath: EntityWaves.Array.data[0]
       value: 
-      objectReference: {fileID: 187632, guid: dc6012d8c50a1654d9a6da395dd87c2c, type: 2}
+      objectReference: {fileID: 100166, guid: 2e75cd24c5ee97c43b028915a4b51178, type: 2}
     - target: {fileID: 11427372, guid: ca9232676c1b8dc4494f247be041af56, type: 2}
       propertyPath: EntityWaves.Array.data[1]
       value: 
