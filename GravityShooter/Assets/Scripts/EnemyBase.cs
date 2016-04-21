@@ -142,6 +142,15 @@ public class EnemyBase : MonoBehaviour
             //Checks if the hp is equal to zero
             if(hp == 0)
             {
+                if (gameObject.GetComponent<MdEnemy>())
+                {
+                    int i = UnityEngine.Random.Range(1, 10);
+                    if (i >= 1)
+                    {
+                        GameObject s = Instantiate(Resources.Load("ShieldItem")) as GameObject;
+                        s.transform.position = Vector3.zero;
+                    }
+                }
                 //Calls score functions to increase current score
                 //Destorys the enemy
                 ScoreManager.IncreasScoreBy(ScoreValue);

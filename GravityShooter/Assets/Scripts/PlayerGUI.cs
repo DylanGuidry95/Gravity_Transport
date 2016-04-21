@@ -6,7 +6,7 @@ public class PlayerGUI : MonoBehaviour
 {
     public Image imageRenderer;
     public Sprite[] health;
-    public Sprite[] shield;
+    public Image shield;
 
     /// <summary>
     /// 0 is no health, which is HpBar_006
@@ -31,8 +31,15 @@ public class PlayerGUI : MonoBehaviour
         imageRenderer.sprite = health[hp];
     }
 
-    public void ShieldChange(int shields)
+    public void ShieldChange(bool set)
     {
-        imageRenderer.sprite = shield[shields];
+        if(set == true)
+        {
+            shield.color = new Color(255, 255, 255, 255);
+        }
+        else
+        {
+            shield.color = new Color(255, 255, 255, 0);
+        }
     }
 }
