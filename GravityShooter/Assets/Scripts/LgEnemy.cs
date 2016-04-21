@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class LgEnemy : EnemyBase
 {
     Vector3 move;
+    bool timerRun;
+
     protected override void Start()
     {
         move = new Vector3(0, 0.1f, 0);
@@ -50,13 +52,13 @@ public class LgEnemy : EnemyBase
 
     void changeDirection(Vector3 direction)
     {
-        bool timerRun;
+
         timerRun = true;
         if (timerRun)
         {
             timer += Time.deltaTime;
         }
-
+        
         movementSpeed = 0; // stop the enemy
         if (timer > fireDelay)
         {
@@ -81,12 +83,10 @@ public class LgEnemy : EnemyBase
 
         if (transform.position.y > ScreenBorders.m_topLeft.y - 1.5f)
         {
-            changeDirection(new Vector3(0, -0.1f, 0));       
         }
 
         if (transform.position.y < ScreenBorders.m_bottomLeft.y + 1.5f)
-        { 
-            changeDirection(new Vector3(0, 0.1f, 0));
+        {
         }
         if (intial != false)
             intial = false;
