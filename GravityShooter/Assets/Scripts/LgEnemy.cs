@@ -83,10 +83,12 @@ public class LgEnemy : EnemyBase
 
         if (transform.position.y > ScreenBorders.m_topLeft.y - 1.5f)
         {
+              changeDirection(new Vector3(0, -0.1f, 0));
         }
 
         if (transform.position.y < ScreenBorders.m_bottomLeft.y + 1.5f)
         {
+              changeDirection(new Vector3(0, 0.1f, 0));
         }
         if (intial != false)
             intial = false;
