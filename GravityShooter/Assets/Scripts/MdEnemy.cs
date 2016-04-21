@@ -98,12 +98,16 @@ public class MdEnemy : EnemyBase
 
     void Movement()
     {
+       
         Vector3 UpMax = new Vector3(SpawnPosition.x, SpawnPosition.y + TravelDistance, 0);
         Vector3 DownMax = new Vector3(SpawnPosition.x, SpawnPosition.y - TravelDistance, 0);
+
+        if (Vector3.Distance(transform.position, UpMax) < 0) { switchDir = true; }
+        if (Vector3.Distance(transform.position, DownMax) < 0) { switchDir = false; }
+
         if (Vector3.Distance(transform.position,UpMax) > .1f && switchDir != true)
         {
             transform.position += new Vector3(0, .1f, 0) * (Time.deltaTime * movementSpeed);
-            if(Vector3.Distance(transform.position, UpMax) < 0) { switchDir = true; }
         }
         else
         {
@@ -112,8 +116,7 @@ public class MdEnemy : EnemyBase
 
         if(Vector3.Distance(transform.position, DownMax) > .1f && switchDir == true)
         {
-            transform.position -= new Vector3(0, .1f, 0) * (Time.deltaTime * movementSpeed);
-            if (Vector3.Distance(transform.position, DownMax) < 0) { switchDir = false; }
+            transform.position -= new Vector3(0, .1f, 0) * (Time.deltaTime * movementSpeed); 
         }
         else
         {
