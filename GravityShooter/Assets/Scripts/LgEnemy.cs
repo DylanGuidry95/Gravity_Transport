@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class LgEnemy : EnemyBase
 {
-    Vector3 move; // to change the enwmy direction
+    Vector3 move; // to change the enemy direction
     bool timerRun; // when delta time should run
 
     protected override void Start()
@@ -49,9 +49,13 @@ public class LgEnemy : EnemyBase
         }
     }
 
+    /// <summary>
+    /// Stop this object movement from a random number between 1-4 sec before its start to move again.
+    /// Change movement direction
+    /// </summary>
+    /// <param name="direction">Value to change movement direction</param>
     void changeDirection(Vector3 direction)
     {
-
         timerRun = true;
         if (timerRun)
         {
@@ -61,7 +65,8 @@ public class LgEnemy : EnemyBase
         movementSpeed = 0; // stop the enemy
         if (timer > fireDelay)
         {
-            fireDelay = Random.Range(1, 4);  // random number for how long the enemy need to wait
+            // random number for how long the enemy need to wait
+            fireDelay = Random.Range(1, 4); 
             move = direction;
             movementSpeed = 10;
             timer = 0;
@@ -70,6 +75,10 @@ public class LgEnemy : EnemyBase
     }
 
     bool intial = true;
+    /// <summary>
+    /// Randomly movement up or down when spawn.
+    /// Moving up and down with the boundary of the screen min and max height
+    /// </summary>
     void Movement()
     {
         if(intial == true)
@@ -99,6 +108,11 @@ public class LgEnemy : EnemyBase
         base.Fire();
     }
 
+    /// <summary>
+    /// when this object health is less then its max health.
+    /// After 10 secs health increase by 1
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Special()
     {
         while (hp == 1 || hp < 3)
