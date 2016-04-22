@@ -62,6 +62,9 @@ public class GUIMenuManager : MonoBehaviour
             GUIManager.instance.Activate("UIBackButton", true);
     }
 
+    /// <summary>
+    /// Turn on/off GUI elements.
+    /// </summary>
     public void CreditButton()
     {
         GUIManager.instance.Activate("UIPlayButton", false);
@@ -124,6 +127,9 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIMainMenu", false);
     }
 
+    /// <summary>
+    /// To go to Pause state, and also for onclick event.
+    /// </summary>
     public void HitResumeButton()
     {
         GUIManager.instance.Activate("UIPauseText", false);
