@@ -34,13 +34,10 @@ public class MdEnemy : EnemyBase
         CheckState();
     }
 
-    [ContextMenu("Test")]
-    public void Test()
-    {
-        _fsm.Transition(_fsm.state, ENEMYSTATES.special);
-        Debug.Log(_fsm.state);
-    }
-
+    /// <summary>
+    /// Checks the current state the enemy is in and invoke specific methods based
+    /// on the current state
+    /// </summary>
     void CheckState()
     {
         switch (_fsm.state)
@@ -96,6 +93,9 @@ public class MdEnemy : EnemyBase
         }
     }
 
+    /// <summary>
+    /// Movement behavior for the enemy 
+    /// </summary>
     void Movement()
     {
        
@@ -123,6 +123,9 @@ public class MdEnemy : EnemyBase
         }
     }
 
+    /// <summary>
+    /// Lowers the firedelay to make the enemy fire faster
+    /// </summary>
     void Special()
     {
         if(fireDelay == initDelay)
