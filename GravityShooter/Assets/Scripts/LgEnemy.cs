@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public class LgEnemy : EnemyBase
 {
-    Vector3 move;
-    bool timerRun;
+    Vector3 move; // to change the enwmy direction
+    bool timerRun; // when delta time should run
 
     protected override void Start()
     {
@@ -26,7 +26,6 @@ public class LgEnemy : EnemyBase
 
     void Update()
     {
-        
         if (player == null)
             player = FindObjectOfType<Player>();
         CheckState();
