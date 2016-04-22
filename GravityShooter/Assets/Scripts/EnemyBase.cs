@@ -135,6 +135,7 @@ public class EnemyBase : MonoBehaviour
         //was not fired by an allied enemy ship
         if(c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false && _fsm.state != ENEMYSTATES.spawn)
         {
+            Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
             //Destroys the bullet
             Destroy(c.gameObject);
             //Subtracts one hp from the enemy current hp
@@ -142,6 +143,24 @@ public class EnemyBase : MonoBehaviour
             //Checks if the hp is equal to zero
             if(hp == 0)
             {
+                if(gameObject.GetComponent<SmEnemy>())
+                {
+                    Instantiate(Resources.Load("SmallExsplosion"), transform.position, transform.localRotation);
+                }
+                else if (gameObject.GetComponent<MdEnemy>())
+                {
+                    Instantiate(Resources.Load("BigExsplosion"), transform.position, transform.localRotation);
+                    int i = UnityEngine.Random.Range(1, 10);
+                    if (i >= 1)
+                    {
+                        GameObject s = Instantiate(Resources.Load("ShieldItem")) as GameObject;
+                        s.transform.position = Vector3.zero;
+                    }
+                }
+                else if(gameObject.GetComponent<LgEnemy>())
+                {
+                    Instantiate(Resources.Load("BigExsplosion"), transform.position, transform.localRotation);
+                }
                 //Calls score functions to increase current score
                 //Destorys the enemy
                 ScoreManager.IncreasScoreBy(ScoreValue);

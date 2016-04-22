@@ -20,6 +20,6 @@ public class BossGUI : MonoBehaviour
 
     public void HPChange(int dmg)
     {
-        bossSlider.value -= dmg;
+        bossSlider.value = dmg;
     }
 }

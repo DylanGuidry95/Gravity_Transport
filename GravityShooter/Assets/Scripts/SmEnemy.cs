@@ -25,7 +25,11 @@ public class SmEnemy : EnemyBase
         if(player == null)
             player = FindObjectOfType<Player>();
         CheckState();
-  
+        
+        //if (transform.position.x < ScreenBorders.m_bottomLeft.x - 10)    // Check to see if they are still on the screen
+        //{                                                                       // if they're not...
+        //    Destroy(gameObject);             // Destroy them
+        //}
     }
 
     void CheckState()
@@ -75,5 +79,10 @@ public class SmEnemy : EnemyBase
             if (timer > fireDelay)
             { _fsm.Transition(_fsm.state, ENEMYSTATES.special); timer = 0; }
         }
+    }
+
+    public void SetSpawnPosition(Vector3 pos)
+    {
+        SpawnPosition = pos;
     }
 }

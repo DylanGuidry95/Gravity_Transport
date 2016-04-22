@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class EntityManager : MonoBehaviour
 {
@@ -11,25 +12,59 @@ public class EntityManager : MonoBehaviour
 
     void Update()
     {
+        
+        //if (Entities.Count == 1)// && Entities[0].GetComponent<LgEnemy>())// != null)
+        //{
+        //    if(Entities[0].GetType() == typeof(LgEnemy))
+        //        if (Entities[0].GetComponent<LgEnemy>().SmEnemy.Count == 0)
+        //            Entities[0].GetComponent<LgEnemy>().CallForHelp();
+        //}
+
+
         if (Entities.Count > 0 && Reset == false)                                                 // Makes sure that there are still entities alive
         {
             foreach (GameObject e in Entities)                                      // For each entity that we are managing
             {
+                if(e)
+                {
+                    if (e.transform.position.x < ScreenBorders.m_bottomLeft.x - 10)
+                    {
+                        Destroy(e);
+                    }
+                }
+
                 if (!e)                 // Sees if the entity has been destroyed
                 {
+                    print("Dead");
                     Entities.Remove(e);     // Remove them from the list
-                    return;                 // and restart the check
-                }
-                else if (e.transform.position.x < ScreenBorders.m_bottomLeft.x - 10)    // Check to see if they are still on the screen
-                {                                                                       // if they're not...
-                    Destroy(e);             // Destroy them
-                    Entities.Remove(e);     // Remove them from the list
-                    return;                 // and restart the check
+                    //Destroy(e);
+                    for (int i = 0; i < Entities.Count; i++)
+                    {
+                        if (Entities[i].GetComponent<LgEnemy>())
+                        {
+                            if (i == Entities.Count - 1)
+                            {
+                                Entities[i].GetComponent<LgEnemy>().CallForHelp();
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            return;                 // and restart the check
+                        }
+                    }
+                    return;
+
                 }
             }
         }
+
         else if(Reset == true)
         {
+            print("Reset");
             foreach(GameObject e in Entities)
             {
                 Destroy(e);
@@ -38,12 +73,13 @@ public class EntityManager : MonoBehaviour
             SpawnNextWave();
         }
         else if(++m_currentWave < EntityWaves.Count)    // If all the entites are dead
-        {                                                   // AND there is a NEXT wave
+        {
+            print("wave");// AND there is a NEXT wave
             SpawnNextWave();                            // spawn the next wave
         }
         else
         {
-            GameStates.ChangeState("GameOver");
+            StartCoroutine(EndWait());
         }
     }
 
@@ -64,9 +100,23 @@ public class EntityManager : MonoBehaviour
 
     public static bool Reset = false;
 
+    IEnumerator EndWait()
+    {
+        yield return new WaitForSeconds(3.0f);
+        GameStates.ChangeState("GameOver");
+    }
+
     public static void ResetWave()
     {
         Reset = true;
+        foreach(GameObject g in Entities)
+        {
+            if(g.GetComponent<LgEnemy>())
+            {
+                foreach (GameObject go in g.GetComponent<LgEnemy>().SmEnemy)
+                    Destroy(go);
+            }
+        }
     }
 
     private int m_currentWave;

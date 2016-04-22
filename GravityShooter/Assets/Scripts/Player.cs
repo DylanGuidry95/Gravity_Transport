@@ -58,6 +58,9 @@ public class Player : Singleton<Player>
     [SerializeField]
     private int livesRemaining; //Curremt lives the player has remainng before game over
 
+    [SerializeField]
+    static bool shield = false;
+
     [Header("Movement")]
     [SerializeField]
     private float movementSpeed; //Speed at which the player is accelerating at
@@ -90,7 +93,8 @@ public class Player : Singleton<Player>
     private float padding = 0.5f;
     //Power ups will go here later on in development
     [SerializeField]
-    private PlayerGUI playerGUI;
+    public static  PlayerGUI playerGUI;
+      
 
     /// <summary>
     /// Function Calls
@@ -271,6 +275,7 @@ public class Player : Singleton<Player>
     {
         if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null && _fsm.state != PLAYERSTATES.dead)
         {
+            Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
             PlayerDamage();
             Destroy(c.gameObject);
         }
@@ -284,13 +289,22 @@ public class Player : Singleton<Player>
     [ContextMenu("DMG")]
     public void PlayerDamage()
     {
+        
         _cAction = PLAYERACTIONS.takeDamage;
-        currentHealth -= 1;
+        if (shield != true)
+            currentHealth -= 1;
+        else
+        {
+            shield = false;
+            AddShield(shield);
+        }
+
         if(playerGUI != null)
             playerGUI.HPChange(currentHealth);
 
         if (currentHealth == 0)
         {
+            Instantiate(Resources.Load("BigExsplosion"), transform.position, transform.localRotation);
             EntityManager.ResetWave();
             acceleration = Vector3.zero;
             velocity = Vector3.zero;
@@ -299,6 +313,7 @@ public class Player : Singleton<Player>
             livesRemaining -= 1;
             if (livesRemaining >= 0)
             {
+                LivesRemaining.RemoveLife();
                 _cAction = PLAYERACTIONS.die;
                 transform.position = spawnPosition;
                 well.transform.position = spawnPosition;
@@ -404,5 +419,11 @@ public class Player : Singleton<Player>
         PlayerControls.Add(KeyCode.S);
         PlayerControls.Add(KeyCode.D);
         PlayerControls.Add(KeyCode.A);
+    }
+
+    public static void AddShield(bool s)
+    {
+        shield = s;
+        playerGUI.ShieldChange(shield);    
     }
 }
