@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);                                            // Destroy it
         }
      }
-    
+
     public float speed;
     public bool isEnemy;
 }
