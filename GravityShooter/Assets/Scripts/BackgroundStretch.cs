@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿/// ERIC MOULEDOUX
+using UnityEngine;
 using System.Collections;
 [RequireComponent (typeof(SpriteRenderer))]
 
+///<summary>
+/// Stretches any sprite this script is attached to to fit the screen size
+///</summary>
 public class BackgroundStretch : MonoBehaviour
 {
     void Start ()

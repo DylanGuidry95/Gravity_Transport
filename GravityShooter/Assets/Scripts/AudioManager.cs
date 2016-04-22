@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/// ERIC MOULEDOUX
+using UnityEngine;
 using System.Collections;
 
 public class AudioManager : Singleton<AudioManager>
@@ -26,12 +27,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if(Laser)
             StartCoroutine(CreateAndPlayAudio(Laser));
-    }
-
-    public void PlayRocketAudio()
-    {
-        if (Rocket)
-            StartCoroutine(CreateAndPlayAudio(Rocket));
     }
 
     public void PlayExplodeAudio()
