@@ -1386,6 +1386,7 @@ GameObject:
   - 114: {fileID: 1232344924}
   - 114: {fileID: 1232344923}
   - 114: {fileID: 1232344922}
+  - 114: {fileID: 1232344928}
   - 114: {fileID: 1232344927}
   - 95: {fileID: 1232344926}
   m_Layer: 5
@@ -1523,7 +1524,7 @@ Animator:
   m_GameObject: {fileID: 1232344920}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f4a7511e771ff35469b816766a9da1e1, type: 2}
+  m_Controller: {fileID: 9100000, guid: efd61c2de6e656041b99015841436d2a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
@@ -1543,6 +1544,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &1232344928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1232344920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d13b319c9ab35c4d94dfbe9c1ecbd6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1442195086
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,7 +2175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2085339699
 RectTransform:
   m_ObjectHideFlags: 0
