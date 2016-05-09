@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/// ERIC MOULEDOUX
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
@@ -15,53 +16,57 @@ public class GravityWell : Singleton<GravityWell>
                 float speed = (Time.deltaTime * m_speedModifier);
                 float toWell = Vector3.Distance(g.entity.transform.position, gameObject.transform.position);
 
+                /// Steps through the states of being in the gravity well
                 switch (g.state)
                 {
+                    /// Initial state of entering the gravity welll
                     case GRAV.INIT:
-                        gameObject.GetComponent<AudioSource>().pitch += 0.25f;
-                        g.entity.GetComponent<Projectile>().isEnemy = false;
-                        g.state = GRAV.ENTER;
+                        gameObject.GetComponent<AudioSource>().pitch += 0.25f;  // Increase the pitch of the gravity well's sound
+                        g.entity.GetComponent<Projectile>().isEnemy = false;    // Take ownership of the object caught in the well
+                        g.state = GRAV.ENTER;                                   // Move to the ENTER state
                         break;
 
+                    /// The object has entered the gravity well
                     case GRAV.ENTER:
-                        float toThres = Vector3.Distance(g.entity.transform.localPosition, g.thres);
-                        if (toThres > 0.1f)
+                        float toThres = Vector3.Distance(g.entity.transform.localPosition, g.thres);    // Distance to the gravity threshold
+                        if (toThres > 0.1f)                                     // If the object has not made it to the threshold
                         {
-                            g.entity.transform.localPosition +=
-                                (g.thres - g.entry) * g.velocity.magnitude * speed;
+                            g.entity.transform.localPosition +=                     // Increae its position
+                                (g.thres - g.entry) * g.velocity.magnitude * speed; // In the direction to the threshold
                         }
-                        else
+                        else                                                    // Else if we have reached the threshold
                         {
-                            g.state = GRAV.THRESHOLD;
+                            g.state = GRAV.THRESHOLD;                               // Move to the THRESHOLD state
                         }
                         break;
-
+                    
+                    /// The object has made it to the threshold and is orbiting the well
                     case GRAV.THRESHOLD:
-                        float toBreak = Vector3.Distance(g.entity.transform.localPosition, g.brake);
-                        if (toBreak > 0.1f)
+                        float toBreak = Vector3.Distance(g.entity.transform.localPosition, g.brake);    // Distance to the gravity breakpoint
+                        if (toBreak > 0.1f)                                 // If the object has not reached the breakpoint
                         {
-                            g.entity.transform.RotateAround(transform.position, Vector3.forward *
-
-                                (g.thres.y < 0 ? -1 : 1),
-
-                                g.velocity.magnitude * speed * 100/toWell);
+                            g.entity.transform.RotateAround(transform.position, // Rotate the object
+                                Vector3.forward * (g.thres.y < 0 ? -1 : 1),     // Around the Z-axix - up or down baised on reletive position to well
+                                g.velocity.magnitude * speed * 100/toWell);     // At an increased speed
                         }
-                        else
+                        else                                                // Else if we have reached the breakpoint
                         {
-                            g.state = GRAV.BROKEN;
+                            g.state = GRAV.BROKEN;                              // Move to the BROKEN state
                         }
                         break;
 
+                    /// The object has completed orbiting the well
                     case GRAV.BROKEN:
-                        g.rb.isKinematic = false;
-                        g.rb.velocity = -g.velocity * m_speedModifier * 2;
-                        g.state = GRAV.END;
+                        g.rb.isKinematic = false;                           // Renable rigidbody
+                        g.rb.velocity = -g.velocity * m_speedModifier * 2;  // Reset velocity to inverse the original and increase it
+                        g.state = GRAV.END;                                 // Move to the END state
                         break;
 
+                    /// The object has left the influence of the well
                     case GRAV.END:
-                        m_gravObjects.Remove(g);
-                        g.entity.transform.parent = null;
-                        gameObject.GetComponent<AudioSource>().pitch -= 0.25f;
+                        m_gravObjects.Remove(g);                                // Remove the object for list of affected objects
+                        g.entity.transform.parent = null;                       // Unparent it from the well
+                        gameObject.GetComponent<AudioSource>().pitch -= 0.25f;  // Lower the well's sound pitch
                         return;
                 };
             }

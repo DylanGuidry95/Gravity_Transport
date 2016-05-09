@@ -55,7 +55,7 @@ public class ScoreManager : Singleton<ScoreManager>
     {
         if(GameStates.ExitGamePlay)
         {
-            Debug.Log("Save");
+            //Debug.Log("Save");
             //SaveScores();
         }
 
