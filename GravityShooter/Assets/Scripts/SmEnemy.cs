@@ -60,12 +60,20 @@ public class SmEnemy : EnemyBase
         base.Fire();
     }
 
+    /// <summary>
+    /// Moving in the angle that this object is currently on
+    /// </summary>
     void Special()
     {
-            float enemyAngel = transform.eulerAngles.z * Mathf.Deg2Rad;
-            transform.position -= new Vector3(Mathf.Cos(enemyAngel), Mathf.Sin(enemyAngel), 0) * (Time.deltaTime * movementSpeed);
+        float enemyAngel = transform.eulerAngles.z * Mathf.Deg2Rad;
+        transform.position -= new Vector3(Mathf.Cos(enemyAngel), Mathf.Sin(enemyAngel), 0) * (Time.deltaTime * movementSpeed);
     }
 
+    /// <summary>
+    /// looking at the player
+    /// when the ammo is out wait for secs 
+    /// still looking at player then transition to the special state
+    /// </summary>
     void Movement()
     {
         bool on_movement = true;
