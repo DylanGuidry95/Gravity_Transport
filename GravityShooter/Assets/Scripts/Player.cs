@@ -114,6 +114,8 @@ public class Player : Singleton<Player>
     /// </summary>
     void Start()
     {
+        int round = (int)ScreenBorders.m_topLeft.x + 2;
+        startPosition.x = (float)round;
         gameObject.name = "Player"; //Changes the name of the object to Player
         CheckPlayerBounds(); //Checks to see if the player in within the game play area
         currentHealth = maxHealth; //Sets the current health equal to the maximumHealth
@@ -127,6 +129,7 @@ public class Player : Singleton<Player>
         well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z); //Sets the wells position to just behind the player
         transform.position = spawnPosition; //Sets the player's position to be just out side the play area
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead); //Transitions the player to the dead state so it will start its spawning movement
+        DylanGamePlay.UpdatePlayer(currentHealth, livesRemaining);
     }
 
     /// <summary>
@@ -328,7 +331,7 @@ public class Player : Singleton<Player>
                 GameStates.ChangeState("GameOver");
             }
         }
-
+        DylanGamePlay.UpdatePlayer(currentHealth, livesRemaining);
     }
 
     /// <summary>
@@ -407,6 +410,6 @@ public class Player : Singleton<Player>
     public static void AddShield(bool s)
     {
         shield = s;
-        playerGUI.ShieldChange(shield);    
+        //playerGUI.ShieldChange(shield);    
     }
 }

@@ -126,9 +126,9 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.pauseMenu:
                 break;
             case GAMESTATE.gameOver:
-                Destroy(player.gameObject);
-                Destroy(gravityWell.gameObject);
-                GUIMenuManager.GameOver();
+                //Destroy(player.gameObject);
+                //Destroy(gravityWell.gameObject);
+                //GUIMenuManager.GameOver();
                 break;
             case GAMESTATE.exit:
                 break;
@@ -142,22 +142,33 @@ public class GameStates : Singleton<GameStates>
         StateProperties();
     }
 
+    public void TestChangeState(string state)
+    {
+        GameStates.ChangeState(state);
+    }
+
     //Changes the current state of the game
     public static void ChangeState(string GameState)
     {
         switch (GameState)
         {
             case "MainMenu":
-                LevelLoader.LoadLevel("Main_Menu");
+                SceneManager.LoadScene("Main_Menu", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
                 break;
             case "Game":
-                LevelLoader.LoadLevel("Level_One");
+                SceneManager.LoadScene("Level_One", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
                 break;
+            case "Pasue":
+                PauseGame();
+                break;
             case "GameOver":
-                LevelLoader.LoadLevel("GameOver");
                 _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
+                SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                break;
+            case "Exit":
+                Application.Quit();
                 break;
             default:
                 break;
@@ -177,6 +188,11 @@ public class GameStates : Singleton<GameStates>
             StateProperties();
         }
 
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            ChangeState("GameOver");
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
@@ -190,13 +206,15 @@ public class GameStates : Singleton<GameStates>
         {
             Time.timeScale = 0;
             _fsm.Transition(_fsm.state, GAMESTATE.pauseMenu);
-            GUIMenuManager.PauseButton();
+            //GUIMenuManager.PauseButton();
+            DylanGamePlay.TogglePauseMenu(true);
         }
         else
         {
             Time.timeScale = 1;
-            GUIMenuManager.ResumeButton();
+            //GUIMenuManager.ResumeButton();
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+            DylanGamePlay.TogglePauseMenu(false);
         }
     }
 }
