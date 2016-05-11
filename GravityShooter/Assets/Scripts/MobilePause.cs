@@ -5,19 +5,18 @@ public class MobilePause : MonoBehaviour
 {
     void Start()
     {
+        isPaused = false;
         if(!Application.isMobilePlatform)
         {
             gameObject.SetActive(false);
         }
     }
 
-    public void Pause()
+    public void TogglePause()
     {
-        Time.timeScale = 0;
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1;
     }
-    
-    public void Resume()
-    {
-        Time.timeScale = 1;
-    }
+
+    bool isPaused;
 }
