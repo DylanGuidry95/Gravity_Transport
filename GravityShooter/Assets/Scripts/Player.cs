@@ -193,25 +193,29 @@ public class Player : Singleton<Player>
             }
             CheckPlayerBounds();
             //Sets the velocity = current velocity + acceleration
-            velocity = velocity + acceleration;
-            //Check to see if the player is exceeding its max velocity
-            if (velocity.magnitude > maxVelocity)
+            if(acceleration != Vector3.zero)
             {
-                //If it exceeds the max velocity set the velocity = the normalized velocity
-                velocity = velocity.normalized;
+                velocity = velocity + acceleration;
+                //Check to see if the player is exceeding its max velocity
+                if (velocity.magnitude > maxVelocity)
+                {
+                    //If it exceeds the max velocity set the velocity = the normalized velocity
+                    velocity = velocity.normalized;
+                }
+                if (atTop && velocity.y > 0)
+                    velocity.y = 0;
+                if (atBot && velocity.y < 0)
+                    velocity.y = 0;
+                if (atLeft && velocity.x < 0)
+                    velocity.x = 0;
+                if (atRight && velocity.x > 0)
+                    velocity.x = 0;
+                //To move the object we take its current position and add it to the velocity * how long any of the movement keys have been held down for
+                transform.position += velocity * buttonDownTime;
+                //Sets the buttonDownTime to 0 to stop the player from moving while no movement inputs are happening
+                ///////////////////////////////////////////////
             }
-            if (atTop && velocity.y > 0)
-                velocity.y = 0;
-            if (atBot && velocity.y < 0)
-                velocity.y = 0;
-            if (atLeft && velocity.x < 0)
-                velocity.x = 0;
-            if (atRight && velocity.x > 0)
-                velocity.x = 0;
-            //To move the object we take its current position and add it to the velocity * how long any of the movement keys have been held down for
-            transform.position += velocity * buttonDownTime;
-            //Sets the buttonDownTime to 0 to stop the player from moving while no movement inputs are happening
-            ///////////////////////////////////////////////
+
         }
     }
 
@@ -266,7 +270,11 @@ public class Player : Singleton<Player>
             buttonDownTime = Time.deltaTime * movementSpeed;
             Vector3 screenPoint = Input.mousePosition;
             screenPoint.z = 10;
-            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
+            if (Vector3.Distance(transform.position, Camera.main.ScreenToWorldPoint(screenPoint)) < .1)
+                acceleration = Vector3.zero;
+            else
+                acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
+
         }
         if(Input.GetMouseButtonUp(0))
         {

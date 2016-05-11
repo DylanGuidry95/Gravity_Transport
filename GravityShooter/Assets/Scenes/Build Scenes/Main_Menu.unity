@@ -2996,11 +2996,11 @@ Prefab:
       objectReference: {fileID: 1430006895}
     - target: {fileID: 22402318, guid: 9e606751032e4734298258c4ba45a656, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22443734, guid: 9e606751032e4734298258c4ba45a656, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11488288, guid: 9e606751032e4734298258c4ba45a656, type: 2}
       propertyPath: m_Text
