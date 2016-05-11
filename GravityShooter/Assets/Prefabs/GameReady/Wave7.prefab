@@ -49,9 +49,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 402590}
-  - 33: {fileID: 3384190}
-  - 65: {fileID: 6570220}
-  - 23: {fileID: 2315194}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -192,39 +189,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 428922}
   m_RootOrder: 3
---- !u!23 &2315194
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138604}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
---- !u!33 &3384190
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138604}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!50 &5019798
 Rigidbody2D:
   serializedVersion: 2
@@ -363,18 +327,6 @@ BoxCollider2D:
   m_Offset: {x: -0.5, y: 0}
   serializedVersion: 2
   m_Size: {x: 3.2, y: 4.2}
---- !u!65 &6570220
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 138604}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9533822
 Animator:
   serializedVersion: 3
@@ -512,6 +464,7 @@ MonoBehaviour:
   player: {fileID: 0}
   SpawnPosition: {x: 3, y: 0, z: 0}
   timer: 0
+  SmEnemy: []
 --- !u!114 &11481034
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -545,7 +498,7 @@ LineRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 31bc63c4571458d418ad80798f63938e, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -738,6 +691,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: d00a2a25835ee8643be45e67592b21e8,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31bc63c4571458d418ad80798f63938e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 148410}

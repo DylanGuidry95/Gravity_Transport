@@ -71,23 +71,23 @@ public class Player : Singleton<Player>
     private Vector3 acceleration; //Rate at which the player is gaining speed towards its max velocity
 
     [SerializeField]
-    private Vector3 startPosition = new Vector3(-8, 1, 0);
+    private Vector3 startPosition = new Vector3(-8, 0, 0); //Positon the player is spawned at when created
     [SerializeField]
-    private Vector3 spawnPosition = new Vector3(-10, 1, 0);
+    private Vector3 spawnPosition = new Vector3(-10, 0, 0); //Position the player flys toward when spawning in to the game scene
 
     private float buttonDownTime; //Used to move the player faster of slower depending on the time between key pressed and key up
 
     [SerializeField]
-    private bool atTop;
+    private bool atTop; //Value to say if the player has reached the top of the screen
     [SerializeField]
-    private bool atBot;
+    private bool atBot; //Value to say if the player has reached the bottom of the screen
     [SerializeField]
-    private bool atLeft;
+    private bool atLeft; //Value to say if the player has reached the left of the screen
     [SerializeField]
-    private bool atRight;
+    private bool atRight; //Value to say if the player has reached the right of the screen
 
     [SerializeField]
-    private GravityWell well;
+    private GravityWell well; //Refrence to the gravity well the player tows around
 
     [SerializeField]
     private float padding = 0.5f;
@@ -114,19 +114,19 @@ public class Player : Singleton<Player>
     /// </summary>
     void Start()
     {
-        gameObject.name = "Player";
-        CheckPlayerBounds();
-        currentHealth = maxHealth;
-        livesRemaining = maxLives;
-        SetPlayerControls();
-        well = FindObjectOfType<GravityWell>();
+        gameObject.name = "Player"; //Changes the name of the object to Player
+        CheckPlayerBounds(); //Checks to see if the player in within the game play area
+        currentHealth = maxHealth; //Sets the current health equal to the maximumHealth
+        livesRemaining = maxLives; //Sets the lives remaining equal the the max lives
+        SetPlayerControls(); //Sets the controls the user uses to control the player
+        well = FindObjectOfType<GravityWell>(); //Searchs for an object of type GravityWell and sets the return value equal to the well
         foreach(SpringJoint2D s in gameObject.GetComponents<SpringJoint2D>())
         {
-            s.connectedBody = well.GetComponent<Rigidbody2D>();
+            s.connectedBody = well.GetComponent<Rigidbody2D>(); //Sets the connected body of the springs attached to the player equal to the well's rigidbody
         }
-        well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z);
-        transform.position = spawnPosition;
-        _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
+        well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z); //Sets the wells position to just behind the player
+        transform.position = spawnPosition; //Sets the player's position to be just out side the play area
+        _fsm.Transition(_fsm.state, PLAYERSTATES.dead); //Transitions the player to the dead state so it will start its spawning movement
     }
 
     /// <summary>
@@ -275,6 +275,7 @@ public class Player : Singleton<Player>
     {
         if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null && _fsm.state != PLAYERSTATES.dead)
         {
+            Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
             PlayerDamage();
             Destroy(c.gameObject);
         }
@@ -288,6 +289,7 @@ public class Player : Singleton<Player>
     [ContextMenu("DMG")]
     public void PlayerDamage()
     {
+        
         _cAction = PLAYERACTIONS.takeDamage;
         if (shield != true)
             currentHealth -= 1;
@@ -302,6 +304,7 @@ public class Player : Singleton<Player>
 
         if (currentHealth == 0)
         {
+            Instantiate(Resources.Load("BigExsplosion"), transform.position, transform.localRotation);
             EntityManager.ResetWave();
             acceleration = Vector3.zero;
             velocity = Vector3.zero;
@@ -310,6 +313,7 @@ public class Player : Singleton<Player>
             livesRemaining -= 1;
             if (livesRemaining >= 0)
             {
+                LivesRemaining.RemoveLife();
                 _cAction = PLAYERACTIONS.die;
                 transform.position = spawnPosition;
                 well.transform.position = spawnPosition;
@@ -325,23 +329,6 @@ public class Player : Singleton<Player>
             }
         }
 
-    }
-
-    /// <summary>
-    /// Handles the transitions between the player animations
-    /// Will be completed once we have animations to work with
-    /// </summary>
-    void PlayerAnimation()
-    {
-        switch(_cAction)
-        {
-            case PLAYERACTIONS.takeDamage:
-                //Plays the damage animation
-                break;
-            case PLAYERACTIONS.die:
-                //Plays the death animation
-                break;
-        }
     }
 
     /// <summary>

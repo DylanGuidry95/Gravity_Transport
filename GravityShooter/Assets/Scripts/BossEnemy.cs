@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 public class BossEnemy : EnemyBase
 {
-    public GameObject LaserEnd;
-    public float laserSpeed;
+    public GameObject LaserEnd; //Refrence to the end of the laser
+    public float laserSpeed; //How fast the laser moves
 
-    float reloadSpeed;
-    public int MultiShoot;
+    float reloadSpeed; //time it takes to reload primary weapon
+    public int MultiShoot; //Amount of shoots fired at once
 
     [SerializeField]
-    private BossGUI BossUI;
+    private BossGUI BossUI; //Refrence to the BossUI element
 
 	// Use this for initialization
 	protected override void Start ()
@@ -64,6 +64,12 @@ public class BossEnemy : EnemyBase
         gameObject.GetComponent<LineRenderer>().SetWidth(LaserEnd.transform.localScale.y, LaserEnd.transform.localScale.y);
     }
 
+    /// <summary>
+    /// Spawn the bullet prefab and applies a force to it to make it
+    /// move in the target direction. Also deducts the amount of ammo
+    /// availiable after each shot and once out of ammo will start the LaserCycle
+    /// Coroutine
+    /// </summary>
     [ContextMenu("Laser")]
     protected override void Fire()
     {
@@ -94,6 +100,12 @@ public class BossEnemy : EnemyBase
 
     private bool Retract = false;
     private bool cycle = false;
+    /// <summary>
+    /// Controls the movement of the laser
+    /// Calls the CheckLaser function to check if the Laser has come in collision with
+    /// the player
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LaserCycle()
     {
         cycle = true;
@@ -121,6 +133,10 @@ public class BossEnemy : EnemyBase
         StopCoroutine(LaserCycle());
     }
 
+    /// <summary>
+    /// Checks to see if the player has come in collison with the laser
+    /// and if it does damages the player
+    /// </summary>
     void CheckLaser()
     {
         if (player != null)
@@ -143,10 +159,16 @@ public class BossEnemy : EnemyBase
 
     }
 
+    /// <summary>
+    /// Invokes methods that need to happen when something
+    /// collides with this object
+    /// </summary>
+    /// <param name="c"></param>
     protected override void OnTriggerEnter2D(Collider2D c)
     {
         if (c.GetComponent<Projectile>() && c.GetComponent<Projectile>().isEnemy == false)
         {
+            Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
             //Destroys the bullet
             Destroy(c.gameObject);
             //Subtracts one hp from the enemy current hp
@@ -155,6 +177,7 @@ public class BossEnemy : EnemyBase
             //Checks if the hp is equal to zero
             if (hp == 0)
             {
+                Instantiate(Resources.Load("BossExplosion"), transform.position, transform.localRotation);
                 BossUI.ToggleBossGUI(false);
                 //Calls score functions to increase current score
                 //Destorys the enemy

@@ -19,7 +19,7 @@ public class GameStates : Singleton<GameStates>
 
     protected static FSM<GAMESTATE> _fsm = new FSM<GAMESTATE>();
 
-    private GameStates Instance;
+    private GameStates Instance; //Used to get the instance of the Gamestate
     public GameStates _instance
     {
         get
@@ -28,14 +28,14 @@ public class GameStates : Singleton<GameStates>
         }
     }
 
-    private static Player player;
-    private static GravityWell gravityWell;
-    private static EntityManager WaveSpawner;
-    private static string SpawnerName = "Spawner";
-    private static string PlayerName = "Player";
-    private static string GravityWellName = "GravityWell";
+    private static Player player; //Refrence to the player
+    private static GravityWell gravityWell; //Refrence to the gravitywel
+    private static EntityManager WaveSpawner; //Refrece to the wave spawner
+    private static string SpawnerName = "Spawner"; //Name used to load the Spawner into the game
+    private static string PlayerName = "Player"; //Name used to load the Player into the game
+    private static string GravityWellName = "GravityWell"; //Name used to load the GravityWell into the game
 
-    public static bool ExitGamePlay = false;
+    public static bool ExitGamePlay = false; //Check for if we are exiting the game
 
     protected override void Awake()
     {
@@ -100,6 +100,9 @@ public class GameStates : Singleton<GameStates>
         _fsm.AddTransition(GAMESTATE.gameOver, GAMESTATE.exit, false);
     }
 
+    /// <summary>
+    /// Defines all actions that can happen depending the state the game is in
+    /// </summary>
     static void StateProperties()
     {
         ExitGamePlay = false;
@@ -132,12 +135,14 @@ public class GameStates : Singleton<GameStates>
         }
     }
 
+    //Transitions the game to the game over state
     void GameOver()
     {
         _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
         StateProperties();
     }
 
+    //Changes the current state of the game
     public static void ChangeState(string GameState)
     {
         switch (GameState)
@@ -178,6 +183,7 @@ public class GameStates : Singleton<GameStates>
         }
     }
 
+    //Pause the game 
     public static void PauseGame()
     {
         if (Time.timeScale != 0)

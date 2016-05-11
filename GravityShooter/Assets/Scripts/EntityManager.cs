@@ -1,6 +1,7 @@
 ﻿/// ERIC MOULEDOUX and dylan
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// Manages the enemies as waves
@@ -69,7 +70,7 @@ public class EntityManager : MonoBehaviour
         }
         else                                            // If there is no next wave
         {
-            GameStates.ChangeState("GameOver");         // Gameover
+StartCoroutine(EndWait());
         }
     }
 
@@ -89,6 +90,12 @@ public class EntityManager : MonoBehaviour
     }
 
     public static bool Reset = false;
+
+    IEnumerator EndWait()
+    {
+        yield return new WaitForSeconds(3.0f);
+        GameStates.ChangeState("GameOver");
+    }
 
     public static void ResetWave()
     {
