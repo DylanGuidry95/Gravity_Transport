@@ -80,6 +80,10 @@ public class EntityManager : MonoBehaviour
 
     void SpawnNextWave()
     {
+        foreach(Projectile p in FindObjectsOfType<Projectile>())
+        {
+            Destroy(p.gameObject);
+        }
         GameObject wave = // The current wave we are spawning
             Instantiate(EntityWaves[m_currentWave], transform.position, transform.localRotation) as GameObject;
 
@@ -104,14 +108,6 @@ public class EntityManager : MonoBehaviour
     public static void ResetWave()
     {
         Reset = true;
-        foreach(GameObject g in Entities)
-        {
-            if(g.GetComponent<LgEnemy>())
-            {
-                foreach (GameObject go in g.GetComponent<LgEnemy>().SmEnemy)
-                    Destroy(go);
-            }
-        }
     }
 
     /// <summary>

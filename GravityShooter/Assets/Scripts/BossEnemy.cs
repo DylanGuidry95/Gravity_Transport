@@ -15,11 +15,11 @@ public class BossEnemy : EnemyBase
 	// Use this for initialization
 	protected override void Start ()
     {
-        GUIManager.instance.Activate("UIBoss",true);
+        //GUIManager.instance.Activate("UIBoss",true);
         if (BossUI == null)
             BossUI = FindObjectOfType<BossGUI>();
         hp = 15;
-        BossUI.HPChange(hp);
+        //BossUI.HPChange(hp);
         base.Start();   
 	}
 
@@ -34,6 +34,7 @@ public class BossEnemy : EnemyBase
         {
             case ENEMYSTATES.spawn:
                 EnemySpawn();
+                DylanGamePlay.ToggleBossHealth(true, hp, hp);
                 break;
             case ENEMYSTATES.idle:
                 Fire();
@@ -173,12 +174,14 @@ public class BossEnemy : EnemyBase
             Destroy(c.gameObject);
             //Subtracts one hp from the enemy current hp
             hp--;
-            BossUI.HPChange(hp);
+            //BossUI.HPChange(hp);
+            DylanGamePlay.UpdateBoss(hp);
             //Checks if the hp is equal to zero
             if (hp == 0)
             {
                 Instantiate(Resources.Load("BossExplosion"), transform.position, transform.localRotation);
-                BossUI.ToggleBossGUI(false);
+                //BossUI.ToggleBossGUI(false);
+                DylanGamePlay.ToggleBossHealth(false, 0, 0);
                 //Calls score functions to increase current score
                 //Destorys the enemy
                 ScoreManager.IncreasScoreBy(ScoreValue);

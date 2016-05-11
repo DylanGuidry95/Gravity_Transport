@@ -126,8 +126,8 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.pauseMenu:
                 break;
             case GAMESTATE.gameOver:
-                Destroy(player.gameObject);
-                Destroy(gravityWell.gameObject);
+                //Destroy(player.gameObject);
+                //Destroy(gravityWell.gameObject);
                 //GUIMenuManager.GameOver();
                 break;
             case GAMESTATE.exit:
@@ -160,9 +160,15 @@ public class GameStates : Singleton<GameStates>
                 SceneManager.LoadScene("Level_One", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
                 break;
+            case "Pasue":
+                PauseGame();
+                break;
             case "GameOver":
-                SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
+                SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                break;
+            case "Exit":
+                Application.Quit();
                 break;
             default:
                 break;
@@ -201,12 +207,14 @@ public class GameStates : Singleton<GameStates>
             Time.timeScale = 0;
             _fsm.Transition(_fsm.state, GAMESTATE.pauseMenu);
             //GUIMenuManager.PauseButton();
+            DylanGamePlay.TogglePauseMenu(true);
         }
         else
         {
             Time.timeScale = 1;
             //GUIMenuManager.ResumeButton();
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+            DylanGamePlay.TogglePauseMenu(false);
         }
     }
 }

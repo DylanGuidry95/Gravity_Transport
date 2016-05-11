@@ -129,6 +129,7 @@ public class Player : Singleton<Player>
         well.transform.position = new Vector3(spawnPosition.x - 2, spawnPosition.y, spawnPosition.z); //Sets the wells position to just behind the player
         transform.position = spawnPosition; //Sets the player's position to be just out side the play area
         _fsm.Transition(_fsm.state, PLAYERSTATES.dead); //Transitions the player to the dead state so it will start its spawning movement
+        DylanGamePlay.UpdatePlayer(currentHealth, livesRemaining);
     }
 
     /// <summary>
@@ -330,7 +331,7 @@ public class Player : Singleton<Player>
                 GameStates.ChangeState("GameOver");
             }
         }
-
+        DylanGamePlay.UpdatePlayer(currentHealth, livesRemaining);
     }
 
     /// <summary>
