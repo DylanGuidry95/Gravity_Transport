@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class DylanGamePlay : Singleton<DylanGamePlay> {
 
@@ -34,7 +34,7 @@ public class DylanGamePlay : Singleton<DylanGamePlay> {
         }
         PauseMenu.gameObject.SetActive(false);
         BossHealth.gameObject.SetActive(false);
-	}
+    }
 	
     public static void TogglePauseMenu(bool state)
     {
