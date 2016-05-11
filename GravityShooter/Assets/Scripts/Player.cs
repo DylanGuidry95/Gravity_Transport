@@ -114,6 +114,8 @@ public class Player : Singleton<Player>
     /// </summary>
     void Start()
     {
+        int round = (int)ScreenBorders.m_topLeft.x + 2;
+        startPosition.x = (float)round;
         gameObject.name = "Player"; //Changes the name of the object to Player
         CheckPlayerBounds(); //Checks to see if the player in within the game play area
         currentHealth = maxHealth; //Sets the current health equal to the maximumHealth
@@ -407,6 +409,6 @@ public class Player : Singleton<Player>
     public static void AddShield(bool s)
     {
         shield = s;
-        playerGUI.ShieldChange(shield);    
+        //playerGUI.ShieldChange(shield);    
     }
 }
