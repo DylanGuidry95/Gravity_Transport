@@ -70,8 +70,7 @@ public class EntityManager : MonoBehaviour
         }
         else                                            // If there is no next wave
         {
-<<<<<<< HEAD
-StartCoroutine(EndWait());
+            StartCoroutine(EndWait());
 
             GameStates.ChangeState("GameOver");         // Gameover
         }
