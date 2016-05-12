@@ -174,13 +174,13 @@ public class BossEnemy : EnemyBase
             Destroy(c.gameObject);
             //Subtracts one hp from the enemy current hp
             hp--;
-            //BossUI.HPChange(hp);
-            DylanGamePlay.UpdateBoss(hp);
+            BossUI.HPChange(hp);
+            //DylanGamePlay.UpdateBoss(hp);
             //Checks if the hp is equal to zero
             if (hp == 0)
             {
                 Instantiate(Resources.Load("BossExplosion"), transform.position, transform.localRotation);
-                //BossUI.ToggleBossGUI(false);
+                BossUI.ToggleBossGUI(false);
                 DylanGamePlay.ToggleBossHealth(false, 0, 0);
                 //Calls score functions to increase current score
                 //Destorys the enemy

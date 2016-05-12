@@ -418,6 +418,6 @@ public class Player : Singleton<Player>
     public static void AddShield(bool s)
     {
         shield = s;
-        //playerGUI.ShieldChange(shield);    
+        playerGUI.ShieldChange(shield);    
     }
 }
