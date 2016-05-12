@@ -160,7 +160,7 @@ public class GameStates : Singleton<GameStates>
                 SceneManager.LoadScene("Level_One", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
                 break;
-            case "Pasue":
+            case "Pause":
                 PauseGame();
                 break;
             case "GameOver":

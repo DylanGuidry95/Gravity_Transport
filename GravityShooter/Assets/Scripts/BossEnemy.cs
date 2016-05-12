@@ -184,7 +184,7 @@ public class BossEnemy : EnemyBase
                 DylanGamePlay.ToggleBossHealth(false, 0, 0);
                 //Calls score functions to increase current score
                 //Destorys the enemy
-                ScoreManager.IncreasScoreBy(ScoreValue);
+                //ScoreManager.IncreasScoreBy(ScoreValue);
                 Destroy(this.gameObject);
                 //Plays the explosion audio
                 FindObjectOfType<AudioManager>().PlayExplodeAudio();

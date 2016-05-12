@@ -5,13 +5,22 @@ using System.Collections.Generic;
 public class Controls : MonoBehaviour
 {
     public List<Sprite> controlImage = new List<Sprite>();
+    public UnityEngine.UI.Button AndroidPause;
 	// Use this for initialization
 	void Start ()
     {
         if (Application.platform == RuntimePlatform.Android)
+        {
             GetComponent<UnityEngine.UI.Image>().sprite = controlImage[1];
+            AndroidPause.gameObject.SetActive(true);
+
+        }
         else
+        {
             GetComponent<UnityEngine.UI.Image>().sprite = controlImage[0];
+            AndroidPause.gameObject.SetActive(false);
+        }
+
 
         Time.timeScale = 0;
     }
@@ -24,6 +33,14 @@ public class Controls : MonoBehaviour
             gameObject.SetActive(false);
             Time.timeScale = 1;
         }
+        if (Time.timeScale == 0 && Application.platform == RuntimePlatform.Android)
+            AndroidPause.gameObject.SetActive(false);
+        else if (Time.timeScale != 0 && Application.platform == RuntimePlatform.Android)
+            AndroidPause.gameObject.SetActive(true);
+    }
 
-	}
+    public void PauseGame()
+    {
+        GameStates.ChangeState("Pause");
+    }
 }
