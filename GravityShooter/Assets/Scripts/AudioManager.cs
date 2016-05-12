@@ -33,8 +33,8 @@ public class AudioManager : Singleton<AudioManager>
     /// </summary>
     public void PlayLaserAudio()
     {
-        if(Laser)   // Check for a clip
-            StartCoroutine(CreateAndPlayAudio(Laser));
+        //if(Laser)   // Check for a clip
+        //    StartCoroutine(CreateAndPlayAudio(Laser));
     }
 
     /// <summary>
@@ -42,11 +42,11 @@ public class AudioManager : Singleton<AudioManager>
     /// </summary>
     public void PlayExplodeAudio()
     {
-        int rand = Random.Range(1, 10); // Random number between 1 and 10
-        if (Explode && rand < 7)            
-            StartCoroutine(CreateAndPlayAudio(Explode));    // Normal explosion
-        else if(EXPLOSIONS && rand > 7)
-            StartCoroutine(CreateAndPlayAudio(EXPLOSIONS)); // EXPLOSIONS!!!
+        //int rand = Random.Range(1, 10); // Random number between 1 and 10
+        //if (Explode && rand < 7)            
+        //    StartCoroutine(CreateAndPlayAudio(Explode));    // Normal explosion
+        //else if(EXPLOSIONS && rand > 7)
+        //    StartCoroutine(CreateAndPlayAudio(EXPLOSIONS)); // EXPLOSIONS!!!
     }
 
     /// <summary>

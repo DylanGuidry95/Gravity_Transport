@@ -24,9 +24,10 @@ public class LivesRemaining : MonoBehaviour
     {
         for(int i = 0; i < lives; i++)
         {
-            float spaceX = (GetComponent<RectTransform>().position.x + 20) + i * 30;
+            float spaceX = (GetComponent<RectTransform>().position.x + 50) + i * 50;
             GameObject remainingLife = Instantiate(ship, new Vector3(spaceX, 0,0), Quaternion.identity) as GameObject;
             remainingLife.transform.parent = gameObject.transform;
+            remainingLife.transform.position = new Vector3(remainingLife.transform.position.x, transform.position.y + 2, remainingLife.transform.position.z);
             remainingLife.transform.localScale += new Vector3(1, 1, 1);
             ships.Add(remainingLife);
         }
