@@ -12,11 +12,10 @@ public class FSM<T>
 
     List<string> TransitionsList = new List<string>(); //list of all possible state transitions for a certain object
 
-
     public FSM() //Contructor for the FSM
     {
         States = new List<T>(); //creates a new list of states for each instance of the FSM
-        Debug.Log("State at creation  " + cState);
+        //Debug.Log("State at creation  " + cState);
     }
 
     public void AddState(T state)
@@ -38,7 +37,6 @@ public class FSM<T>
             }
         } 
     }
-
 
     private bool checkTransition(T from, T to)
    {
@@ -62,7 +60,7 @@ public class FSM<T>
         {
             //Debug.Log("valid transition from " + from.ToString() + " to " + to.ToString());
             cState = to;
-            Debug.Log("New State " + cState.ToString());
+            //Debug.Log("New State " + cState.ToString());
             return true;
         }
         else
@@ -73,8 +71,6 @@ public class FSM<T>
     }
 
     private T cState; //current state
-
-
 
     public T state //gets the cState of the object with out modifying it out side of the FSM
     {
