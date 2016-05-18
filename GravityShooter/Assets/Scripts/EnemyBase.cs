@@ -70,11 +70,11 @@ public class EnemyBase : MonoBehaviour
     virtual protected void Start()
     {
         if (SpawnPosition.x > ScreenBorders.m_bottomRight.x)
-            SpawnPosition.x -= SpawnPosition.x - ScreenBorders.m_bottomRight.x;
+            SpawnPosition.x -= (SpawnPosition.x - ScreenBorders.m_bottomRight.x) * 4;
         if (SpawnPosition.y > ScreenBorders.m_topRight.y)
-            SpawnPosition.x -= SpawnPosition.x - ScreenBorders.m_topRight.x;
+            SpawnPosition.x -= (SpawnPosition.x - ScreenBorders.m_topRight.x) * 4;
         if (SpawnPosition.y < ScreenBorders.m_bottomRight.y)
-            SpawnPosition.x += SpawnPosition.x - ScreenBorders.m_bottomRight.x;
+            SpawnPosition.x += (SpawnPosition.x - ScreenBorders.m_bottomRight.x) * 4;
         player = FindObjectOfType<Player>(); //Locates the player
         _fsm.Transition(_fsm.state, ENEMYSTATES.spawn);
         ammoAvailiable = ammoCapacity;
