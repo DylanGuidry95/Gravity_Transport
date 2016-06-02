@@ -10,7 +10,8 @@ public class Projectile : MonoBehaviour
 {
     void Start()
     {
-        FindObjectOfType<AudioManager>().PlayLaserAudio();  // On spawn play the "laser" sound
+        //FindObjectOfType<AudioManager>().PlayLaserAudio();  // On spawn play the "laser" sound
+
         isEnemy = true;                                     // All projectiles belong to enemies at start
     }
 

@@ -363,7 +363,6 @@ public class Player : Singleton<Player>
             EntityManager.ResetWave();
             acceleration = Vector3.zero;
             velocity = Vector3.zero;
-            FindObjectOfType<AudioManager>().PlayExplodeAudio();
             _fsm.Transition(_fsm.state, PLAYERSTATES.dead);
             livesRemaining -= 1;
             if (livesRemaining >= 0)
