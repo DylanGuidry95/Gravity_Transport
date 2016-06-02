@@ -82,6 +82,7 @@ public class EntityManager : MonoBehaviour
         {
             Destroy(p.gameObject);
         }
+
         GameObject wave = // The current wave we are spawning
             Instantiate(EntityWaves[m_currentWave], transform.position, transform.localRotation) as GameObject;
 

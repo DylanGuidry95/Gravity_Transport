@@ -275,8 +275,10 @@ public class Player : Singleton<Player>
         //        buttonDownTime = Time.deltaTime * movementSpeed;
         //        Vector3 screenPoint = Input.mousePosition;
         //        screenPoint.z = 10;
-        //        if (Vector3.Distance(transform.position, Camera.main.ScreenToWorldPoint(screenPoint)) < .1)
+        //        if (Vector3.Distance(transform.position, Camera.main.ScreenToWorldPoint(screenPoint)) < .1f)
+        //        {
         //            acceleration = Vector3.zero;
+        //        }
         //        else
         //            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
         //    }
@@ -289,7 +291,7 @@ public class Player : Singleton<Player>
         if (Application.isMobilePlatform || Application.isEditor)
         {
             Input.multiTouchEnabled = false;
-            if(Input.touchCount > 0)
+            if (Input.touchCount > 0)
             {
                 myTouch = Input.GetTouch(0);
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -302,24 +304,11 @@ public class Player : Singleton<Player>
                 {
                     buttonDownTime = Time.deltaTime * movementSpeed;
 
-                    if(Vector2.Distance(Input.GetTouch(0).position, InitialTouch) > 5)
+                    if (Vector2.Distance(Input.GetTouch(0).position, InitialTouch) > 1)
                     {
-                        //if(Mathf.Abs(Input.GetTouch(0).position.y - InitialTouch.y) > 5)
-                        //{
-                        //    if (Input.GetTouch(0).position.y > InitialTouch.y)
-                        //        acceleration += new Vector3(0, 1, 0);
-                        //    if (Input.GetTouch(0).position.y < InitialTouch.y)
-                        //        acceleration += new Vector3(0, -1, 0);
-                        //}
-                        //if (Mathf.Abs(Input.GetTouch(0).position.x - InitialTouch.x) > 5)
-                        //{
-                        //    if (Input.GetTouch(0).position.x > InitialTouch.x)
-                        //        acceleration += new Vector3(1, 0, 0);
-                        //    if (Input.GetTouch(0).position.x < InitialTouch.x)
-                        //        acceleration += new Vector3(-1, 0, 0);
-                        //}
                         Vector2 temp = Input.GetTouch(0).position - InitialTouch;
-                        acceleration += new Vector3(temp.x, temp.y).normalized / 2;
+                        temp = temp.normalized;
+                        acceleration += new Vector3(temp.x, temp.y);
                     }
                 }
 
@@ -328,10 +317,12 @@ public class Player : Singleton<Player>
                     buttonDownTime = 0;
                     acceleration = Vector3.zero;
                     _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
+                    InitialTouch = Vector2.zero;
                 }
             }
             else
             {
+                InitialTouch = Vector2.zero;
                 buttonDownTime = 0;
                 acceleration = Vector3.zero;
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
@@ -341,11 +332,17 @@ public class Player : Singleton<Player>
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.GetComponent<Projectile>() != null || c.GetComponent<SmEnemy>() != null && _fsm.state != PLAYERSTATES.dead)
+        if (c.GetComponent<Projectile>() != null && c.GetComponent<Projectile>().isEnemy == true && _fsm.state != PLAYERSTATES.dead)
         {
             Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
             PlayerDamage();
             Destroy(c.gameObject);
+        }
+        if (c.GetComponent<SmEnemy>() != null && _fsm.state != PLAYERSTATES.dead)
+        {
+                Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
+                PlayerDamage();
+                Destroy(c.gameObject);
         }
     }
 
