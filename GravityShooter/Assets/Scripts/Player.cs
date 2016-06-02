@@ -168,8 +168,8 @@ public class Player : Singleton<Player>
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
-            GODMODE = !GODMODE;
+        //if (Input.GetKeyDown(KeyCode.N))
+        //    GODMODE = !GODMODE;
         gameObject.GetComponent<LineRenderer>().SetPosition(0, transform.position);
         gameObject.GetComponent<LineRenderer>().SetPosition(1, well.transform.position);
 
@@ -263,22 +263,66 @@ public class Player : Singleton<Player>
         }
     }
 
+    public Vector2 InitialTouch = Vector2.zero;
+
     void PlayerMouseMovement()
     {
-        if(Input.GetMouseButton(0))
-        {
-            buttonDownTime = Time.deltaTime * movementSpeed;
-            Vector3 screenPoint = Input.mousePosition;
-            screenPoint.z = 10;
-            if (Vector3.Distance(transform.position, Camera.main.ScreenToWorldPoint(screenPoint)) < .1)
-                acceleration = Vector3.zero;
-            else
-                acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
+        //if(!Application.isMobilePlatform)
+        //{
+        //    if (Input.GetMouseButton(0))
+        //    {
+        //        buttonDownTime = Time.deltaTime * movementSpeed;
+        //        Vector3 screenPoint = Input.mousePosition;
+        //        screenPoint.z = 10;
+        //        if (Vector3.Distance(transform.position, Camera.main.ScreenToWorldPoint(screenPoint)) < .1)
+        //            acceleration = Vector3.zero;
+        //        else
+        //            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
 
-        }
-        if(Input.GetMouseButtonUp(0))
+        //    }
+        //    if (Input.GetMouseButtonUp(0))
+        //    {
+        //        buttonDownTime = 0;
+        //    }
+        //}
+
+        if(Application.isMobilePlatform || Application.isEditor)
         {
-            buttonDownTime = 0;
+
+            Input.multiTouchEnabled = false;
+            if(Input.touchCount > 0)
+            {
+                Touch myTouch = Input.GetTouch(0);
+                if (myTouch.phase == TouchPhase.Began)
+                {
+                    buttonDownTime = Time.deltaTime * movementSpeed;
+                    InitialTouch = myTouch.position;
+                }
+                if (myTouch.phase != TouchPhase.Ended || myTouch.phase != TouchPhase.Canceled)
+                {
+                    if (myTouch.position.y > InitialTouch.y)
+                        acceleration += new Vector3(0, 1, 0);
+                    if (myTouch.position.y < InitialTouch.y)
+                        acceleration += new Vector3(0, -1, 0);
+                    if (myTouch.position.x > InitialTouch.x)
+                        acceleration += new Vector3(1, 0, 0);
+                    if (myTouch.position.x < InitialTouch.x)
+                        acceleration += new Vector3(-1, 0, 0);
+                }
+
+                else if (myTouch.phase == TouchPhase.Ended || myTouch.phase == TouchPhase.Canceled)
+                {
+                    buttonDownTime = 0;
+                    acceleration = Vector3.zero;
+                    _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
+                }
+            }
+            else
+            {
+                buttonDownTime = 0;
+                acceleration = Vector3.zero;
+                _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
+            }
         }
     }
 
