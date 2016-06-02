@@ -265,12 +265,10 @@ public class Player : Singleton<Player>
 
      Vector2 InitialTouch = Vector2.zero;
      Touch myTouch;
-     Vector2 curPos;
-     Vector2 test;
 
     void PlayerMouseMovement()
     {
-        //if(!Application.isMobilePlatform)
+        //if (!Application.isMobilePlatform)
         //{
         //    if (Input.GetMouseButton(0))
         //    {
@@ -281,7 +279,6 @@ public class Player : Singleton<Player>
         //            acceleration = Vector3.zero;
         //        else
         //            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
-
         //    }
         //    if (Input.GetMouseButtonUp(0))
         //    {
@@ -289,7 +286,7 @@ public class Player : Singleton<Player>
         //    }
         //}
 
-        if(Application.isMobilePlatform || Application.isEditor)
+        if (Application.isMobilePlatform || Application.isEditor)
         {
             Input.multiTouchEnabled = false;
             if(Input.touchCount > 0)
@@ -297,34 +294,37 @@ public class Player : Singleton<Player>
                 myTouch = Input.GetTouch(0);
                 if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
+                    acceleration = Vector3.zero;
                     InitialTouch = Input.GetTouch(0).position;
                 }
 
-                if (Input.GetTouch(0).phase == TouchPhase.Moved)
+                if (Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetTouch(0).phase == TouchPhase.Stationary)
                 {
                     buttonDownTime = Time.deltaTime * movementSpeed;
 
-                    if(Mathf.Abs(Input.GetTouch(0).position.y - curPos.y) > 1)
+                    if(Vector2.Distance(Input.GetTouch(0).position, InitialTouch) > 5)
                     {
-                        if (Input.GetTouch(0).position.y > curPos.y)
-                            acceleration += new Vector3(0, 1, 0);
-                        if (Input.GetTouch(0).position.y < curPos.y)
-                            acceleration += new Vector3(0, -1, 0);
+                        //if(Mathf.Abs(Input.GetTouch(0).position.y - InitialTouch.y) > 5)
+                        //{
+                        //    if (Input.GetTouch(0).position.y > InitialTouch.y)
+                        //        acceleration += new Vector3(0, 1, 0);
+                        //    if (Input.GetTouch(0).position.y < InitialTouch.y)
+                        //        acceleration += new Vector3(0, -1, 0);
+                        //}
+                        //if (Mathf.Abs(Input.GetTouch(0).position.x - InitialTouch.x) > 5)
+                        //{
+                        //    if (Input.GetTouch(0).position.x > InitialTouch.x)
+                        //        acceleration += new Vector3(1, 0, 0);
+                        //    if (Input.GetTouch(0).position.x < InitialTouch.x)
+                        //        acceleration += new Vector3(-1, 0, 0);
+                        //}
+                        Vector2 temp = Input.GetTouch(0).position - InitialTouch;
+                        acceleration += new Vector3(temp.x, temp.y).normalized / 2;
                     }
-                    if (Mathf.Abs(Input.GetTouch(0).position.x - curPos.x) > 1)
-                    {
-                        if (Input.GetTouch(0).position.x > curPos.x)
-                            acceleration += new Vector3(1, 0, 0);
-                        if (Input.GetTouch(0).position.x < curPos.x)
-                            acceleration += new Vector3(-1, 0, 0);
-                    }
-                    curPos = Input.GetTouch(0).position;
                 }
 
-                else if (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled || Input.GetTouch(0).phase == TouchPhase.Stationary)
+                else if (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled)
                 {
-                    InitialTouch = Input.GetTouch(0).position;
-                    curPos = Vector2.zero;
                     buttonDownTime = 0;
                     acceleration = Vector3.zero;
                     _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
@@ -332,7 +332,6 @@ public class Player : Singleton<Player>
             }
             else
             {
-                curPos = Vector2.zero;
                 buttonDownTime = 0;
                 acceleration = Vector3.zero;
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
