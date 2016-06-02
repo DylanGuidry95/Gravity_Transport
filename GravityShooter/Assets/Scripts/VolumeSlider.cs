@@ -5,6 +5,24 @@ using System.Collections;
 
 public class VolumeSlider : MonoBehaviour
 {
+    public void OnEnable()
+    {
+        Slider value = GetComponent<Slider>();
+
+        switch (slider)
+        {
+            case SliderType.MASTER:
+                value.value = VolumeLevels.Master;
+                break;
+            case SliderType.MUSIC:
+                value.value = VolumeLevels.Music;
+                break;
+            case SliderType.EFFECTS:
+                value.value = VolumeLevels.Effects;
+                break;
+        }
+    }
+
     public void Adjust()
     {
         float value = GetComponent<Slider>().normalizedValue;
