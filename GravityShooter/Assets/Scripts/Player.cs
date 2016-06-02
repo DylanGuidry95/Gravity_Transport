@@ -264,6 +264,7 @@ public class Player : Singleton<Player>
     }
 
     public Vector2 InitialTouch = Vector2.zero;
+    public Touch myTouch;
 
     void PlayerMouseMovement()
     {
@@ -288,30 +289,33 @@ public class Player : Singleton<Player>
 
         if(Application.isMobilePlatform || Application.isEditor)
         {
-
             Input.multiTouchEnabled = false;
             if(Input.touchCount > 0)
             {
-                Touch myTouch = Input.GetTouch(0);
-                if (myTouch.phase == TouchPhase.Began)
+                myTouch = Input.GetTouch(0);
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
                 {
-                    buttonDownTime = Time.deltaTime * movementSpeed;
-                    InitialTouch = myTouch.position;
+                    InitialTouch = Input.GetTouch(0).position;
                 }
-                if (myTouch.phase != TouchPhase.Ended || myTouch.phase != TouchPhase.Canceled)
+                if (Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
-                    if (myTouch.position.y > InitialTouch.y)
-                        acceleration += new Vector3(0, 1, 0);
-                    if (myTouch.position.y < InitialTouch.y)
-                        acceleration += new Vector3(0, -1, 0);
-                    if (myTouch.position.x > InitialTouch.x)
-                        acceleration += new Vector3(1, 0, 0);
-                    if (myTouch.position.x < InitialTouch.x)
-                        acceleration += new Vector3(-1, 0, 0);
+                    if(Vector3.Distance(Input.GetTouch(0).position, InitialTouch) > 10f)
+                    {
+                        buttonDownTime = Time.deltaTime * movementSpeed;
+                        if (Input.GetTouch(0).position.y > InitialTouch.y)
+                            acceleration += new Vector3(0, 1, 0);
+                        if (Input.GetTouch(0).position.y < InitialTouch.y)
+                            acceleration += new Vector3(0, -1, 0);
+                        if (Input.GetTouch(0).position.x > InitialTouch.x)
+                            acceleration += new Vector3(1, 0, 0);
+                        if (Input.GetTouch(0).position.x < InitialTouch.x)
+                            acceleration += new Vector3(-1, 0, 0);
+                    }
                 }
 
-                else if (myTouch.phase == TouchPhase.Ended || myTouch.phase == TouchPhase.Canceled)
+                else if (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled)
                 {
+                    InitialTouch = Input.GetTouch(0).position;
                     buttonDownTime = 0;
                     acceleration = Vector3.zero;
                     _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
