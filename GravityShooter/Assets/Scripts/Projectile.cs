@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 [RequireComponent (typeof(Rigidbody2D))]
+[RequireComponent(typeof(AudioSource))]
 
 ///<summary>
 /// Defining class for all projectiles
@@ -11,7 +12,7 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         //FindObjectOfType<AudioManager>().PlayLaserAudio();  // On spawn play the "laser" sound
-
+        GetComponent<AudioSource>().volume = VolumeLevels.Effects;
         isEnemy = true;                                     // All projectiles belong to enemies at start
     }
 

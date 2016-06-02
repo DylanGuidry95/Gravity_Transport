@@ -49,17 +49,18 @@ public class GUIMenuManager : MonoBehaviour
     /// </summary>
     public void OptionButton()
     {
-            GUIManager.instance.Activate("UIPlayButton", false);
-            GUIManager.instance.Activate("UIOptionsButton", false);
-            GUIManager.instance.Activate("UICreditButton", false);
-            GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UIPlayButton", false);
+        GUIManager.instance.Activate("UIOptionsButton", false);
+        GUIManager.instance.Activate("UICreditButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
 
-            GUIManager.instance.Activate("UIAudioText", true);
-            GUIManager.instance.Activate("UIMusicToggle", true);
-            GUIManager.instance.Activate("UIMusicToggleSlider", true);
-            GUIManager.instance.Activate("UISoundEffectsToggle", true);
-            GUIManager.instance.Activate("UISoundEffectsSlider", true);
-            GUIManager.instance.Activate("UIBackButton", true);
+        //GUIManager.instance.Activate("UIAudioText", true);
+        //GUIManager.instance.Activate("UIMusicToggle", true);
+        GUIManager.instance.Activate("UIMusicToggleSlider", true);
+        GUIManager.instance.Activate("UIMasterSlider", true);
+        //GUIManager.instance.Activate("UISoundEffectsToggle", true);
+        GUIManager.instance.Activate("UISoundEffectsSlider", true);
+        GUIManager.instance.Activate("UIBackButton", true);
     }
 
     /// <summary>
@@ -95,10 +96,12 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UICreditButton", true);
         GUIManager.instance.Activate("UIQuitButton", true);
 
-        GUIManager.instance.Activate("UIAudioText", false);
-        GUIManager.instance.Activate("UIMusicToggle", false);
+        //GUIManager.instance.Activate("UIAudioText", false);
+        //GUIManager.instance.Activate("UIMusicToggle", false);
+        GUIManager.instance.Activate("UIMasterSlider", true);
         GUIManager.instance.Activate("UIMusicToggleSlider", false);
-        GUIManager.instance.Activate("UISoundEffectsToggle", false);
+        GUIManager.instance.Activate("UIMasterSlider", false);
+        //GUIManager.instance.Activate("UISoundEffectsToggle", false);
         GUIManager.instance.Activate("UISoundEffectsSlider", false);
         GUIManager.instance.Activate("UIProgrammers", false);
         GUIManager.instance.Activate("UIArtists", false);
