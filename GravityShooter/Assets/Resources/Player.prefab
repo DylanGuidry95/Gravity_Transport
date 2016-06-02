@@ -98,7 +98,7 @@ MonoBehaviour:
   currentHealth: 0
   maxLives: 2
   livesRemaining: 0
-  movementSpeed: 2
+  movementSpeed: 1
   maxVelocity: 5
   startPosition: {x: -8, y: 1, z: 0}
   spawnPosition: {x: -10, y: 1, z: 0}
@@ -108,8 +108,8 @@ MonoBehaviour:
   atRight: 0
   well: {fileID: 0}
   padding: 0.5
-  playerGUI: {fileID: 0}
   GODMODE: 0
+  InitialTouch: {x: 0, y: 0}
 --- !u!120 &12062740
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -279,6 +279,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: padding
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: movementSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
