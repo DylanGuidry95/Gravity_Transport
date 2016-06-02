@@ -171,8 +171,6 @@ public class EnemyBase : MonoBehaviour
                 //Destorys the enemy
                 //ScoreManager.IncreasScoreBy(ScoreValue);
                 Destroy(this.gameObject);
-                //Plays the explosion audio
-                FindObjectOfType<AudioManager>().PlayExplodeAudio();
             }
         }
     }
