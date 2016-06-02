@@ -263,8 +263,10 @@ public class Player : Singleton<Player>
         }
     }
 
-    public Vector2 InitialTouch = Vector2.zero;
-    public Touch myTouch;
+     Vector2 InitialTouch = Vector2.zero;
+     Touch myTouch;
+     Vector2 curPos;
+     Vector2 test;
 
     void PlayerMouseMovement()
     {
@@ -297,25 +299,32 @@ public class Player : Singleton<Player>
                 {
                     InitialTouch = Input.GetTouch(0).position;
                 }
+
                 if (Input.GetTouch(0).phase == TouchPhase.Moved)
                 {
-                    if(Vector3.Distance(Input.GetTouch(0).position, InitialTouch) > 10f)
+                    buttonDownTime = Time.deltaTime * movementSpeed;
+
+                    if(Mathf.Abs(Input.GetTouch(0).position.y - curPos.y) > 1)
                     {
-                        buttonDownTime = Time.deltaTime * movementSpeed;
-                        if (Input.GetTouch(0).position.y > InitialTouch.y)
+                        if (Input.GetTouch(0).position.y > curPos.y)
                             acceleration += new Vector3(0, 1, 0);
-                        if (Input.GetTouch(0).position.y < InitialTouch.y)
+                        if (Input.GetTouch(0).position.y < curPos.y)
                             acceleration += new Vector3(0, -1, 0);
-                        if (Input.GetTouch(0).position.x > InitialTouch.x)
+                    }
+                    if (Mathf.Abs(Input.GetTouch(0).position.x - curPos.x) > 1)
+                    {
+                        if (Input.GetTouch(0).position.x > curPos.x)
                             acceleration += new Vector3(1, 0, 0);
-                        if (Input.GetTouch(0).position.x < InitialTouch.x)
+                        if (Input.GetTouch(0).position.x < curPos.x)
                             acceleration += new Vector3(-1, 0, 0);
                     }
+                    curPos = Input.GetTouch(0).position;
                 }
 
-                else if (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled)
+                else if (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled || Input.GetTouch(0).phase == TouchPhase.Stationary)
                 {
                     InitialTouch = Input.GetTouch(0).position;
+                    curPos = Vector2.zero;
                     buttonDownTime = 0;
                     acceleration = Vector3.zero;
                     _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
@@ -323,6 +332,7 @@ public class Player : Singleton<Player>
             }
             else
             {
+                curPos = Vector2.zero;
                 buttonDownTime = 0;
                 acceleration = Vector3.zero;
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
