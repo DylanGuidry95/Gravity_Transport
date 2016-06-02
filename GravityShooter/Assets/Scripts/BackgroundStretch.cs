@@ -1,6 +1,6 @@
 ﻿/// ERIC MOULEDOUX
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 [RequireComponent (typeof(SpriteRenderer))]
 
 ///<summary>

@@ -160,7 +160,7 @@ public class GameStates : Singleton<GameStates>
                 SceneManager.LoadScene("Level_One", LoadSceneMode.Single);
                 _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
                 break;
-            case "Pasue":
+            case "Pause":
                 PauseGame();
                 break;
             case "GameOver":
@@ -206,15 +206,13 @@ public class GameStates : Singleton<GameStates>
         {
             Time.timeScale = 0;
             _fsm.Transition(_fsm.state, GAMESTATE.pauseMenu);
-            //GUIMenuManager.PauseButton();
-            DylanGamePlay.TogglePauseMenu(true);
+            GUIMenuManager.PauseButton();           
         }
         else
         {
             Time.timeScale = 1;
-            //GUIMenuManager.ResumeButton();
+            GUIMenuManager.ResumeButton();
             _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
-            DylanGamePlay.TogglePauseMenu(false);
         }
     }
 }
