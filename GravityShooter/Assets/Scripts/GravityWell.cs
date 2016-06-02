@@ -21,7 +21,7 @@ public class GravityWell : Singleton<GravityWell>
                 {
                     /// Initial state of entering the gravity welll
                     case GRAV.INIT:
-                        gameObject.GetComponent<AudioSource>().pitch += 0.25f;  // Increase the pitch of the gravity well's sound
+                        //gameObject.GetComponent<AudioSource>().pitch += 0.25f;  // Increase the pitch of the gravity well's sound
                         g.entity.GetComponent<Projectile>().isEnemy = false;    // Take ownership of the object caught in the well
                         g.state = GRAV.ENTER;                                   // Move to the ENTER state
                         break;
@@ -66,7 +66,7 @@ public class GravityWell : Singleton<GravityWell>
                     case GRAV.END:
                         m_gravObjects.Remove(g);                                // Remove the object for list of affected objects
                         g.entity.transform.parent = null;                       // Unparent it from the well
-                        gameObject.GetComponent<AudioSource>().pitch -= 0.25f;  // Lower the well's sound pitch
+                        //gameObject.GetComponent<AudioSource>().pitch -= 0.25f;  // Lower the well's sound pitch
                         return;
                 };
             }
