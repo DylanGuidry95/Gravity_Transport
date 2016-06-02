@@ -1,6 +1,7 @@
 ﻿/// ERIC MOULEDOUX
 using UnityEngine;
 using System.Collections;
+[RequireComponent(typeof(AudioSource))]
 
 public class Explosion : MonoBehaviour
 {
@@ -10,5 +11,10 @@ public class Explosion : MonoBehaviour
     public void Remove()
     {
         Destroy(gameObject);
+    }
+
+    public void Start()
+    {
+        GetComponent<AudioSource>().volume = VolumeLevels.Effects;
     }
 }
