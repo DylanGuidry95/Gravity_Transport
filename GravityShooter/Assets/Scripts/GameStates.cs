@@ -178,25 +178,29 @@ public class GameStates : Singleton<GameStates>
 
     void Update()
     {
+        ////Testing////////////////////////////////////////////
+        //if (_fsm.state == GAMESTATE.init)
+        //    _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
+        //    StateProperties();
+        //}
+        //if(Input.GetKeyDown(KeyCode.M))
+        //{
+        //    ChangeState("GameOver");
+        //}
+        ////End Testing////////////////////////////////////////////
 
-        if (_fsm.state == GAMESTATE.init)
-            _fsm.Transition(_fsm.state, GAMESTATE.mainMenu);
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            _fsm.Transition(_fsm.state, GAMESTATE.gamePlay);
-            StateProperties();
-        }
-
-        if(Input.GetKeyDown(KeyCode.M))
-        {
-            ChangeState("GameOver");
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !Application.isMobilePlatform)
         {
             PauseGame();
         }
+        else if(Input.GetKeyDown(KeyCode.Escape) && Application.isMobilePlatform)
+        {
+            Application.Quit();
+        }
+
     }
 
     //Pause the game 

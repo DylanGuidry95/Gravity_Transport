@@ -7,7 +7,6 @@ public class ControlOptions : MonoBehaviour
     public Toggle TouchMove;
     public Toggle DirectionalMove;
 
-    public GameObject Control;
     public GameObject Volume;
 
     public enum CONTROLTYPE
@@ -20,23 +19,26 @@ public class ControlOptions : MonoBehaviour
 
     void Awake()
     {
-        //if(!Application.isMobilePlatform)
-        //{
-        //    Control.SetActive(false);
-        //    Volume.GetComponent<RectTransform>().position = new Vector3(0,230,0);
-        //}
-        if (PlayerPrefs.GetInt("ControlConfig") == 0)
+        if(!Application.isMobilePlatform)
         {
-            TouchMove.isOn = true;
-            controlConfig = CONTROLTYPE.touchMove;
-        }
-        else
-        {
-            DirectionalMove.isOn = true;
-            controlConfig = CONTROLTYPE.directionalMove;
+            this.gameObject.SetActive(false);
+            Volume.GetComponent<RectTransform>().localPosition = new Vector3(0, Volume.GetComponent<RectTransform>().localPosition.y, 0);
         }
 
-        ChangeControls(TouchMove);
+        else if(Application.isMobilePlatform)
+        {
+            if (PlayerPrefs.GetInt("ControlConfig") == 0)
+            {
+                TouchMove.isOn = true;
+                controlConfig = CONTROLTYPE.touchMove;
+            }
+            else
+            {
+                DirectionalMove.isOn = true;
+                controlConfig = CONTROLTYPE.directionalMove;
+                ChangeControls(TouchMove);
+            }
+        }
     }
 
     public void ChangeControls(Toggle option)

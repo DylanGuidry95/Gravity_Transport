@@ -177,9 +177,12 @@ public class Player : Singleton<Player>
 
         if (_fsm.state != PLAYERSTATES.dead)
         {
-            PlayerMouseMovement();
+            
+            if(!Application.isMobilePlatform)
+                PlayerMovement();
+            else
+                PlayerMouseMovement();
 
-            PlayerMovement();
             if (buttonDownTime == 0)
                 _fsm.Transition(_fsm.state, PLAYERSTATES.idle);
             ///////////////////////////////////////////////
@@ -268,27 +271,29 @@ public class Player : Singleton<Player>
 
     void PlayerMouseMovement()
     {
-        //if (!Application.isMobilePlatform)
-        //{
-        //    if (Input.GetMouseButton(0))
-        //    {
-        //        buttonDownTime = Time.deltaTime * movementSpeed;
-        //        Vector3 screenPoint = Input.mousePosition;
-        //        screenPoint.z = 10;
-        //        if (Vector3.Distance(transform.position, Camera.main.ScreenToWorldPoint(screenPoint)) < .1f)
-        //        {
-        //            acceleration = Vector3.zero;
-        //        }
-        //        else
-        //            acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
-        //    }
-        //    if (Input.GetMouseButtonUp(0))
-        //    {
-        //        buttonDownTime = 0;
-        //    }
-        //}
+        //Move to touch position
+        if (PlayerPrefs.GetInt("ControlConfig") == 0)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                buttonDownTime = Time.deltaTime * movementSpeed;
+                Vector3 screenPoint = Input.mousePosition;
+                screenPoint.z = 10;
+                if (Vector3.Distance(transform.position, Camera.main.ScreenToWorldPoint(screenPoint)) < .1f)
+                {
+                    acceleration = Vector3.zero;
+                }
+                else
+                    acceleration -= (transform.position - Camera.main.ScreenToWorldPoint(screenPoint)).normalized;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                buttonDownTime = 0;
+            }
+        }
 
-        if (Application.isMobilePlatform || Application.isEditor)
+        //Move in direction from initial touch
+        else if (PlayerPrefs.GetInt("ControlConfig") == 1)
         {
             Input.multiTouchEnabled = false;
             if (Input.touchCount > 0)

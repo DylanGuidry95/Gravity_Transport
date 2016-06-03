@@ -56,12 +56,13 @@ public class GUIMenuManager : MonoBehaviour
 
         //GUIManager.instance.Activate("UIAudioText", true);
         //GUIManager.instance.Activate("UIMusicToggle", true);
-        GUIManager.instance.Activate("UIMusicToggleSlider", true);
-        GUIManager.instance.Activate("UIMasterSlider", true);
+        //GUIManager.instance.Activate("UIMusicToggleSlider", true);
+        //GUIManager.instance.Activate("UIMasterSlider", true);
         //GUIManager.instance.Activate("UISoundEffectsToggle", true);
-        GUIManager.instance.Activate("UISoundEffectsSlider", true);
+        //GUIManager.instance.Activate("UISoundEffectsSlider", true);
         GUIManager.instance.Activate("UIBackButton", true);
         GUIManager.instance.Activate("ControllerOptions", true);
+        GUIManager.instance.Activate("UIVolumeControls", true);
     }
 
     /// <summary>
@@ -99,15 +100,16 @@ public class GUIMenuManager : MonoBehaviour
 
         //GUIManager.instance.Activate("UIAudioText", false);
         //GUIManager.instance.Activate("UIMusicToggle", false);
-        GUIManager.instance.Activate("UIMasterSlider", true);
-        GUIManager.instance.Activate("UIMusicToggleSlider", false);
-        GUIManager.instance.Activate("UIMasterSlider", false);
+        //GUIManager.instance.Activate("UIMasterSlider", true);
+        //GUIManager.instance.Activate("UIMusicToggleSlider", false);
+        //GUIManager.instance.Activate("UIMasterSlider", false);
         //GUIManager.instance.Activate("UISoundEffectsToggle", false);
-        GUIManager.instance.Activate("UISoundEffectsSlider", false);
+        //GUIManager.instance.Activate("UISoundEffectsSlider", false);
         GUIManager.instance.Activate("UIProgrammers", false);
         GUIManager.instance.Activate("UIArtists", false);
         GUIManager.instance.Activate("UIBackButton", false);
         GUIManager.instance.Activate("ControllerOptions", false);
+        GUIManager.instance.Activate("UIVolumeControls", false);
         PlayerPrefs.Save();
     }
 
