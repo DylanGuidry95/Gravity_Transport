@@ -97,10 +97,11 @@ MonoBehaviour:
   fireDelay: 2
   bulletSpeed: 0
   hp: 0
-  ScoreValue: 0
+  ScoreValue: 15
   player: {fileID: 0}
   SpawnPosition: {x: 0, y: 0, z: 0}
   timer: 0
+  SmEnemy: []
 --- !u!212 &21294616
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -153,6 +154,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Size.y
       value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ScoreValue
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

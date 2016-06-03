@@ -412,7 +412,7 @@ MonoBehaviour:
   fireDelay: 3
   bulletSpeed: 5
   hp: 0
-  ScoreValue: 0
+  ScoreValue: 50
   player: {fileID: 0}
   SpawnPosition: {x: 7, y: 0, z: 0}
   timer: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
   fireDelay: 5
   bulletSpeed: 5
   hp: 2
-  ScoreValue: 0
+  ScoreValue: 10
   player: {fileID: 0}
   SpawnPosition: {x: 8, y: -4, z: 0}
   timer: 0
@@ -460,7 +460,7 @@ MonoBehaviour:
   fireDelay: 2
   bulletSpeed: 0
   hp: 0
-  ScoreValue: 0
+  ScoreValue: 20
   player: {fileID: 0}
   SpawnPosition: {x: 3, y: 0, z: 0}
   timer: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
   fireDelay: 5
   bulletSpeed: 5
   hp: 2
-  ScoreValue: 0
+  ScoreValue: 10
   player: {fileID: 0}
   SpawnPosition: {x: 8, y: 4, z: 0}
   timer: 0
@@ -695,6 +695,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 31bc63c4571458d418ad80798f63938e, type: 2}
+    - target: {fileID: 0}
+      propertyPath: ScoreValue
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 148410}

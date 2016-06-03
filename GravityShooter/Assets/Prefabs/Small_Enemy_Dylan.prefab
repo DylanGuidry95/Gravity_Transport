@@ -97,7 +97,7 @@ MonoBehaviour:
   fireDelay: 3
   bulletSpeed: 5
   hp: 1
-  ScoreValue: 0
+  ScoreValue: 5
   player: {fileID: 0}
   SpawnPosition: {x: 0, y: 0, z: 0}
   timer: 0
@@ -145,6 +145,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Name
       value: Small_Enemy_Dylan
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ScoreValue
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

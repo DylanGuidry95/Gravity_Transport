@@ -169,7 +169,7 @@ public class EnemyBase : MonoBehaviour
                 }
                 //Calls score functions to increase current score
                 //Destorys the enemy
-                //ScoreManager.IncreasScoreBy(ScoreValue);
+                ScoreManager.IncreasScoreBy(ScoreValue);
                 Destroy(this.gameObject);
             }
         }

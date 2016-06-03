@@ -13,7 +13,7 @@ public class LgEnemy : EnemyBase
         move = new Vector3(0, 0.1f, 0);
         hp = 2;
         ScoreValue = 25;
-        StartCoroutine(Special());
+        //StartCoroutine(Special());
         base.Start();
     }
 
@@ -137,7 +137,7 @@ public class LgEnemy : EnemyBase
             GameObject enemySpawn = Instantiate(Resources.Load("Enemy1_Small")) as GameObject;
             EntityManager.Entities.Add(enemySpawn);
             enemySpawn.transform.position = new Vector3(ScreenBorders.m_topRight.x - 2, 0, 0);
-            Vector3 Spawn = new Vector3(transform.position.x + -transform.localScale.x, yoffset, 0);
+            Vector3 Spawn = new Vector3(Random.Range(ScreenBorders.m_topRight.x / 2, ScreenBorders.m_topRight.x), Random.Range(0, ScreenBorders.m_topRight.y), 0);
             enemySpawn.GetComponent<SmEnemy>().SetSpawnPosition(Spawn);
             yoffset -= 1;
             if (yoffset <= -1)

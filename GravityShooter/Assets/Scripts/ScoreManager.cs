@@ -10,6 +10,7 @@ public class ScoreManager : Singleton<ScoreManager>
 {
     protected override void Awake()
     {
+        scoreText = GetComponent<Text>();
         base.Awake();
 
         currentScore = 0;
@@ -39,7 +40,7 @@ public class ScoreManager : Singleton<ScoreManager>
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))//GameStates.ExitGamePlay)
+        if(GameStates.ExitGamePlay)
         {
             highScores.Add(currentScore);
             highScores.Sort();
@@ -56,13 +57,13 @@ public class ScoreManager : Singleton<ScoreManager>
         }
     }
     
-    public static Text scoreText;
+    static Text scoreText;
 
     public int highestScore;
     public List<int> highScores;
 
     private static int m_currentScore;
-    public static int currentScore
+    static int currentScore
     {
         get
         {
