@@ -109,7 +109,6 @@ MonoBehaviour:
   well: {fileID: 0}
   padding: 0.5
   GODMODE: 0
-  InitialTouch: {x: 0, y: 0}
 --- !u!120 &12062740
 LineRenderer:
   m_ObjectHideFlags: 1
