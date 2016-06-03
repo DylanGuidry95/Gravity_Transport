@@ -61,6 +61,7 @@ public class GUIMenuManager : MonoBehaviour
         //GUIManager.instance.Activate("UISoundEffectsToggle", true);
         GUIManager.instance.Activate("UISoundEffectsSlider", true);
         GUIManager.instance.Activate("UIBackButton", true);
+        GUIManager.instance.Activate("ControllerOptions", true);
     }
 
     /// <summary>
@@ -106,6 +107,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIProgrammers", false);
         GUIManager.instance.Activate("UIArtists", false);
         GUIManager.instance.Activate("UIBackButton", false);
+        GUIManager.instance.Activate("ControllerOptions", false);
     }
 
     /// <summary>
