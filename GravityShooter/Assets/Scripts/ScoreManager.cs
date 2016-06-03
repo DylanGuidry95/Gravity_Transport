@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿// ERIC MOULEDOUX
+using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System.Xml.Serialization;
@@ -12,7 +13,21 @@ public class ScoreManager : Singleton<ScoreManager>
         base.Awake();
 
         currentScore = 0;
-        scoreText = GetComponent<Text>();
+
+        highScores = new List<int>();
+        string scores = PlayerPrefs.GetString("highScores");
+
+        for (int i = 0, j = 0; i < scores.Length; i++)
+        {
+            if (scores[i] == ' ')
+            {
+                int x = 0;
+                int.TryParse(scores.Substring(j, i - j), out x);
+                highScores.Add(x);
+                j = i + 1;
+            }
+        }
+        highestScore = highScores.Count > 0 ? highScores[0] : 0;
     }
 
     public static int IncreasScoreBy(int a_score)
@@ -24,18 +39,27 @@ public class ScoreManager : Singleton<ScoreManager>
 
     void Update()
     {
-        if(GameStates.ExitGamePlay)
+        if(Input.GetKeyDown(KeyCode.Space))//GameStates.ExitGamePlay)
         {
+            highScores.Add(currentScore);
             highScores.Sort();
+            if (highScores.Count > 10) highScores.RemoveAt(0);
             highScores.Reverse();
+
+            string scores = "";
+            foreach(int i in highScores)
+            {
+                scores += i.ToString() + " ";
+            }
+
+            PlayerPrefs.SetString("highScores", scores);
         }
     }
-
-    public string playerName;
+    
     public static Text scoreText;
 
     public int highestScore;
-    public List<int> highScores = new List<int>();
+    public List<int> highScores;
 
     private static int m_currentScore;
     public static int currentScore
