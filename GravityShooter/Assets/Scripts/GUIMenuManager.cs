@@ -14,8 +14,25 @@ public class GUIMenuManager : MonoBehaviour
         {
             GUIManager.instance.Activate("UIQuitButton", false);
         }
+
+        if (!PlayerPrefs.HasKey("masterVolume"))
+        {
+            PlayerPrefs.SetFloat("masterVolume", 0.5f);
+            PlayerPrefs.SetFloat("musicVolume", 1);
+            PlayerPrefs.SetFloat("effectsVolume", 1);
+        }
+        if(!PlayerPrefs.HasKey("ControlConfig"))
+        {
+            PlayerPrefs.SetInt("ControlConfig", 0);
+        }
     }
     
+    [ContextMenu("ClearPlayerPrefs")]
+    void Clear()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
     /// <summary>
     /// Turning off gui elements to able to load scene to Main Menu
     /// </summary>
@@ -61,8 +78,33 @@ public class GUIMenuManager : MonoBehaviour
         //GUIManager.instance.Activate("UISoundEffectsToggle", true);
         //GUIManager.instance.Activate("UISoundEffectsSlider", true);
         GUIManager.instance.Activate("UIBackButton", true);
+        GUIManager.instance.Activate("UIRestoreDefaults", true);
         GUIManager.instance.Activate("ControllerOptions", true);
         GUIManager.instance.Activate("UIVolumeControls", true);
+    }
+
+    public void GamePlayOptions()
+    {
+
+        GUIManager.instance.Activate("UIPauseText", true);
+        GUIManager.instance.Activate("UIResumeButton", false);
+        GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UIOptionsButton", false);
+        GUIManager.instance.Activate("UIMainMenu", false);
+
+        GUIManager.instance.Activate("UIBackButton", true);
+        GUIManager.instance.Activate("UIRestoreDefaults", true);
+        GUIManager.instance.Activate("ControllerOptions", true);
+        GUIManager.instance.Activate("UIVolumeControls", true);
+    }
+
+    public void GamePlayBack()
+    {
+        GUIManager.instance.Activate("UIBackButton", false);
+        GUIManager.instance.Activate("UIRestoreDefaults", false);
+        GUIManager.instance.Activate("ControllerOptions", false);
+        GUIManager.instance.Activate("UIVolumeControls", false);
+        PauseButton();
     }
 
     /// <summary>
@@ -78,6 +120,19 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIProgrammers", true);
         GUIManager.instance.Activate("UIArtists", true);
         GUIManager.instance.Activate("UIBackButton", true);
+    }
+
+    public void RestoreDefaults()
+    {
+        PlayerPrefs.SetFloat("masterVolume", 0.5f);
+        PlayerPrefs.SetFloat("musicVolume", 1);
+        PlayerPrefs.SetFloat("effectsVolume", 1);
+        PlayerPrefs.SetInt("ControlConfig", 0);
+
+        foreach(VolumeSlider s in FindObjectsOfType<VolumeSlider>())
+        {
+            s.OnEnable();
+        }
     }
 
     /// <summary>
@@ -110,6 +165,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIBackButton", false);
         GUIManager.instance.Activate("ControllerOptions", false);
         GUIManager.instance.Activate("UIVolumeControls", false);
+        GUIManager.instance.Activate("UIRestoreDefaults", false);
         PlayerPrefs.Save();
     }
 
@@ -121,6 +177,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIPauseText", true);
         GUIManager.instance.Activate("UIResumeButton", true);
         GUIManager.instance.Activate("UIQuitButton", true);
+        GUIManager.instance.Activate("UIOptionsButton", true);
         GUIManager.instance.Activate("UIMainMenu", true);
     }
 
@@ -132,6 +189,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIPauseText", false);
         GUIManager.instance.Activate("UIResumeButton", false);
         GUIManager.instance.Activate("UIQuitButton", false);
+        GUIManager.instance.Activate("UIOptionsButton", false);
         GUIManager.instance.Activate("UIMainMenu", false);
     }
 
