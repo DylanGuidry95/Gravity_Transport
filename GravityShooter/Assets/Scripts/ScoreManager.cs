@@ -54,6 +54,7 @@ public class ScoreManager : Singleton<ScoreManager>
             }
 
             PlayerPrefs.SetString("highScores", scores);
+            PlayerPrefs.Save();
         }
     }
     
