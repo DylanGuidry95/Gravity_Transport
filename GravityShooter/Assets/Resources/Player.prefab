@@ -98,7 +98,7 @@ MonoBehaviour:
   currentHealth: 0
   maxLives: 2
   livesRemaining: 0
-  movementSpeed: 1
+  movementSpeed: 1.5
   maxVelocity: 5
   startPosition: {x: -8, y: 1, z: 0}
   spawnPosition: {x: -10, y: 1, z: 0}
@@ -282,7 +282,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: movementSpeed
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
