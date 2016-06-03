@@ -343,12 +343,23 @@ public class Player : Singleton<Player>
             PlayerDamage();
             Destroy(c.gameObject);
         }
-        if (c.GetComponent<SmEnemy>() != null && _fsm.state != PLAYERSTATES.dead)
-        {
-                Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
-                PlayerDamage();
-                Destroy(c.gameObject);
-        }
+
+        if (c.GetComponent<SmEnemy>() != null || c.GetComponent<MdEnemy>() != null || c.GetComponent<LgEnemy>() != null || c.GetComponent<BossEnemy>() != null)
+            if (_fsm.state != PLAYERSTATES.dead)
+            {
+                if (c.GetComponent<SmEnemy>() != null)
+                {
+                    Instantiate(Resources.Load("MultiExsplosion"), c.transform.position, c.transform.localRotation);
+                    PlayerDamage();
+                    Destroy(c.gameObject);
+                }
+                else
+                {
+                    AddShield(false);
+                    currentHealth = 1;
+                    PlayerDamage();
+                }
+            }
     }
 
     /// <summary>
@@ -358,8 +369,7 @@ public class Player : Singleton<Player>
     /// </summary>
     [ContextMenu("DMG")]
     public void PlayerDamage()
-    {
-        
+    {      
         _cAction = PLAYERACTIONS.takeDamage;
         if (shield != true)
             currentHealth -= 1;

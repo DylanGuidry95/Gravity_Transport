@@ -126,6 +126,7 @@ public class GameStates : Singleton<GameStates>
             case GAMESTATE.pauseMenu:
                 break;
             case GAMESTATE.gameOver:
+                ExitGamePlay = true;
                 //Destroy(player.gameObject);
                 //Destroy(gravityWell.gameObject);
                 //GUIMenuManager.GameOver();
