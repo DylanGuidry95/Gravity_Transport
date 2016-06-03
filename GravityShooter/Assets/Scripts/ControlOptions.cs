@@ -52,6 +52,5 @@ public class ControlOptions : MonoBehaviour
             controlConfig = CONTROLTYPE.directionalMove;
 
         PlayerPrefs.SetInt("ControlConfig", (int)controlConfig);
-        PlayerPrefs.Save();
     }
 }

@@ -108,6 +108,7 @@ public class GUIMenuManager : MonoBehaviour
         GUIManager.instance.Activate("UIArtists", false);
         GUIManager.instance.Activate("UIBackButton", false);
         GUIManager.instance.Activate("ControllerOptions", false);
+        PlayerPrefs.Save();
     }
 
     /// <summary>
