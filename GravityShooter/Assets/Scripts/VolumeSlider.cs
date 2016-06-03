@@ -15,10 +15,10 @@ public class VolumeSlider : MonoBehaviour
                 value.value = VolumeLevels.Master;
                 break;
             case SliderType.MUSIC:
-                value.value = VolumeLevels.Music;
+                value.value = VolumeLevels.Music / VolumeLevels.Master;
                 break;
             case SliderType.EFFECTS:
-                value.value = VolumeLevels.Effects;
+                value.value = VolumeLevels.Effects / VolumeLevels.Master;
                 break;
         }
     }

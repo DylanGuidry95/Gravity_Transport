@@ -10,7 +10,7 @@ public static class VolumeLevels
         }
         set
         {
-            PlayerPrefs.SetFloat("masterFloat", Mathf.Clamp(value, 0, 1));
+            PlayerPrefs.SetFloat("masterVolume", Mathf.Clamp(value, 0, 1));
         }
     }
     public static float Music
@@ -21,7 +21,7 @@ public static class VolumeLevels
         }
         set
         {
-            PlayerPrefs.SetFloat("musciVolume", Mathf.Clamp(value, 0, 1));
+            PlayerPrefs.SetFloat("musicVolume", Mathf.Clamp(value, 0, 1));
         }
     }
     public static float Effects
