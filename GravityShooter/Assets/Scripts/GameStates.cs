@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
 public class GameStates : Singleton<GameStates>
 {
@@ -148,6 +149,11 @@ public class GameStates : Singleton<GameStates>
         GameStates.ChangeState(state);
     }
 
+    public void ShowAd()
+    {
+ 
+    }
+
     //Changes the current state of the game
     public static void ChangeState(string GameState)
     {
@@ -165,6 +171,10 @@ public class GameStates : Singleton<GameStates>
                 PauseGame();
                 break;
             case "GameOver":
+                if (Advertisement.IsReady())
+                {
+                    Advertisement.Show();
+                }
                 _fsm.Transition(_fsm.state, GAMESTATE.gameOver);
                 SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
                 break;
@@ -199,7 +209,7 @@ public class GameStates : Singleton<GameStates>
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && Application.isMobilePlatform)
         {
-            Application.Quit();
+            ChangeState("Exit");
         }
 
     }
